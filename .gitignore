@@ -1,0 +1,24 @@
+# Entornos y secretos
+.env
+.env.*
+!.env.example
+
+# Respaldos y archivos temporales
+backups/
+scratchpad/
+temp/
+tmp/
+*.log
+
+# Editores / IDE
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivo maestro de capturas.
+# Las copias de producción que usa la web viven en assets/images/projects/.
+# Esta carpeta permanece local como archivo maestro y no se publica.
+portfolio-captures/
