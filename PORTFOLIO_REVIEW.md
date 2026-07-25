@@ -153,13 +153,15 @@ no para copiar composiciones, textos, código o animaciones.
 - Se eliminó el canonical de ejemplo para no publicar un dominio inventado.
 - Se incorporaron correo e Instagram al JSON-LD de la persona.
 - Se limpiaron estilos obsoletos del footer anterior.
+- Se conectó el formulario a Formspree y se verificó con un único envío local real,
+  aceptado con respuesta HTTP 200 en JSON.
 
 ## Mejoras recomendadas para una fase futura
 
 1. Configurar un dominio definitivo y entonces añadir `canonical`, `og:url` y una imagen
    social diseñada específicamente para el portfolio.
-2. Configurar Formspree, comprobar el destinatario y realizar un envío real antes de
-   retirar el aviso de formulario pendiente.
+2. Después de publicar en GitHub Pages, configurar **Restrict to Domain** en Formspree
+   con el dominio exacto y comprobar el formulario desde producción.
 3. Añadir URLs públicas verificables de Sifuentes Colombia y GB Audio solo cuando puedan
    compartirse y su estado sea estable.
 4. Valorar una fotografía profesional real para “Sobre mí”; no usar una imagen genérica.

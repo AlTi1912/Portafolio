@@ -109,7 +109,7 @@ const portfolioConfig = {
   linkedin: "",
   whatsapp: "",
   resume: "",
-  formspreeEndpoint: "https://formspree.io/f/REEMPLAZAR_ID"
+  formspreeEndpoint: "https://formspree.io/f/xrenojvo"
 };
 ```
 
@@ -135,16 +135,23 @@ enlaces permanecen completamente ocultos mientras el valor correspondiente esté
 La investigación de referencias, evaluación por áreas, mejoras aplicadas y
 recomendaciones futuras están documentadas en [PORTFOLIO_REVIEW.md](PORTFOLIO_REVIEW.md).
 
-## Conectar Formspree
+## Formspree
 
-1. Crea un formulario en [Formspree](https://formspree.io/).
-2. Copia el endpoint con formato `https://formspree.io/f/xxxxxxxx`.
-3. Reemplaza el valor de `formspreeEndpoint` en `js/main.js`.
-4. Actualiza también el atributo `action` del formulario en `index.html`.
-5. Realiza un envío de prueba y verifica la dirección receptora.
+El formulario **Contacto Portfolio** del proyecto **Portfolio Nils Tovar** está conectado
+al endpoint `https://formspree.io/f/xrenojvo` y entrega los mensajes a
+`niltovap@gmail.com`.
 
-Mientras el endpoint incluya `REEMPLAZAR_ID`, el formulario detiene el envío y muestra
-un aviso; nunca simula un resultado exitoso.
+El mismo endpoint está declarado en el atributo `action` de `index.html` —como fallback
+si JavaScript no está disponible— y en `portfolioConfig.formspreeEndpoint` dentro de
+`js/main.js`. El flujo principal usa `fetch`, `FormData` y `Accept: application/json`;
+solo limpia los campos después de una respuesta correcta de Formspree.
+
+El 25 de julio de 2026 se realizó una única prueba real desde la web local. Formspree
+aceptó exactamente una solicitud `POST` con respuesta HTTP 200 en JSON; el estado de
+éxito se anunció y los campos se limpiaron después de esa respuesta.
+
+La opción **Restrict to Domain** se configurará después de publicar en GitHub Pages,
+cuando exista el dominio de producción exacto.
 
 ## Publicar en GitHub Pages
 
@@ -167,10 +174,9 @@ Todos los recursos utilizan rutas relativas.
 ## Información pendiente
 
 - GitHub, LinkedIn, WhatsApp y CV, solo si se confirman públicamente.
-- Endpoint definitivo de Formspree.
 - Dominio, canonical, `og:url` e imagen social.
 - Enlaces públicos verificables de los proyectos.
 - Fotografía de perfil opcional.
 
-Busca `TODO`, `Pendiente de configurar` y `REEMPLAZAR_ID` para localizar los datos
+Busca `TODO` y `Pendiente de configurar` para localizar los datos
 provisionales que no pertenecen a las capturas.

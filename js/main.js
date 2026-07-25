@@ -12,7 +12,7 @@ const portfolioConfig = {
   linkedin: "",
   whatsapp: "",
   resume: "",
-  formspreeEndpoint: "https://formspree.io/f/REEMPLAZAR_ID"
+  formspreeEndpoint: "https://formspree.io/f/xrenojvo"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
