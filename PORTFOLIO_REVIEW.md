@@ -138,7 +138,7 @@ no para copiar composiciones, textos, código o animaciones.
 | Responsive | Sólida | Sin overflow y con reorganización clara de imágenes, formulario y footer. |
 | Accesibilidad | Sólida | Semántica, foco, teclado, reducción de movimiento, aria-live y diálogo accesible. |
 | Rendimiento | Sólida | Web estática, sin frameworks; capturas WebP con lazy loading y dimensiones declaradas. |
-| SEO | Correcta con mejoras | Metadatos, favicon y JSON-LD correctos; faltan dominio, canonical y Open Graph definitivos. |
+| SEO | Sólida con una mejora pendiente | Canonical, `og:url` y JSON-LD usan la URL pública; falta una imagen Open Graph diseñada específicamente. |
 
 ## Mejoras implementadas
 
@@ -155,17 +155,19 @@ no para copiar composiciones, textos, código o animaciones.
 - Se limpiaron estilos obsoletos del footer anterior.
 - Se conectó el formulario a Formspree y se verificó con un único envío local real,
   aceptado con respuesta HTTP 200 en JSON.
+- Se publicó el portfolio mediante GitHub Pages desde `main` y `/(root)`, con HTTPS activo.
+- Se configuraron canonical, `og:url` y JSON-LD con la URL pública confirmada.
+- Se restringió Formspree a `alti1912.github.io`; el envío público y su recepción en
+  Gmail fueron confirmados por el usuario.
 
 ## Mejoras recomendadas para una fase futura
 
-1. Configurar un dominio definitivo y entonces añadir `canonical`, `og:url` y una imagen
-   social diseñada específicamente para el portfolio.
-2. Después de publicar en GitHub Pages, configurar **Restrict to Domain** en Formspree
-   con el dominio exacto y comprobar el formulario desde producción.
+1. Valorar un dominio personalizado opcional; la URL actual de GitHub Pages ya está
+   configurada como canonical y URL pública.
+2. Crear una imagen Open Graph real de 1200 × 630 px y añadirla solo después de
+   comprobar su publicación.
 3. Añadir URLs públicas verificables de Sifuentes Colombia y GB Audio solo cuando puedan
    compartirse y su estado sea estable.
 4. Valorar una fotografía profesional real para “Sobre mí”; no usar una imagen genérica.
 5. Si se desea acortar la página, probar en una fase separada la condensación de manifiesto,
    proceso y capacidades. Es una decisión editorial subjetiva y no se aplicó automáticamente.
-6. Crear una imagen Open Graph ligera cuando exista dominio, manteniendo el peso inicial
-   de la página bajo control.
