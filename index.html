@@ -25,9 +25,12 @@
     >
     <meta property="og:url" content="https://alti1912.github.io/Portafolio/">
     <meta property="og:site_name" content="Portfolio de Nils Tovar">
-    <!-- TODO: añadir imagen Open Graph de 1200 × 630 px -->
+    <meta property="og:image" content="https://alti1912.github.io/Portafolio/assets/images/social/portfolio-nils-tovar.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Portfolio de Nils Tovar, diseñador y desarrollador web">
 
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nils Tovar — Desarrollo web y diseño digital">
     <meta
       name="twitter:description"
@@ -105,8 +108,9 @@
           <ul>
             <li><a href="#inicio" aria-current="page">Inicio</a></li>
             <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#lab">Lab</a></li>
+            <li><a href="#servicios">Servicios</a></li>
             <li><a href="#proceso">Proceso</a></li>
-            <li><a href="#sobre-mi">Sobre mí</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>
           <a class="button button--small button--ink nav-cta" href="#contacto">
@@ -197,8 +201,8 @@
         </div>
 
         <div class="hero-footer reveal">
-          <span>Disponible para nuevos proyectos</span>
-          <a href="#enfoque">Explorar el enfoque <span aria-hidden="true">↓</span></a>
+          <span>Abierto a conversar sobre nuevos proyectos</span>
+          <a href="#proyectos">Explorar el trabajo <span aria-hidden="true">↓</span></a>
         </div>
       </section>
 
@@ -223,54 +227,16 @@
         </div>
       </aside>
 
-      <section class="manifesto section-shell section-pad" id="enfoque" aria-labelledby="manifesto-title">
-        <div class="manifesto-aside reveal">
-          <p class="eyebrow">Manifiesto / 01</p>
-          <p>El diseño comienza antes de abrir una herramienta.</p>
-        </div>
-
-        <div class="manifesto-main">
-          <h2 id="manifesto-title" class="reveal">
-            No comienzo diseñando una pantalla.
-            <span>Primero intento entender qué debe resolver.</span>
-          </h2>
-
-          <ol class="manifesto-principles">
-            <li class="reveal">
-              <span>01</span>
-              <div>
-                <h3>Claridad</h3>
-                <p>Organizar la información antes de decorar la interfaz.</p>
-              </div>
-            </li>
-            <li class="reveal">
-              <span>02</span>
-              <div>
-                <h3>Funcionalidad</h3>
-                <p>Cada elemento debe ayudar al usuario o al objetivo del proyecto.</p>
-              </div>
-            </li>
-            <li class="reveal">
-              <span>03</span>
-              <div>
-                <h3>Continuidad</h3>
-                <p>Construir soluciones que puedan mantenerse, actualizarse y crecer.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
       <section class="projects section-pad" id="proyectos" aria-labelledby="projects-title">
         <div class="section-shell">
           <div class="section-heading section-heading--split reveal">
             <div>
-              <p class="eyebrow">Archivo seleccionado / 02 proyectos</p>
-              <h2 id="projects-title">Proyectos con<br>contexto y proceso.</h2>
+              <p class="eyebrow">Trabajo seleccionado / 02 proyectos reales</p>
+              <h2 id="projects-title">Diseño aplicado<br>a necesidades concretas.</h2>
             </div>
             <p>
-              Dos casos en proceso de documentación. Las representaciones visuales
-              reservan el lugar de las capturas reales sin presentar material ficticio.
+              Dos casos reales de sitio corporativo y eCommerce, documentados con
+              contexto, decisiones de diseño y capturas de escritorio y móvil.
             </p>
           </div>
 
@@ -281,7 +247,7 @@
                 <strong>Sifuentes Colombia</strong>
                 <small>Sitio corporativo B2B · Médico y quirúrgico</small>
               </span>
-              <span class="status-label">En desarrollo</span>
+              <span class="status-label">Caso real</span>
               <span class="project-index__arrow" aria-hidden="true">↘</span>
             </a>
             <a class="project-index__item" href="#gb-audio">
@@ -290,7 +256,7 @@
                 <strong>GB Audio</strong>
                 <small>eCommerce · Audio automotriz</small>
               </span>
-              <span class="status-label">En revisión</span>
+              <span class="status-label">Caso real</span>
               <span class="project-index__arrow" aria-hidden="true">↘</span>
             </a>
           </nav>
@@ -321,12 +287,12 @@
                     <dd>Médico y quirúrgico</dd>
                   </div>
                   <div>
-                    <dt>Estado</dt>
-                    <dd><span class="status-dot"></span>En desarrollo y preparación de contenido</dd>
+                    <dt>Tipo</dt>
+                    <dd>Rediseño de sitio corporativo</dd>
                   </div>
                   <div>
-                    <dt>Enlace</dt>
-                    <dd>Pendiente de configurar</dd>
+                    <dt>Alcance</dt>
+                    <dd>Estructura, interfaz e implementación</dd>
                   </div>
                 </dl>
               </aside>
@@ -367,6 +333,108 @@
                   </section>
                 </div>
               </div>
+            </div>
+
+            <section class="case-evolution reveal" aria-labelledby="sifuentes-evolution-title">
+              <div class="case-evolution__header">
+                <div>
+                  <p class="project-meta__label">Evolución del sitio</p>
+                  <h4 id="sifuentes-evolution-title">Antes / referencia del punto de partida</h4>
+                </div>
+                <p>
+                  Estas capturas pertenecen al sitio público anterior de Sifuentes Colombia.
+                  Su diseño y desarrollo no forman parte de mi trabajo; se incluyen únicamente
+                  para mostrar el contexto visual previo al rediseño.
+                </p>
+              </div>
+
+              <div class="evolution-grid">
+                <figure class="project-capture evolution-card" data-frame-mode="raw">
+                  <button
+                    class="capture-open"
+                    type="button"
+                    data-lightbox-trigger
+                    aria-label="Ampliar captura de la página anterior Quiénes somos de Sifuentes Colombia"
+                  >
+                    <span class="capture-media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/sifuentes/before/sifuentes-anterior-quienes.webp"
+                        width="1440"
+                        height="1000"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Sitio anterior de Sifuentes Colombia en la página Quiénes somos, con diseño fijo, menú lateral y aviso de Adobe Flash"
+                      >
+                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                    </span>
+                  </button>
+                  <figcaption>
+                    <span>Sitio anterior · Quiénes somos</span>
+                    <small>Composición de ancho fijo, menú lateral y contenido corporativo extenso en una sola vista.</small>
+                  </figcaption>
+                </figure>
+
+                <figure class="project-capture evolution-card" data-frame-mode="raw">
+                  <button
+                    class="capture-open"
+                    type="button"
+                    data-lightbox-trigger
+                    aria-label="Ampliar captura de la página anterior Líneas de productos de Sifuentes Colombia"
+                  >
+                    <span class="capture-media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/sifuentes/before/sifuentes-anterior-productos.webp"
+                        width="1440"
+                        height="1000"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Sitio anterior de Sifuentes Colombia con una cuadrícula de líneas de productos dentro de un diseño fijo"
+                      >
+                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                    </span>
+                  </button>
+                  <figcaption>
+                    <span>Sitio anterior · Productos</span>
+                    <small>Categorías presentadas como una cuadrícula estática, sin jerarquía de catálogo ni navegación contextual.</small>
+                  </figcaption>
+                </figure>
+
+                <figure class="project-capture evolution-card" data-frame-mode="raw">
+                  <button
+                    class="capture-open"
+                    type="button"
+                    data-lightbox-trigger
+                    aria-label="Ampliar captura de la página anterior Contáctenos de Sifuentes Colombia"
+                  >
+                    <span class="capture-media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/sifuentes/before/sifuentes-anterior-contactenos.webp"
+                        width="1440"
+                        height="1000"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Sitio anterior de Sifuentes Colombia con datos de contacto, imagen corporativa y formulario en un diseño fijo"
+                      >
+                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                    </span>
+                  </button>
+                  <figcaption>
+                    <span>Sitio anterior · Contacto</span>
+                    <small>Información y formulario concentrados en una estructura de escritorio sin adaptación móvil visible.</small>
+                  </figcaption>
+                </figure>
+              </div>
+            </section>
+
+            <div class="case-after-label reveal">
+              <p class="project-meta__label">Después / nueva experiencia</p>
+              <p>Arquitectura modular, jerarquía de contenido y adaptación responsive.</p>
             </div>
 
             <div
@@ -698,12 +766,12 @@
                     <dd>Audio automotriz</dd>
                   </div>
                   <div>
-                    <dt>Estado</dt>
-                    <dd><span class="status-dot"></span>En revisión y documentación</dd>
+                    <dt>Tipo</dt>
+                    <dd>Diseño e implementación de eCommerce</dd>
                   </div>
                   <div>
-                    <dt>Enlace</dt>
-                    <dd>Pendiente de configurar</dd>
+                    <dt>Alcance</dt>
+                    <dd>Estructura comercial y flujo de compra</dd>
                   </div>
                 </dl>
               </aside>
@@ -1050,51 +1118,72 @@
         </div>
       </section>
 
-      <section class="principles section-pad" id="principios" aria-labelledby="principles-title">
-        <div class="section-shell principles-layout">
-          <div class="principles-intro reveal">
-            <p class="eyebrow">Criterio / 04 principios</p>
-            <h2 id="principles-title">Cómo tomo<br>decisiones.</h2>
+      <section class="concept-lab section-pad" id="lab" aria-labelledby="lab-title">
+        <div class="section-shell">
+          <div class="section-heading section-heading--split reveal">
+            <div>
+              <p class="eyebrow">Concept Lab / 08 prototipos</p>
+              <h2 id="lab-title">Ideas exploradas<br>hasta volverlas funcionales.</h2>
+            </div>
             <p>
-              Un conjunto de criterios para mantener alineados el contenido,
-              la experiencia y la implementación.
+              Proyectos conceptuales creados para investigar dirección visual,
+              arquitectura de contenido e interacción. No representan clientes ni resultados comerciales.
             </p>
           </div>
 
-          <ol class="principles-list">
-            <li class="reveal">
-              <span class="principle-number">01</span>
-              <div>
-                <h3>La estructura viene primero</h3>
-                <p>La interfaz debe ser consecuencia de la información y de los objetivos.</p>
-              </div>
-              <strong aria-hidden="true">ORDEN</strong>
-            </li>
-            <li class="reveal">
-              <span class="principle-number">02</span>
-              <div>
-                <h3>Diseño para el uso real</h3>
-                <p>La versión móvil no debe ser una simple reducción del escritorio.</p>
-              </div>
-              <strong aria-hidden="true">USO</strong>
-            </li>
-            <li class="reveal">
-              <span class="principle-number">03</span>
-              <div>
-                <h3>Construcción preparada para crecer</h3>
-                <p>El contenido y las funciones deben evolucionar sin rehacer todo el proyecto.</p>
-              </div>
-              <strong aria-hidden="true">ESCALA</strong>
-            </li>
-            <li class="reveal">
-              <span class="principle-number">04</span>
-              <div>
-                <h3>Estado claro del trabajo</h3>
-                <p>Diferenciar entre terminado, en desarrollo, pendiente y no verificable.</p>
-              </div>
-              <strong aria-hidden="true">ESTADO</strong>
-            </li>
-          </ol>
+          <div class="lab-grid" data-lab-grid aria-live="polite"></div>
+          <noscript>
+            <p class="lab-noscript">
+              Activa JavaScript para ver las fichas visuales. Las demostraciones siguen disponibles
+              en las carpetas <a href="lab/sonora/">SONORA</a> y <a href="lab/loadout-store/">Loadout Store</a>.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <section class="services section-shell section-pad" id="servicios" aria-labelledby="services-title">
+        <div class="section-heading section-heading--split reveal">
+          <div>
+            <p class="eyebrow">Servicios</p>
+            <h2 id="services-title">Estructura, diseño<br>e implementación.</h2>
+          </div>
+          <p>
+            Puedo participar en una etapa puntual o acompañar el recorrido completo,
+            desde ordenar el contenido hasta publicar una experiencia responsive.
+          </p>
+        </div>
+
+        <ol class="service-list">
+          <li class="service-item reveal">
+            <span>01</span>
+            <div><h3>Sitios corporativos</h3><p>Arquitectura, interfaz y desarrollo para presentar una organización con claridad.</p></div>
+          </li>
+          <li class="service-item reveal">
+            <span>02</span>
+            <div><h3>Tiendas online</h3><p>Catálogo, producto y flujos de compra construidos sobre WordPress y WooCommerce.</p></div>
+          </li>
+          <li class="service-item reveal">
+            <span>03</span>
+            <div><h3>Landing pages y rediseños</h3><p>Páginas enfocadas en una acción y mejoras de sitios que necesitan una estructura más útil.</p></div>
+          </li>
+          <li class="service-item reveal">
+            <span>04</span>
+            <div><h3>Interfaces frontend</h3><p>Implementación responsive en HTML, CSS y JavaScript con atención al detalle.</p></div>
+          </li>
+          <li class="service-item reveal">
+            <span>05</span>
+            <div><h3>Sistemas web</h3><p>Interfaces y recorridos para herramientas que organizan datos, tareas o procesos.</p></div>
+          </li>
+        </ol>
+
+        <div class="services-criterion reveal" id="enfoque">
+          <p class="eyebrow">Criterio de trabajo</p>
+          <h3>No comienzo diseñando una pantalla. <span>Primero intento entender qué debe resolver.</span></h3>
+          <ul aria-label="Principios de trabajo">
+            <li><strong>Claridad</strong><span>Información antes que decoración.</span></li>
+            <li><strong>Funcionalidad</strong><span>Cada elemento ayuda al usuario o al objetivo.</span></li>
+            <li><strong>Continuidad</strong><span>Soluciones preparadas para mantenerse y crecer.</span></li>
+          </ul>
         </div>
       </section>
 
@@ -1105,8 +1194,8 @@
             <h2 id="process-title">De una pregunta<br>a una solución.</h2>
           </div>
           <p>
-            Un proceso flexible con puntos de control claros. Cada etapa informa
-            la siguiente y permite detectar mejoras a tiempo.
+            Cuatro etapas con decisiones visibles y puntos de control. El alcance
+            se adapta a lo que el proyecto realmente necesita.
           </p>
         </div>
 
@@ -1114,50 +1203,29 @@
           <li class="process-step reveal">
             <span class="process-step__number">01</span>
             <div>
-              <h3>Comprender</h3>
-              <p>Analizar el contexto, el negocio, el usuario y la necesidad.</p>
+              <h3>Entender</h3>
+              <p>Analizar contexto, objetivos, usuarios, contenido y restricciones.</p>
             </div>
           </li>
           <li class="process-step reveal">
             <span class="process-step__number">02</span>
             <div>
-              <h3>Organizar</h3>
-              <p>Definir contenido, funcionalidades, prioridades y recorridos.</p>
+              <h3>Estructurar</h3>
+              <p>Definir prioridades, recorridos, funcionalidades y arquitectura de información.</p>
             </div>
           </li>
           <li class="process-step reveal">
             <span class="process-step__number">03</span>
             <div>
-              <h3>Diseñar</h3>
-              <p>Crear la estructura visual y las interfaces.</p>
-            </div>
-          </li>
-          <li class="process-step reveal">
-            <span class="process-step__number">04</span>
-            <div>
-              <h3>Desarrollar</h3>
-              <p>Convertir el diseño en una experiencia funcional.</p>
-            </div>
-          </li>
-          <li class="process-step reveal">
-            <span class="process-step__number">05</span>
-            <div>
-              <h3>Probar</h3>
-              <p>Revisar navegación, responsive, contenido, formularios y errores.</p>
-            </div>
-          </li>
-          <li class="process-step reveal">
-            <span class="process-step__number">06</span>
-            <div>
-              <h3>Publicar</h3>
-              <p>Preparar el proyecto para un entorno accesible y estable.</p>
+              <h3>Diseñar y construir</h3>
+              <p>Convertir la estructura en una interfaz responsive y funcional.</p>
             </div>
           </li>
           <li class="process-step process-step--last reveal">
-            <span class="process-step__number">07</span>
+            <span class="process-step__number">04</span>
             <div>
-              <h3>Mejorar</h3>
-              <p>Corregir, optimizar y ampliar a partir del uso real.</p>
+              <h3>Validar y publicar</h3>
+              <p>Probar contenido, responsive y funciones antes de preparar la entrega.</p>
             </div>
           </li>
         </ol>
@@ -1254,47 +1322,19 @@
         </div>
       </section>
 
-      <aside class="current-note" id="actualmente" aria-labelledby="current-title">
-        <div class="section-shell current-note__inner">
-          <div class="current-note__title reveal">
-            <span class="status-pulse" aria-hidden="true"></span>
-            <p class="eyebrow">Estado del archivo</p>
-            <h2 id="current-title">Actualmente</h2>
-          </div>
-          <ol class="current-note__list">
-            <li class="reveal">
-              <span>01</span>
-              <p>Documentando el proyecto Sifuentes Colombia.</p>
-            </li>
-            <li class="reveal">
-              <span>02</span>
-              <p>Preparando las capturas y el contenido de GB Audio.</p>
-            </li>
-            <li class="reveal">
-              <span>03</span>
-              <p>Construyendo este portfolio como un archivo vivo de proyectos.</p>
-            </li>
-          </ol>
-        </div>
-      </aside>
-
       <section class="about section-shell section-pad" id="sobre-mi" aria-labelledby="about-title">
-        <div class="about-portrait reveal">
-          <!-- REEMPLAZAR POR: assets/images/profile/nils-tovar.webp -->
-          <div class="portrait-placeholder" role="img" aria-label="Espacio reservado para una futura fotografía de Nils Tovar">
-            <div class="portrait-monogram" aria-hidden="true">
-              <span>N</span>
-              <span>T</span>
-            </div>
-            <div class="portrait-caption">
-              <span>Fotografía opcional</span>
-              <small>4:5 · assets/images/profile/nils-tovar.webp · 1200 × 1500 px</small>
-            </div>
-          </div>
-        </div>
+        <aside class="about-facts reveal" aria-label="Información profesional">
+          <p class="eyebrow">Perfil profesional</p>
+          <dl>
+            <div><dt>Nombre</dt><dd>Nils Tovar</dd></div>
+            <div><dt>Rol</dt><dd>Web Design &amp; Development</dd></div>
+            <div><dt>Base</dt><dd>Lima, Perú</dd></div>
+            <div><dt>Modalidad</dt><dd>Remoto</dd></div>
+          </dl>
+        </aside>
 
         <div class="about-copy reveal">
-          <p class="eyebrow">Sobre mí</p>
+          <p class="eyebrow">Información profesional</p>
           <h2 id="about-title">Entre la lógica<br>y el criterio visual.</h2>
           <p class="about-lead">
             Me interesa participar en el proceso completo de un producto digital:
@@ -1302,14 +1342,13 @@
             y convertirla en una solución funcional.
           </p>
           <p>
-            Combino el interés por el desarrollo web con atención al detalle,
-            criterio visual y aprendizaje constante. Me interesa construir sitios
-            corporativos, eCommerce y sistemas web claros por dentro y por fuera.
+            Combino desarrollo web, criterio visual y atención al detalle para construir
+            sitios corporativos, eCommerce e interfaces claras por dentro y por fuera.
           </p>
           <div class="about-meta">
             <span>Lima, Perú</span>
             <span>Diseño + desarrollo</span>
-            <span>Aprendizaje continuo</span>
+            <span>Trabajo remoto</span>
           </div>
         </div>
       </section>
@@ -1538,8 +1577,8 @@
             <div class="footer-nav__links">
               <a href="#inicio">Inicio</a>
               <a href="#proyectos">Ver proyectos</a>
-              <a href="#proceso">Proceso</a>
-              <a href="#sobre-mi">Sobre mí</a>
+              <a href="#lab">Concept Lab</a>
+              <a href="#servicios">Servicios</a>
               <a href="#contacto">Contacto</a>
               <a class="footer-back-to-top" href="#inicio">
                 Volver arriba

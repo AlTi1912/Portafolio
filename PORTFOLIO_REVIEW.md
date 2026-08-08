@@ -1,6 +1,7 @@
 # Revisión profesional del portfolio
 
-Fecha de revisión: 25 de julio de 2026.
+Fecha de revisión inicial: 25 de julio de 2026. Evolución estructural: 7 de agosto de
+2026.
 
 Esta revisión se realizó sobre la versión existente del portfolio de Nils Tovar. Se
 conservaron su identidad editorial, paleta, tipografía, estructura de una sola página,
@@ -127,20 +128,40 @@ no para copiar composiciones, textos, código o animaciones.
 |---|---|---|
 | Hero | Sólida | Nombre, ubicación, especialidad y propuesta se comprenden con rapidez. |
 | Navegación | Sólida | Header sticky, estado activo, anclas reales y menú móvil accesible. |
-| Manifiesto | Correcta con mejoras | Refuerza criterio, aunque contribuye a la longitud total de la página. |
-| Proyectos | Sólida | Solo aparecen Sifuentes Colombia y GB Audio, con narrativas diferenciadas. |
-| Capturas | Sólida | Imágenes reales, jerarquía desktop/mobile, expansión y lightbox accesible. |
-| Proceso | Correcta con mejoras | Es claro; en una fase futura podría condensarse si se busca una página más corta. |
-| Capacidades | Correcta con mejoras | Organizadas y coherentes, sin afirmaciones cuantitativas no verificadas. |
-| Sobre mí | Correcta con mejoras | Tono profesional y creíble; una fotografía confirmada podría aportar cercanía. |
+| Criterio editorial | Sólida | El manifiesto se condensó dentro de servicios y mantiene el tono sin retrasar la evidencia visual. |
+| Proyectos reales | Sólida | Sifuentes Colombia y GB Audio aparecen inmediatamente después del hero, con narrativas diferenciadas. |
+| Capturas | Sólida | Imágenes reales, evolución de Sifuentes, jerarquía desktop/mobile y lightbox accesible. |
+| Concept Lab | Sólida | Ocho demos separadas del trabajo real, con previews visuales y rutas propias. |
+| Servicios | Sólida | Explica primero qué se puede construir; las tecnologías quedan como respaldo. |
+| Proceso | Sólida | Se condensó de siete pasos a cuatro sin perder el sentido de método. |
+| Capacidades | Sólida | Agrupadas y coherentes, sin afirmaciones cuantitativas no verificadas. |
+| Sobre mí | Sólida | Información profesional breve, sin fotografía, avatar ni datos personales innecesarios. |
 | Contacto | Sólida | Formulario transparente, correo directo e Instagram configurados. |
 | Footer | Sólida | Rediseñado como cierre compacto con identidad, contacto y navegación útil. |
 | Responsive | Sólida | Sin overflow y con reorganización clara de imágenes, formulario y footer. |
 | Accesibilidad | Sólida | Semántica, foco, teclado, reducción de movimiento, aria-live y diálogo accesible. |
 | Rendimiento | Sólida | Web estática, sin frameworks; capturas WebP con lazy loading y dimensiones declaradas. |
-| SEO | Sólida con una mejora pendiente | Canonical, `og:url` y JSON-LD usan la URL pública; falta una imagen Open Graph diseñada específicamente. |
+| SEO | Sólida | Canonical, `og:url`, JSON-LD e imagen Open Graph usan datos y recursos públicos del portfolio. |
 
 ## Mejoras implementadas
+
+- Se adelantó el trabajo seleccionado para que la evidencia visual siga al hero.
+- Se mantuvo intacto el encabezado “Diseño y desarrollo experiencias web claras y
+  funcionales.” y el tratamiento de “experiencias web”.
+- Se añadió una comparación visual entre el sitio anterior y la nueva experiencia de
+  Sifuentes, con tres capturas históricas propias y atribución explícita.
+- Se incorporó un Concept Lab escalable con ocho prototipos funcionales en rutas propias.
+- Se auditaron los Labs para retirar contactos operativos, identidades ficticias,
+  métricas simuladas y afirmaciones que pudieran confundirlos con clientes reales.
+- Se conservaron y repararon interacciones relevantes: configurador de Loadout,
+  diagnóstico de FrameForge, filtros de Diecast, demo de Tiny Turbo y componentes
+  interactivos de los demás conceptos.
+- Se corrigió el overflow móvil de Clarity House y la semántica del acordeón de Retina.
+- Se añadió una sección compacta de servicios antes de tecnologías.
+- Se condensaron manifiesto, principios, metodología y proceso para evitar repeticiones.
+- Se eliminó el retrato/placeholder personal y se reorganizó “Sobre mí” solo con datos
+  profesionales confirmados.
+- Se creó una imagen Open Graph específica de 1200 × 630 px.
 
 - Se eliminó por completo la frase tipográfica gigante del footer.
 - Se creó un footer de tres zonas en escritorio y una columna ordenada en móvil.
@@ -164,10 +185,8 @@ no para copiar composiciones, textos, código o animaciones.
 
 1. Valorar un dominio personalizado opcional; la URL actual de GitHub Pages ya está
    configurada como canonical y URL pública.
-2. Crear una imagen Open Graph real de 1200 × 630 px y añadirla solo después de
-   comprobar su publicación.
-3. Añadir URLs públicas verificables de Sifuentes Colombia y GB Audio solo cuando puedan
+2. Añadir URLs públicas verificables de Sifuentes Colombia y GB Audio solo cuando puedan
    compartirse y su estado sea estable.
-4. Valorar una fotografía profesional real para “Sobre mí”; no usar una imagen genérica.
-5. Si se desea acortar la página, probar en una fase separada la condensación de manifiesto,
-   proceso y capacidades. Es una decisión editorial subjetiva y no se aplicó automáticamente.
+3. Preparar una versión completa ES/EN en una fase separada. El arreglo de datos del Lab
+   ya facilita esa ampliación, pero traducir todo el portfolio merece una revisión editorial
+   propia y no debe añadirse como un cambio visual parcial.

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<title>FrameForge Lab — Optimiza tu PC para competir mejor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C10;
+    --bg-2:#0F1218;
+    --panel:#13171F;
+    --panel-2:#171C26;
+    --line:#222A38;
+    --txt:#E6ECF3;
+    --muted:#7C8AA0;
+    --dim:#566275;
+    --cyan:#21E6A8;
+    --cyan-2:#16C99A;
+    --blue:#3D7BFF;
+    --violet:#7C6CF0;
+    --amber:#FFB23E;
+    --red:#FF5C6C;
+    --disp:'Chakra Petch',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--cyan);color:#04140E}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 26px}
+  .mono{font-family:var(--mono)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:9px}
+  .tag::before{content:"●";font-size:8px;color:var(--cyan);animation:blink 1.6s infinite}
+  @keyframes blink{50%{opacity:.25}}
+
+  .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:54px 54px;mask-image:radial-gradient(circle at 50% 0%,#000,transparent 72%)}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:.3s}
+  header.scrolled{background:rgba(10,12,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.01em}
+  .logo .b{width:11px;height:18px;background:var(--cyan);box-shadow:0 0 14px var(--cyan);clip-path:polygon(0 0,100% 25%,100% 100%,0 75%)}
+  .nav-links{display:flex;gap:28px;font-size:13.5px;color:var(--muted)}
+  .nav-links a:hover{color:var(--cyan)}
+  .nav-cta{font-family:var(--mono);font-size:12px;border:1px solid var(--cyan);color:var(--cyan);padding:9px 16px;transition:.25s;letter-spacing:.04em}
+  .nav-cta:hover{background:var(--cyan);color:#04140E;box-shadow:0 0 24px rgba(33,230,168,.5)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:24px;height:2px;background:var(--txt)}
+
+  /* hero */
+  .hero{position:relative;z-index:1;padding:128px 0 70px}
+  .hero-grid{display:grid;grid-template-columns:1fr 1.08fr;gap:46px;align-items:center}
+  .hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(36px,5vw,62px);line-height:1.02;letter-spacing:-.01em;margin:20px 0 18px}
+  .hero h1 .g{color:var(--cyan)}
+  .hero p.lead{font-size:17px;color:var(--muted);max-width:460px;margin-bottom:26px}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{padding:14px 24px;font-weight:600;font-size:14px;transition:.25s;display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:none;font-family:var(--body)}
+  .btn-primary{background:var(--cyan);color:#04140E}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px -12px rgba(33,230,168,.6)}
+  .btn-ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+  .hero-mini{display:flex;gap:24px;margin-top:30px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .hero-mini b{color:var(--cyan);font-weight:500}
+
+  /* benchmark panel (signature) */
+  .bench{background:linear-gradient(165deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 30px 70px -36px #000}
+  .bench-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .bench-head .ex{background:rgba(255,178,62,.14);color:var(--amber);padding:3px 9px;border-radius:3px;font-size:10px;letter-spacing:.08em}
+  .bench-body{padding:22px 20px;display:flex;flex-direction:column;gap:16px}
+  .brow{display:grid;grid-template-columns:90px 1fr 64px;gap:14px;align-items:center}
+  .brow .lab{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .bbar{height:26px;background:var(--bg);border-radius:4px;position:relative;overflow:hidden;border:1px solid var(--line)}
+  .bbar .before{position:absolute;left:0;top:0;bottom:0;background:var(--dim);width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+  .bbar .after{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--cyan-2),var(--cyan));width:0;transition:width 1.5s cubic-bezier(.2,.8,.2,1) .2s;box-shadow:0 0 16px rgba(33,230,168,.45)}
+  .brow .val{font-family:var(--mono);font-size:13px;text-align:right;color:var(--cyan)}
+  .bench-foot{display:flex;gap:16px;padding:12px 20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+  .bench-foot .k{display:flex;align-items:center;gap:6px}
+  .bench-foot .k i{width:10px;height:10px;border-radius:2px}
+  .leg-b{background:var(--dim)}.leg-a{background:var(--cyan)}
+
+  /* sections */
+  section{position:relative;z-index:1;padding:80px 0}
+  .sec-head{margin-bottom:42px;max-width:620px}
+  .sec-head h2{font-family:var(--disp);font-weight:700;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.01em;margin-top:12px;line-height:1.08}
+  .sec-head p{color:var(--muted);margin-top:12px;font-size:15.5px}
+
+  /* problem selector */
+  .probs{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .prob{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px 16px;cursor:pointer;transition:.25s;text-align:center}
+  .prob:hover{border-color:var(--cyan);transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(33,230,168,.5)}
+  .prob.sel{border-color:var(--cyan);background:var(--panel-2)}
+  .prob svg{width:26px;height:26px;color:var(--cyan);margin-bottom:10px}
+  .prob span{font-size:13px;font-weight:500;display:block}
+  @media(max-width:880px){.probs{grid-template-columns:repeat(3,1fr)}}
+
+  /* packages */
+  .packs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .pack{background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:10px;padding:24px;position:relative;transition:.3s;overflow:hidden}
+  .pack:hover{transform:translateY(-6px);border-color:#2e3850;box-shadow:0 26px 50px -30px #000}
+  .pack::before{content:"";position:absolute;inset:0;padding:1px;border-radius:10px;background:linear-gradient(140deg,var(--cyan),transparent 45%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.35s}
+  .pack:hover::before{opacity:1}
+  .pack.feat{border-color:var(--cyan)}
+  .pack .ribbon{position:absolute;top:16px;right:-30px;background:var(--cyan);color:#04140E;font-family:var(--mono);font-size:10px;padding:3px 34px;transform:rotate(45deg);letter-spacing:.06em}
+  .pack .pt{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.08em}
+  .pack h3{font-family:var(--disp);font-weight:700;font-size:22px;margin:8px 0 4px}
+  .pack .for{font-size:13px;color:var(--muted);margin-bottom:18px;min-height:38px}
+  .pack ul{list-style:none;border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:10px}
+  .pack li{font-size:13px;display:flex;gap:9px;align-items:flex-start;color:var(--txt)}
+  .pack li svg{width:15px;height:15px;color:var(--cyan);flex-shrink:0;margin-top:2px}
+  .pack .price{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .pack .price b{font-family:var(--disp);font-size:24px;color:var(--txt);font-weight:700;display:block}
+  @media(max-width:880px){.packs{grid-template-columns:1fr 1fr}}
+
+  /* process + terminal */
+  .proc-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:start}
+  .steps{display:flex;flex-direction:column}
+  .pstep{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateX(-14px);transition:.5s}
+  .pstep.in{opacity:1;transform:none}
+  .pstep .n{font-family:var(--mono);font-size:13px;color:var(--cyan);border:1px solid var(--line);border-radius:6px;width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+  .pstep h3{font-family:var(--disp);font-size:16px;font-weight:600}
+  .pstep p{font-size:13px;color:var(--muted);margin-top:2px}
+  .terminal{background:#070A0E;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:sticky;top:90px}
+  .term-head{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--line)}
+  .term-head i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+  .term-head i:first-child{background:var(--red)}.term-head i:nth-child(2){background:var(--amber)}.term-head i:nth-child(3){background:var(--cyan)}
+  .term-head span{font-family:var(--mono);font-size:11px;color:var(--dim);margin-left:8px}
+  .term-body{padding:16px;font-family:var(--mono);font-size:12px;line-height:1.9;min-height:280px}
+  .term-body .ln{opacity:0;animation:fadein .3s forwards}
+  .term-body .c-g{color:var(--cyan)}.term-body .c-m{color:var(--muted)}.term-body .c-a{color:var(--amber)}.term-body .c-v{color:var(--violet)}
+  @keyframes fadein{to{opacity:1}}
+  @media(max-width:880px){.proc-grid{grid-template-columns:1fr}.terminal{position:static}}
+
+  /* games */
+  .games{display:flex;flex-wrap:wrap;gap:10px}
+  .game{font-family:var(--mono);font-size:13px;border:1px solid var(--line);background:var(--panel);padding:11px 18px;border-radius:30px;color:var(--muted);transition:.25s}
+  .game:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+  .game b{color:var(--txt)}
+
+  /* trust */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:24px}
+  .tc svg{width:28px;height:28px;color:var(--cyan);margin-bottom:14px}
+  .tc h3{font-family:var(--disp);font-size:16px;font-weight:600;margin-bottom:6px}
+  .tc p{font-size:13.5px;color:var(--muted)}
+  @media(max-width:880px){.trust{grid-template-columns:1fr}}
+
+  /* cta */
+  .cta{padding:0 0 90px}
+  .cta-box{border:1px solid var(--line);border-radius:14px;padding:54px 44px;position:relative;overflow:hidden;background:linear-gradient(150deg,var(--panel-2),var(--bg-2))}
+  .cta-box .glow{position:absolute;top:-30%;right:-5%;width:380px;height:380px;background:radial-gradient(circle,rgba(33,230,168,.18),transparent 70%)}
+  .cta-box .in{position:relative;z-index:2;max-width:560px}
+  .cta-box h2{font-family:var(--disp);font-weight:700;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.01em;line-height:1.05}
+  .cta-box h2 .g{color:var(--cyan)}
+  .cta-box p{color:var(--muted);margin:16px 0 28px;font-size:16px}
+  .wa{display:inline-flex;align-items:center;gap:11px;background:#1FBF5B;color:#fff;padding:15px 26px;border-radius:6px;font-weight:600;transition:.25s}
+  .wa:hover{transform:translateY(-2px);box-shadow:0 16px 36px -16px rgba(31,191,91,.6)}
+  .wa svg{width:20px;height:20px}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;position:relative;z-index:1}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  footer .fnote{font-family:var(--mono);font-size:11px;color:var(--dim);max-width:560px;line-height:1.7}
+
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .nav-links,.nav-cta{display:none}.burger{display:flex}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .burger{border:0;padding:6px;background:transparent;color:inherit;font:inherit}
+  @media(max-width:960px){.nav{position:relative}.nav-links.is-open{position:absolute;top:calc(100% - 2px);right:0;left:0;z-index:5;display:flex;align-items:stretch;flex-direction:column;gap:0;padding:10px;background:var(--lab-menu-bg);border:1px solid rgba(127,127,127,.35);border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.22)}.nav-links.is-open a{width:100%;padding:11px 10px}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="b"></span>FRAME<span style="color:var(--cyan)">FORGE</span></a>
+    <nav class="nav-links" id="labMenu">
+      <a href="#problemas">Diagnóstico</a>
+      <a href="#paquetes">Paquetes</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#juegos">Juegos</a>
+      <a href="#confianza">Confianza</a>
+    </nav>
+    <a href="#problemas" class="nav-cta">PROBAR DIAGNÓSTICO</a>
+    <button class="burger" type="button" aria-controls="labMenu" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="tag">Concept Lab · prototipo funcional</span>
+        <h1>Optimiza tu PC<br>para <span class="g">competir mejor.</span></h1>
+        <p class="lead">Concepto de interfaz para presentar un servicio de optimización de PC con diagnóstico, pasos y datos ilustrativos.</p>
+        <div class="hero-cta">
+          <a href="#problemas" class="btn btn-primary">Probar diagnóstico →</a>
+          <a href="#paquetes" class="btn btn-ghost">Ver paquetes</a>
+        </div>
+        <div class="hero-mini">
+          <div><b>antes/después</b> medido</div>
+          <div><b>reversible</b> cuando aplica</div>
+          <div><b>drivers</b> oficiales</div>
+        </div>
+      </div>
+
+      <!-- benchmark signature -->
+      <div class="bench" id="bench">
+        <div class="bench-head">
+          <span>BENCHMARK_REPORT · GAME_A · 1080p</span>
+          <span class="ex">EJEMPLO</span>
+        </div>
+        <div class="bench-body">
+          <div class="brow"><span class="lab">FPS prom.</span><div class="bbar"><div class="before" data-w="58%"></div><div class="after" data-w="82%"></div></div><span class="val">+ref</span></div>
+          <div class="brow"><span class="lab">1% Low</span><div class="bbar"><div class="before" data-w="40%"></div><div class="after" data-w="70%"></div></div><span class="val">+ref</span></div>
+          <div class="brow"><span class="lab">Frametime</span><div class="bbar"><div class="before" data-w="75%"></div><div class="after" data-w="42%"></div></div><span class="val">↓</span></div>
+          <div class="brow"><span class="lab">Temp. GPU</span><div class="bbar"><div class="before" data-w="80%"></div><div class="after" data-w="58%"></div></div><span class="val">↓</span></div>
+          <div class="brow"><span class="lab">Input lag</span><div class="bbar"><div class="before" data-w="68%"></div><div class="after" data-w="44%"></div></div><span class="val">↓</span></div>
+        </div>
+        <div class="bench-foot">
+          <span class="k"><i class="leg-b"></i> Antes</span>
+          <span class="k"><i class="leg-a"></i> Después</span>
+          <span style="margin-left:auto">Resultados ilustrativos · varían según hardware</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM SELECTOR -->
+<section id="problemas">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Paso 01 · diagnóstico</span>
+      <h2>¿Qué está fallando?</h2>
+      <p>Marca tu síntoma principal. Es el punto de partida del diagnóstico, no una solución automática.</p>
+    </div>
+    <div class="probs">
+      <div class="prob" data-p="bajones de FPS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l5-5 4 3 6-8M3 21h18"/></svg><span>Bajones de FPS</span></div>
+      <div class="prob" data-p="stuttering"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h3l2-6 4 12 2-6h3"/></svg><span>Stuttering</span></div>
+      <div class="prob" data-p="input lag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Input lag</span></div>
+      <div class="prob" data-p="temperaturas altas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v10M12 13a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg><span>Temperaturas altas</span></div>
+      <div class="prob" data-p="Windows lento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg><span>Windows lento</span></div>
+      <div class="prob" data-p="ping inestable"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 20a10 10 0 0 1 20 0M6 20a6 6 0 0 1 12 0"/></svg><span>Ping inestable</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="paquetes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Paso 02 · paquetes</span>
+      <h2>Niveles de optimización</h2>
+      <p>De limpieza esencial a tuning competitivo. El alcance final se confirma tras el diagnóstico.</p>
+    </div>
+    <div class="packs">
+      <div class="pack">
+        <span class="pt">TUNE_01</span><h3>Basic Tune</h3>
+        <p class="for">Para quien siente el PC lento en el día a día.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Limpieza de software</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Procesos en segundo plano</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Drivers oficiales</li>
+        </ul>
+        <div class="price"><span>desde</span><b>S/ 60</b></div>
+      </div>
+      <div class="pack feat">
+        <span class="ribbon">POPULAR</span>
+        <span class="pt">TUNE_02</span><h3>Competitive Tune</h3>
+        <p class="for">Estabilidad y respuesta para shooters.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Todo lo de Basic</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Ajustes Windows/GPU/energía</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Optimización de red</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Benchmark antes/después</li>
+        </ul>
+        <div class="price"><span>desde</span><b>S/ 120</b></div>
+      </div>
+      <div class="pack">
+        <span class="pt">TUNE_03</span><h3>Pro Esports Tune</h3>
+        <p class="for">Para jugadores que buscan cada ms.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Todo lo de Competitive</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Tuning de input lag</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Estrés térmico</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Perfil por juego</li>
+        </ul>
+        <div class="price"><span>desde</span><b>S/ 200</b></div>
+      </div>
+      <div class="pack">
+        <span class="pt">TUNE_04</span><h3>Streaming + Gaming</h3>
+        <p class="for">Jugar y transmitir sin que el PC colapse.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Balance CPU/GPU/encoder</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Config. OBS / captura</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-11"/></svg>Prueba en vivo</li>
+        </ul>
+        <div class="price"><span>desde</span><b>S/ 220</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS + TERMINAL -->
+<section id="proceso">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Cómo trabajamos</span>
+      <h2>Protocolo de optimización</h2>
+      <p>Medible, ordenado y reversible cuando aplica. Te explicamos cada cambio.</p>
+    </div>
+    <div class="proc-grid">
+      <div class="steps">
+      <div class="pstep"><span class="n">01</span><div><h3>Diagnóstico inicial</h3><p>El flujo reúne specs, temperaturas y posibles cuellos de botella.</p></div></div>
+        <div class="pstep"><span class="n">02</span><div><h3>Punto de restauración</h3><p>Respaldo básico antes de tocar nada. Trazable y reversible.</p></div></div>
+        <div class="pstep"><span class="n">03</span><div><h3>Limpieza de software</h3><p>Bloatware, procesos y arranque que consumen recursos.</p></div></div>
+        <div class="pstep"><span class="n">04</span><div><h3>Drivers oficiales</h3><p>Instalación limpia desde fuentes del fabricante.</p></div></div>
+        <div class="pstep"><span class="n">05</span><div><h3>Ajustes Windows/GPU/red/energía</h3><p>Perfiles según tu hardware y el juego objetivo.</p></div></div>
+        <div class="pstep"><span class="n">06</span><div><h3>Benchmark final</h3><p>Medición antes/después con reporte claro.</p></div></div>
+        <div class="pstep"><span class="n">07</span><div><h3>Upgrades si hay cuello de botella</h3><p>Recomendación honesta solo si el hardware lo justifica.</p></div></div>
+      </div>
+      <div class="terminal">
+        <div class="term-head"><i></i><i></i><i></i><span>frameforge — optimization.log</span></div>
+        <div class="term-body" id="term"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="juegos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Compatibilidad</span>
+      <h2>Juegos que optimizamos</h2>
+      <p>Perfiles ajustados por título. Si el tuyo no está, igual lo trabajamos.</p>
+    </div>
+    <div class="games">
+      <span class="game"><b>VALORANT</b></span><span class="game"><b>Fortnite</b></span><span class="game"><b>Warzone</b></span><span class="game"><b>CS2</b></span><span class="game"><b>Apex Legends</b></span><span class="game"><b>League of Legends</b></span><span class="game"><b>GTA RP</b></span><span class="game"><b>Minecraft</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="confianza">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Principios del concepto</span>
+      <h2>Información antes que promesas</h2>
+      <p>La interfaz prioriza un proceso comprensible y distingue los ejemplos de los resultados reales.</p>
+    </div>
+    <div class="trust">
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><h3>Comparación contextual</h3><p>El benchmark del prototipo es ilustrativo y no representa resultados obtenidos.</p></div>
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 9-9M3 12V7M3 12h5"/></svg><h3>Cambios reversibles</h3><p>Punto de restauración y respaldo básico. Lo que se ajusta, cuando aplica, se puede revertir.</p></div>
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12l3 3 5-6"/><circle cx="12" cy="12" r="9"/></svg><h3>Explicación clara</h3><p>Cada ajuste propuesto se presenta con su motivo, alcance y estado.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <div class="glow"></div>
+      <div class="in">
+        <span class="tag">Resultado de la demostración</span>
+        <h2 style="margin-top:12px">Selecciona un síntoma y prueba el <span class="g">flujo</span>.</h2>
+        <p id="diagnosticStatus" aria-live="polite">Elige una opción en el diagnóstico para actualizar esta referencia.</p>
+        <a href="#problemas" class="wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.6.2-.2.3-.7.8-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5-.1-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.2.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2z"/></svg>
+          Volver al diagnóstico
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="logo" style="font-size:16px"><span class="b"></span>FRAME<span style="color:var(--cyan)">FORGE</span></a>
+    <p class="fnote">Concept Lab · prototipo funcional. Métricas y recorridos mostrados únicamente con fines demostrativos.</p>
+  </div>
+</footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>20));
+
+  // benchmark bars animate on view
+  const bench=document.getElementById('bench');
+  const benchIO=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.before,.after').forEach(b=>b.style.width=b.dataset.w);
+      benchIO.unobserve(e.target);
+    }
+  }),{threshold:.4});
+  benchIO.observe(bench);
+
+  // process reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.3});
+  document.querySelectorAll('.pstep').forEach((s,i)=>{s.style.transitionDelay=(i*0.07)+'s';io.observe(s)});
+
+  // problem chip → update the non-operational demo summary
+  document.querySelectorAll('.prob').forEach(p=>p.addEventListener('click',()=>{
+    document.querySelectorAll('.prob').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel');
+    document.getElementById('diagnosticStatus').textContent=`Síntoma seleccionado: ${p.dataset.p}. En una implementación real, el siguiente paso solicitaría las especificaciones del equipo.`;
+  }));
+
+  // terminal typing
+  const lines=[
+    ['c-m','> iniciando diagnóstico...'],
+    ['c-g','✓ specs detectadas · creando punto de restauración'],
+    ['c-m','> escaneando procesos en segundo plano [37]'],
+    ['c-a','! 12 procesos no esenciales encontrados'],
+    ['c-g','✓ arranque optimizado · bloatware retirado'],
+    ['c-m','> verificando drivers...'],
+    ['c-g','✓ GPU driver oficial instalado'],
+    ['c-v','» aplicando perfil: energía / red / gpu'],
+    ['c-g','✓ benchmark final · reporte listo'],
+    ['c-m','> demostración completada_']
+  ];
+  const term=document.getElementById('term');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function runTerm(){
+    term.innerHTML='';
+    lines.forEach((l,i)=>{
+      const d=document.createElement('div');
+      d.className='ln '+l[0];d.textContent=l[1];
+      d.style.animationDelay=(reduce?0:i*0.5)+'s';
+      term.appendChild(d);
+    });
+  }
+  const termIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){runTerm();termIO.unobserve(e.target)}}),{threshold:.3});
+  termIO.observe(term);
+</script>
+<script>
+  (() => {
+    const toggle = document.querySelector('.burger');
+    const menu = document.querySelector('#labMenu');
+    if (!toggle || !menu) return;
+
+    document.documentElement.style.setProperty('--lab-menu-bg', getComputedStyle(document.body).backgroundColor);
+
+    const closeMenu = (restoreFocus = false) => {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir navegación');
+      if (restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Cerrar navegación' : 'Abrir navegación');
+    });
+
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.classList.contains('is-open')) closeMenu(true);
+    });
+  })();
+</script>
+</body>
+</html>

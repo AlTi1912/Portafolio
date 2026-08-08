@@ -1,8 +1,8 @@
 # Portfolio de Nils Tovar
 
-Portfolio personal enfocado en desarrollo web y diseño digital, con estudios de caso
-de Sifuentes Colombia y GB Audio. Es una web estática de una sola página, construida
-sin frameworks ni proceso de compilación.
+Portfolio comercial de diseño y desarrollo web. Presenta dos proyectos reales —Sifuentes
+Colombia y GB Audio— y un Concept Lab independiente con ocho prototipos funcionales.
+Es una web estática, sin frameworks ni proceso de compilación.
 
 ## Sitio público
 
@@ -20,17 +20,44 @@ sin frameworks ni proceso de compilación.
 - GitHub Pages
 - Formspree
 
-## Funcionalidades
+## Contenido y funcionalidades
 
-- Diseño responsive.
-- Navegación de página única y menú móvil.
-- Estudios de caso de Sifuentes Colombia y GB Audio.
-- Galerías expandibles con 16 capturas WebP.
-- Lightbox accesible con retorno de foco.
-- Formulario de contacto integrado con Formspree.
-- Honeypot, validación y estados de carga, éxito y error.
-- Footer con correo, Instagram y acción para copiar el correo.
-- Navegación por teclado, foco visible y reducción de movimiento.
+- Jerarquía editorial: Hero → Trabajo seleccionado → Concept Lab → Servicios → Proceso
+  → Capacidades → Sobre mí → Contacto.
+- Estudios de caso reales de Sifuentes Colombia y GB Audio.
+- Comparación visual de la versión anterior y la nueva experiencia de Sifuentes.
+- Galerías expandibles con lightbox accesible y retorno de foco.
+- Ocho Labs autocontenidos, claramente identificados como prototipos conceptuales.
+- Tarjetas de Lab generadas desde datos en JavaScript para facilitar futuras ampliaciones.
+- Previews WebP; ningún prototipo se carga mediante `iframe` en la página principal.
+- Formulario Formspree con validación, honeypot y estados accesibles.
+- Navegación responsive, foco visible y soporte para reducción de movimiento.
+- Metadatos Open Graph con imagen social de 1200 × 630 px.
+
+## Concept Lab
+
+Cada demo conserva su propia dirección visual y vive en una ruta compatible con GitHub
+Pages:
+
+- `lab/sonora/`
+- `lab/wavelab/`
+- `lab/loadout-store/`
+- `lab/frameforge-lab/`
+- `lab/retina-lab/`
+- `lab/clarity-house/`
+- `lab/tiny-turbo/`
+- `lab/diecast-gallery/`
+
+Los Labs son conceptos y prototipos funcionales, no clientes ni trabajos comerciales.
+No contienen contactos operativos, testimonios, resultados o métricas empresariales
+simuladas. Sus previews se encuentran en `assets/images/labs/`.
+
+Para añadir otro Lab:
+
+1. Crea `lab/<slug>/index.html` con rutas relativas.
+2. Añade un preview WebP en `assets/images/labs/`.
+3. Incorpora su ficha al arreglo `portfolioContent.es.conceptLabs` de `js/main.js`.
+4. Verifica el prototipo en móvil y escritorio y confirma que se identifica como concepto.
 
 ## Ejecución local
 
@@ -40,79 +67,67 @@ Desde la raíz del proyecto:
 python -m http.server 8000
 ```
 
-Después abre:
-
-```text
-http://localhost:8000
-```
-
-También es posible abrir `index.html` directamente, aunque un servidor local reproduce
-mejor el comportamiento del sitio publicado.
+Después abre `http://localhost:8000`. Un servidor local reproduce mejor las rutas y el
+comportamiento del sitio publicado que abrir `index.html` directamente.
 
 ## Despliegue
 
-El sitio se publica mediante GitHub Pages con esta configuración:
-
-- Fuente: **Deploy from a branch**.
-- Rama: `main`.
-- Carpeta: `/(root)`.
-- HTTPS: activo.
-- `.nojekyll`: incluido en la raíz.
-- Despliegue: automático después de cada push a `main`.
-
-Todos los recursos usan rutas relativas compatibles con la subruta `/Portafolio/`.
+El sitio se publica mediante GitHub Pages desde `main` y `/(root)`. `.nojekyll` está
+incluido y todos los recursos propios usan rutas relativas, por lo que funcionan bajo
+la subruta `/Portafolio/`. Cada actualización de `main` despliega automáticamente.
 
 ## Formspree
 
-El formulario **Contacto Portfolio** del proyecto **Portfolio Nils Tovar** está
-conectado a Formspree y entrega los mensajes a `niltovap@gmail.com`.
+El formulario **Contacto Portfolio** del proyecto **Portfolio Nils Tovar** entrega los
+mensajes a `niltovap@gmail.com`.
 
-- Endpoint documentado: `https://formspree.io/f/xr****vo`.
 - Fallback HTML mediante `action` y `method="POST"`.
-- Envío AJAX mediante `fetch`.
-- Datos enviados con `FormData`.
-- Respuesta solicitada con `Accept: application/json`.
+- Envío AJAX mediante `fetch`, `FormData` y `Accept: application/json`.
 - Validación HTML y JavaScript.
 - Honeypot `_gotcha`.
 - Estados accesibles mediante `aria-live`.
-- Botón bloqueado mientras se procesa el envío.
-- Dominio autorizado: `alti1912.github.io`.
+- Botón bloqueado durante el envío.
+- El formulario se limpia únicamente después de una respuesta correcta.
 
-El endpoint completo está necesariamente visible en el frontend y no es una clave
-privada. La integración fue verificada en local y en producción; no se simulan
-respuestas exitosas y el formulario solo se limpia después de una respuesta correcta.
+El endpoint visible en el frontend no es una clave privada. La configuración actual se
+mantiene tanto en el HTML como en `js/main.js`.
 
-## Capturas de proyectos
+## Capturas y assets
 
-Las 16 capturas de producción están en `assets/images/projects/`: ocho corresponden a
-Sifuentes Colombia y ocho a GB Audio. Cada archivo ya incluye su propio mockup, por lo
-que se presenta con `data-frame-mode="embedded"`.
+- Las 16 capturas nuevas de los proyectos están en `assets/images/projects/` e incluyen
+  su propio mockup (`data-frame-mode="embedded"`).
+- Las tres capturas del sitio anterior de Sifuentes están en
+  `assets/images/projects/sifuentes/before/` y se presentan como evidencia histórica,
+  sin atribuir su diseño a Nils.
+- Los ocho previews de Concept Lab están en `assets/images/labs/`.
+- La imagen social está en `assets/images/social/portfolio-nils-tovar.webp`.
+- Los originales y el reporte de producción permanecen en `portfolio-captures/` como
+  archivo maestro local; no se eliminan ni se publican.
 
-Las imágenes usan rutas relativas, dimensiones reales, `loading="lazy"` y
-`decoding="async"`. Para actualizar una captura:
-
-1. Conserva el nombre y las dimensiones documentadas, o actualiza ambos en `index.html`.
-2. Exporta la versión de producción en WebP.
-3. Sustituye la copia correspondiente en `assets/images/projects/`.
-4. Revisa la vista prioritaria, la galería y el lightbox.
-5. Actualiza [CAPTURES.md](CAPTURES.md) si cambia el inventario.
-
-Los originales y el reporte de producción permanecen en `portfolio-captures/` como
-archivo maestro local; la carpeta está excluida del repositorio.
+El inventario y las dimensiones están documentados en [CAPTURES.md](CAPTURES.md).
 
 ## Estructura
 
 ```text
 Portafolio/
 ├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── main.js
+├── css/styles.css
+├── js/main.js
 ├── assets/
 │   ├── favicon.svg
 │   └── images/
-│       └── projects/
+│       ├── labs/
+│       ├── projects/
+│       └── social/
+├── lab/
+│   ├── clarity-house/
+│   ├── diecast-gallery/
+│   ├── frameforge-lab/
+│   ├── loadout-store/
+│   ├── retina-lab/
+│   ├── sonora/
+│   ├── tiny-turbo/
+│   └── wavelab/
 ├── README.md
 ├── CAPTURES.md
 ├── PORTFOLIO_REVIEW.md
@@ -121,20 +136,16 @@ Portafolio/
 └── .nojekyll
 ```
 
-## Estado de producción
+## Privacidad y contenido
 
-- Repositorio público y rama `main` activos.
-- GitHub Pages publicado mediante HTTPS.
-- CSS, JavaScript, favicon y 16 capturas disponibles desde la subruta del proyecto.
-- Formspree habilitado y restringido a `alti1912.github.io`.
-- Correo e Instagram configurados con datos públicos confirmados.
+La sección profesional no utiliza fotografía, avatar ni información personal
+innecesaria. Solo se publican nombre, rol, Lima (Perú), disponibilidad remota y los
+canales de contacto confirmados. No se inventan perfiles, cargos, clientes, métricas ni
+testimonios.
 
-El detalle de publicación y validación está en
-[DEPLOYMENT_REPORT.md](DEPLOYMENT_REPORT.md).
+## Pendientes opcionales
 
-## Pendientes reales
-
-- Dominio personalizado opcional.
-- Imagen Open Graph de 1200 × 630 px.
-- URLs públicas verificables de los proyectos cuando sean estables.
-- Perfiles profesionales adicionales, LinkedIn o CV cuando existan y puedan confirmarse.
+- Dominio personalizado.
+- Versión completa en inglés. El contenido nuevo del Lab ya está centralizado en una
+  estructura de datos preparada para incorporar otra variante.
+- URLs públicas adicionales de proyectos únicamente cuando sean estables y verificables.

@@ -22,6 +22,21 @@ La captura principal muestra la organización de áreas y especialidades. La cap
 técnica secundaria mantiene activa la categoría Maxilofacial. La vista móvil destacada
 documenta el formulario y los canales de contacto.
 
+### Referencias del sitio anterior
+
+Estas tres capturas documentan la versión anterior como punto de comparación. No
+representan trabajo realizado por Nils.
+
+| Captura | Dimensiones | Fuente | Estado |
+|---|---:|---|---|
+| `assets/images/projects/sifuentes/before/sifuentes-anterior-quienes.webp` | 1440 × 1000 | `quienes.html` | Integrada |
+| `assets/images/projects/sifuentes/before/sifuentes-anterior-productos.webp` | 1440 × 1000 | `productos.html` | Integrada |
+| `assets/images/projects/sifuentes/before/sifuentes-anterior-contactenos.webp` | 1440 × 1000 | `contactenos.html` | Integrada |
+
+Se capturaron con el mismo viewport de escritorio y se exportaron a WebP. El portfolio
+las muestra primero como “Sitio anterior” y continúa con las capturas del rediseño como
+“Nueva experiencia”. Todas pueden ampliarse en el lightbox existente.
+
 ## GB Audio
 
 | Captura | Dimensiones | Presentación | Estado |
@@ -80,3 +95,20 @@ y `1440 px` de ancho. En las ocho pruebas:
 
 Las capturas tomadas para esta revisión se guardaron fuera de `assets/` y no forman
 parte de la interfaz ni del despliegue del portfolio.
+
+## Previews de Concept Lab
+
+Los ocho previews se exportaron en WebP a 1280 × 800 px y representan el estado real de
+cada demo después de su auditoría de contenido:
+
+- `assets/images/labs/sonora.webp`
+- `assets/images/labs/wavelab.webp`
+- `assets/images/labs/loadout-store.webp`
+- `assets/images/labs/frameforge-lab.webp`
+- `assets/images/labs/retina-lab.webp`
+- `assets/images/labs/clarity-house.webp`
+- `assets/images/labs/tiny-turbo.webp`
+- `assets/images/labs/diecast-gallery.webp`
+
+Son previews de navegación; los ocho prototipos completos permanecen accesibles en sus
+rutas `lab/<slug>/` y no se cargan mediante iframes en la página principal.

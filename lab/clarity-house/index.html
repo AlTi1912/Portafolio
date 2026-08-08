@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<title>Clarity House — Volver a ver con calma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F6F3EC;
+    --ivory-2:#EFEBE1;
+    --paper:#FCFAF5;
+    --sage:#8DA38C;
+    --sage-deep:#5E7860;
+    --petrol:#1E4949;
+    --petrol-soft:#2C6363;
+    --stone:#6B6A63;
+    --stone-light:#A7A59C;
+    --coral:#E07856;
+    --ink:#22251F;
+    --disp:'Newsreader',serif;
+    --body:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ivory);color:var(--ink);font-family:var(--body);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--sage);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 36px}
+  .eyebrow{font-family:var(--body);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-deep);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--coral)}
+
+  /* nav */
+  header{position:fixed;top:0;left:0;right:0;z-index:60;transition:.4s}
+  header.scrolled{background:rgba(246,243,236,.88);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(34,37,31,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:80px}
+  .logo{font-family:var(--disp);font-weight:500;font-size:25px;letter-spacing:-.01em;color:var(--petrol)}
+  .logo em{font-style:italic;color:var(--coral)}
+  .nav-links{display:flex;gap:34px;font-size:14px;color:var(--stone)}
+  .nav-links a{transition:.3s}
+  .nav-links a:hover{color:var(--petrol)}
+  .nav-cta{font-size:14px;background:var(--petrol);color:var(--paper);padding:12px 24px;border-radius:4px;transition:.3s}
+  .nav-cta:hover{background:var(--petrol-soft)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:25px;height:2px;background:var(--petrol)}
+
+  /* HERO */
+  .hero{padding:160px 0 90px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+  .hero h1{font-family:var(--disp);font-weight:300;font-size:clamp(48px,7vw,92px);line-height:.98;letter-spacing:-.02em;margin:26px 0 24px;color:var(--petrol)}
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--coral)}
+  .hero p.lead{font-size:18px;color:var(--stone);max-width:440px;margin-bottom:32px;line-height:1.7}
+  .hero-cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .btn-fill{background:var(--petrol);color:var(--paper);padding:16px 30px;border-radius:4px;font-weight:500;font-size:15px;transition:.3s}
+  .btn-fill:hover{background:var(--petrol-soft);transform:translateY(-2px)}
+  .btn-text{font-size:15px;color:var(--petrol);font-weight:500;display:inline-flex;align-items:center;gap:8px;position:relative}
+  .btn-text::after{content:"";position:absolute;left:0;bottom:-3px;width:100%;height:1px;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:.3s}
+  .btn-text:hover::after{transform:scaleX(1)}
+
+  /* blur→focus signature */
+  .focus-art{position:relative;aspect-ratio:4/5;border-radius:200px 200px 14px 14px;overflow:hidden;background:linear-gradient(165deg,var(--sage),var(--petrol));box-shadow:0 40px 80px -40px rgba(30,73,73,.5)}
+  .focus-art .scene{position:absolute;inset:0;background:
+      radial-gradient(circle at 35% 30%,rgba(224,120,86,.55),transparent 45%),
+      radial-gradient(circle at 70% 65%,rgba(246,243,236,.4),transparent 50%),
+      radial-gradient(circle at 50% 85%,rgba(141,163,140,.6),transparent 55%);
+    filter:blur(22px);transition:filter 1.2s ease;transform:scale(1.1)}
+  .focus-art.sharp .scene{filter:blur(0)}
+  .focus-art .lens{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62%;height:62%;border-radius:50%;border:1px solid rgba(246,243,236,.5);box-shadow:inset 0 0 60px rgba(246,243,236,.15)}
+  .focus-art .lens::after{content:"";position:absolute;inset:18%;border-radius:50%;border:1px solid rgba(246,243,236,.35)}
+  .focus-art .cap{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-family:var(--disp);font-style:italic;font-size:17px;color:var(--paper);opacity:0;transition:.6s .4s}
+  .focus-art.sharp .cap{opacity:.92}
+
+  /* emotional band */
+  .emo{background:var(--petrol);color:var(--ivory);text-align:center;padding:110px 0}
+  .emo h2{font-family:var(--disp);font-weight:300;font-size:clamp(30px,4.5vw,56px);line-height:1.1;letter-spacing:-.01em;max-width:880px;margin:0 auto}
+  .emo h2 em{font-style:italic;color:var(--coral)}
+  .emo .acts{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+  .emo .acts div{display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--ivory);opacity:.85}
+  .emo .acts svg{width:30px;height:30px;color:var(--sage)}
+  .emo .acts span{font-size:13.5px}
+
+  /* section base */
+  section{padding:110px 0;position:relative}
+  .lead-block{max-width:640px;margin-bottom:60px}
+  .lead-block h2{font-family:var(--disp);font-weight:300;font-size:clamp(32px,4.5vw,56px);line-height:1.05;letter-spacing:-.02em;margin-top:18px;color:var(--petrol)}
+  .lead-block h2 em{font-style:italic;color:var(--coral)}
+  .lead-block p{color:var(--stone);margin-top:18px;font-size:16.5px;max-width:540px}
+
+  /* SERVICES editorial rows */
+  .serv-rows{border-top:1px solid var(--ivory-2)}
+  .srow{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding:38px 0;border-bottom:1px solid var(--ivory-2);transition:.4s;cursor:pointer}
+  .srow:hover{padding-left:20px;background:linear-gradient(90deg,var(--ivory-2),transparent)}
+  .srow .idx{font-family:var(--disp);font-style:italic;font-size:18px;color:var(--coral)}
+  .srow .body{max-width:680px}
+  .srow .body h3{font-family:var(--disp);font-weight:400;font-size:clamp(24px,3vw,34px);color:var(--petrol);letter-spacing:-.01em;line-height:1.1}
+  .srow .body p{color:var(--stone);font-size:15px;margin-top:8px}
+  .srow .go{width:46px;height:46px;border-radius:50%;border:1px solid var(--sage);display:flex;align-items:center;justify-content:center;color:var(--sage-deep);transition:.35s;flex-shrink:0}
+  .srow:hover .go{background:var(--petrol);color:var(--paper);border-color:var(--petrol);transform:rotate(-45deg)}
+  @media(max-width:880px){.srow{grid-template-columns:auto 1fr;gap:20px}.srow .go{display:none}}
+
+  /* TECH / diagnosis — soft cards on paper */
+  .diag{background:var(--paper)}
+  .diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .dcard{background:var(--ivory);border-radius:16px;padding:34px;border:1px solid var(--ivory-2);transition:.35s}
+  .dcard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(30,73,73,.3)}
+  .dcard .di{width:50px;height:50px;border-radius:12px;background:var(--sage);display:flex;align-items:center;justify-content:center;color:var(--paper);margin-bottom:20px}
+  .dcard .di svg{width:24px;height:24px}
+  .dcard h3{font-family:var(--disp);font-weight:400;font-size:23px;color:var(--petrol);margin-bottom:8px}
+  .dcard p{color:var(--stone);font-size:14.5px}
+  @media(max-width:880px){.diag-grid{grid-template-columns:1fr}}
+
+  /* PROCESS — warm horizontal */
+  .proc{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--ivory-2);border-bottom:1px solid var(--ivory-2)}
+  .pcol{padding:36px 22px;border-right:1px solid var(--ivory-2);transition:.35s}
+  .pcol:last-child{border-right:none}
+  .pcol:hover{background:var(--ivory-2)}
+  .pcol .pn{font-family:var(--disp);font-style:italic;font-size:34px;color:var(--sage);line-height:1;display:block;margin-bottom:22px}
+  .pcol h3{font-family:var(--disp);font-weight:500;font-size:19px;color:var(--petrol);margin-bottom:8px}
+  .pcol p{font-size:13.5px;color:var(--stone)}
+  @media(max-width:880px){.proc{grid-template-columns:1fr;border:none}.pcol{border-right:none;border-bottom:1px solid var(--ivory-2)}}
+
+  /* TEAM */
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .doc{background:var(--paper);border-radius:16px;overflow:hidden;border:1px solid var(--ivory-2);transition:.35s}
+  .doc:hover{transform:translateY(-5px);box-shadow:0 28px 56px -34px rgba(30,73,73,.35)}
+  .doc .ph{aspect-ratio:1;background:linear-gradient(160deg,var(--sage),var(--petrol));position:relative;display:flex;align-items:flex-end;justify-content:center}
+  .doc .ph .silh{width:60%;height:72%;background:radial-gradient(circle at 50% 32%,rgba(246,243,236,.4) 0 22%,transparent 23%),linear-gradient(rgba(246,243,236,.25),transparent);border-radius:50% 50% 0 0;align-self:flex-end}
+  .doc .meta{padding:28px 24px;min-height:150px}
+  .doc .meta h3{font-family:var(--disp);font-weight:500;font-size:21px;color:var(--petrol)}
+  .doc .meta .sp{color:var(--coral);font-size:14px;margin:4px 0 10px}
+  .doc .meta .reg{font-size:12.5px;color:var(--stone-light);font-family:var(--body)}
+  @media(max-width:880px){.team{grid-template-columns:1fr}}
+
+  /* TRUST quotes/promise */
+  .promise{background:var(--sage);color:var(--paper)}
+  .promise-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
+  .promise .p b{font-family:var(--disp);font-weight:400;font-size:24px;display:block;margin-bottom:10px}
+  .promise .p p{font-size:14.5px;opacity:.9}
+  @media(max-width:880px){.promise-grid{grid-template-columns:1fr;gap:28px}}
+
+  /* FAQ */
+  .faq{display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:start}
+  .faq-list .qa{border-bottom:1px solid var(--ivory-2)}
+  .faq-list .qa summary{list-style:none;padding:24px 0;font-family:var(--disp);font-weight:500;font-size:20px;color:var(--petrol);cursor:pointer;display:flex;justify-content:space-between;gap:18px;align-items:center}
+  .faq-list .qa summary::-webkit-details-marker{display:none}
+  .faq-list .qa .ic{font-size:22px;color:var(--coral);transition:.3s;flex-shrink:0}
+  .faq-list .qa[open] .ic{transform:rotate(45deg)}
+  .faq-list .qa .ans{max-height:0;overflow:hidden;transition:max-height .35s}
+  .faq-list .qa .ans p{padding:0 0 24px;color:var(--stone);font-size:15px;line-height:1.7}
+  @media(max-width:880px){.faq{grid-template-columns:1fr;gap:30px}}
+
+  /* CONTACT */
+  .contact{background:var(--petrol);color:var(--ivory)}
+  .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+  .contact h2{font-family:var(--disp);font-weight:300;font-size:clamp(34px,5vw,64px);line-height:1;letter-spacing:-.02em}
+  .contact h2 em{font-style:italic;color:var(--coral)}
+  .contact .sub{color:rgba(246,243,236,.8);margin:20px 0 32px;font-size:17px;max-width:420px}
+  .cinfo{display:flex;flex-direction:column;gap:16px;margin-bottom:8px}
+  .cinfo .ci{display:flex;gap:14px;align-items:flex-start}
+  .cinfo .ci svg{width:22px;height:22px;color:var(--sage);flex-shrink:0;margin-top:2px}
+  .cinfo .ci b{font-size:15px;display:block}
+  .cinfo .ci span{font-size:14px;color:rgba(246,243,236,.7)}
+  .wa{display:inline-flex;align-items:center;gap:11px;background:var(--coral);color:#fff;padding:16px 28px;border-radius:4px;font-weight:600;font-size:15px;transition:.3s;margin-top:20px}
+  .wa:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .wa svg{width:20px;height:20px}
+  .card-hours{background:rgba(246,243,236,.06);border:1px solid rgba(246,243,236,.14);border-radius:18px;padding:34px;backdrop-filter:blur(4px)}
+  .card-hours h3{font-family:var(--disp);font-weight:400;font-size:24px;margin-bottom:20px}
+  .card-hours .hr{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(246,243,236,.12);font-size:14.5px}
+  .card-hours .hr:last-child{border-bottom:none}
+  .card-hours .hr span{color:rgba(246,243,236,.7)}
+
+  footer{background:var(--petrol);color:rgba(246,243,236,.6);padding:40px 0;border-top:1px solid rgba(246,243,236,.12)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  footer .fnote{font-size:12.5px;max-width:560px;line-height:1.6}
+
+  @media(max-width:880px){
+    .hero-grid,.contact-grid{grid-template-columns:1fr;gap:44px}
+    .nav-links,.nav-cta{display:none}.burger{display:flex}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.focus-art .scene{filter:blur(0)!important}}
+  .burger{border:0;padding:6px;background:transparent;color:inherit;font:inherit}
+  @media(max-width:960px){.nav{position:relative}.nav-links.is-open{position:absolute;top:calc(100% - 2px);right:0;left:0;z-index:5;display:flex;align-items:stretch;flex-direction:column;gap:0;padding:10px;background:var(--lab-menu-bg);border:1px solid rgba(127,127,127,.35);border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.22)}.nav-links.is-open a{width:100%;padding:11px 10px}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo">Clarity<em>·</em>House</a>
+    <nav class="nav-links" id="labMenu">
+      <a href="#servicios">Servicios</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#proceso">Tu experiencia</a>
+      <a href="#equipo">Roles</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <a href="#servicios" class="nav-cta">Explorar concepto</a>
+    <button class="burger" type="button" aria-controls="labMenu" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Concept Lab · prototipo funcional</span>
+        <h1>Volver a ver<br>con <em>calma.</em></h1>
+        <p class="lead">Concepto editorial para comunicar salud visual con calma, jerarquía y un recorrido fácil de entender.</p>
+        <div class="hero-cta">
+          <a href="#servicios" class="btn-fill">Explorar recorrido</a>
+          <a href="#proceso" class="btn-text">Ver la experiencia →</a>
+        </div>
+      </div>
+      <div class="focus-art" id="focusArt">
+        <div class="scene"></div>
+        <div class="lens"></div>
+        <div class="cap">de borroso a nítido</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMOTIONAL -->
+<div class="emo">
+  <div class="wrap">
+    <h2>Ver bien cambia <em>cómo vives.</em> Leer sin esfuerzo, manejar con seguridad, reconocer un rostro, disfrutar el día.</h2>
+    <div class="acts">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg><span>Leer</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 11l2-5h10l2 5M5 11h14v5H5zM7 16v2M17 16v2"/></svg><span>Manejar</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Reconocer</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>Disfrutar</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">Especialidades</span>
+      <h2>Atención por <em>subespecialidad</em>, no por catálogo.</h2>
+      <p>Cada área la lleva un especialista con foco. Así tu caso se trata con la profundidad que merece.</p>
+    </div>
+    <div class="serv-rows">
+      <div class="srow"><span class="idx">i</span><div class="body"><h3>Consulta integral</h3><p>Evaluación completa de tu salud visual y orientación clara.</p></div><div class="go">→</div></div>
+      <div class="srow"><span class="idx">ii</span><div class="body"><h3>Catarata</h3><p>Diagnóstico, opciones de lente y cirugía cuando realmente corresponde.</p></div><div class="go">→</div></div>
+      <div class="srow"><span class="idx">iii</span><div class="body"><h3>Retina</h3><p>Manejo de retina y mácula con apoyo de imágenes de alta definición.</p></div><div class="go">→</div></div>
+      <div class="srow"><span class="idx">iv</span><div class="body"><h3>Glaucoma</h3><p>Control de presión y campo visual con seguimiento en el tiempo.</p></div><div class="go">→</div></div>
+      <div class="srow"><span class="idx">v</span><div class="body"><h3>Cirugía láser refractiva</h3><p>Evaluación de candidatura y acompañamiento en todo el proceso.</p></div><div class="go">→</div></div>
+      <div class="srow"><span class="idx">vi</span><div class="body"><h3>Oftalmología pediátrica</h3><p>Control visual y de desarrollo, en un entorno amable para los niños.</p></div><div class="go">→</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSIS -->
+<section class="diag" id="diagnostico">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">Diagnóstico y tecnología</span>
+      <h2>Tecnología al servicio de una <em>conversación clara.</em></h2>
+      <p>Los equipos nos dan precisión; el tiempo contigo le da sentido. Te explicamos qué vemos y por qué importa.</p>
+    </div>
+    <div class="diag-grid">
+      <div class="dcard"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Imagen de retina (OCT)</h3><p>Vemos la retina en capas para detectar cambios tempranos que no son visibles en un examen común.</p></div>
+      <div class="dcard"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg></div><h3>Topografía corneal</h3><p>Un mapa detallado de la córnea, clave para evaluar cirugía refractiva y adaptar lentes.</p></div>
+      <div class="dcard"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></div><h3>Campo visual</h3><p>Medimos tu visión periférica, fundamental en el control del glaucoma.</p></div>
+      <div class="dcard"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Biometría ocular</h3><p>Mediciones precisas para calcular el lente intraocular en cirugía de catarata.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="proceso">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">Tu experiencia con nosotros</span>
+      <h2>Cinco momentos, <em>cero</em> incertidumbre.</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="proc">
+      <div class="pcol"><span class="pn">01</span><h3>Llegas</h3><p>Te recibimos sin apuros y revisamos tu historia visual.</p></div>
+      <div class="pcol"><span class="pn">02</span><h3>Te evaluamos</h3><p>Realizamos los estudios que tu caso necesita, no más.</p></div>
+      <div class="pcol"><span class="pn">03</span><h3>Te explicamos</h3><p>Vemos juntos los resultados, en palabras que se entienden.</p></div>
+      <div class="pcol"><span class="pn">04</span><h3>Decidimos contigo</h3><p>Conversamos opciones y eliges con información completa.</p></div>
+      <div class="pcol"><span class="pn">05</span><h3>Te acompañamos</h3><p>Seguimiento cercano para cuidar tu evolución.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="equipo">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">Arquitectura de contenidos</span>
+      <h2>Roles representados en el <em>concepto.</em></h2>
+      <p>Bloques editoriales para explicar subespecialidades sin identidades, fotografías ni registros ficticios.</p>
+    </div>
+    <div class="team">
+      <div class="doc"><div class="meta"><div class="reg">ROL · 01</div><h3>Retina y mácula</h3><div class="sp">Contenido especializado</div></div></div>
+      <div class="doc"><div class="meta"><div class="reg">ROL · 02</div><h3>Córnea y cirugía refractiva</h3><div class="sp">Contenido especializado</div></div></div>
+      <div class="doc"><div class="meta"><div class="reg">ROL · 03</div><h3>Glaucoma y pediatría</h3><div class="sp">Contenido especializado</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="wrap">
+    <div class="lead-block" style="margin-bottom:50px">
+      <span class="eyebrow" style="color:var(--ivory)">Principios del concepto</span>
+      <h2 style="color:var(--paper)">Lo que la interfaz <em style="color:var(--coral)">prioriza.</em></h2>
+    </div>
+    <div class="promise-grid">
+      <div class="p"><b>Ritmo de lectura</b><p>Espacio suficiente para entender cada etapa sin saturación.</p></div>
+      <div class="p"><b>Información clara</b><p>Lenguaje accesible y jerarquías que facilitan la orientación.</p></div>
+      <div class="p"><b>Continuidad</b><p>Un recorrido coherente desde la especialidad hasta la siguiente acción.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq">
+      <div>
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 style="font-family:var(--disp);font-weight:300;font-size:clamp(30px,4vw,46px);color:var(--petrol);margin-top:16px;line-height:1.05">Resolvemos<br>tus dudas.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="qa" open><summary>¿Qué demuestra este prototipo?<span class="ic">+</span></summary><div class="ans"><p>Una dirección visual y una arquitectura de contenidos para una experiencia oftalmológica conceptual.</p></div></details>
+        <details class="qa"><summary>¿La información es médica?<span class="ic">+</span></summary><div class="ans"><p>No está validada para uso clínico. Una implementación real requeriría revisión del equipo profesional responsable.</p></div></details>
+        <details class="qa"><summary>¿Qué estudios contempla la interfaz?<span class="ic">+</span></summary><div class="ans"><p>Imagen de retina, topografía, campo visual y biometría se usan como referencias editoriales.</p></div></details>
+        <details class="qa"><summary>¿Cómo funcionaría la reserva?<span class="ic">+</span></summary><div class="ans"><p>El CTA se conectaría al canal confirmado por la organización. En esta demo permanece sin operación comercial.</p></div></details>
+        <details class="qa"><summary>¿Representa una clínica real?<span class="ic">+</span></summary><div class="ans"><p>No. Clarity House es un concepto de diseño y no una entidad médica.</p></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <span class="eyebrow" style="color:var(--ivory)">Cierre del prototipo</span>
+        <h2>Una experiencia con <em>calma.</em></h2>
+        <p class="sub">Este cierre demuestra cómo presentar una siguiente acción sin publicar datos médicos o comerciales ficticios.</p>
+        <div class="cinfo">
+          <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Ubicación no configurada</b><span>Dato omitido en el prototipo</span></div></div>
+          <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-3 2a14 14 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><div><b>Canal no configurado</b><span>Acción demostrativa</span></div></div>
+        </div>
+        <a href="#servicios" class="wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.6.2-.2.3-.7.8-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5-.1-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.2.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2z"/></svg>
+          Volver al recorrido
+        </a>
+      </div>
+      <div class="card-hours">
+        <h3>Estado de la demostración</h3>
+        <div class="hr"><span>Identidad visual</span><b>Definida</b></div>
+        <div class="hr"><span>Responsive</span><b>Activo</b></div>
+        <div class="hr"><span>Interacciones</span><b>Demostrativas</b></div>
+        <div class="hr"><span>Datos de contacto</span><b>No configurados</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="logo" style="font-size:20px;color:var(--ivory)">Clarity<em>·</em>House</a>
+    <p class="fnote">Concept Lab · prototipo funcional. No representa una clínica ni reemplaza información médica validada.</p>
+  </div>
+</footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+
+  // blur -> focus signature: toggles when hero is in view, also reacts to hover/tap
+  const art=document.getElementById('focusArt');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    setTimeout(()=>art.classList.add('sharp'),700);
+    // gentle breathing focus loop
+    let on=true;
+    setInterval(()=>{on=!on;art.classList.toggle('sharp',on)},4200);
+  }else{art.classList.add('sharp')}
+  art.addEventListener('pointerenter',()=>art.classList.add('sharp'));
+
+  // FAQ smooth
+  document.querySelectorAll('.faq-list .qa').forEach(d=>{
+    const ans=d.querySelector('.ans');
+    const sync=()=>ans.style.maxHeight=d.open?ans.scrollHeight+'px':'0px';
+    d.addEventListener('toggle',sync);
+    if(d.open)requestAnimationFrame(sync);
+  });
+</script>
+<script>
+  (() => {
+    const toggle = document.querySelector('.burger');
+    const menu = document.querySelector('#labMenu');
+    if (!toggle || !menu) return;
+
+    document.documentElement.style.setProperty('--lab-menu-bg', getComputedStyle(document.body).backgroundColor);
+
+    const closeMenu = (restoreFocus = false) => {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir navegación');
+      if (restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Cerrar navegación' : 'Abrir navegación');
+    });
+
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.classList.contains('is-open')) closeMenu(true);
+    });
+  })();
+</script>
+</body>
+</html>

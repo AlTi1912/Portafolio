@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<title>Diecast Gallery — Miniaturas que se sienten como autos reales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obsidian:#0B0B0D;
+    --obsidian-2:#131316;
+    --panel:#18181C;
+    --titanium:#3A3B40;
+    --titanium-2:#26272B;
+    --warm:#F3EEE6;
+    --warm-dim:#B8B2A7;
+    --stone:#7A7872;
+    --red:#9E1B1B;
+    --red-soft:#C8413F;
+    --champagne:#CBB281;
+    --champagne-2:#E4D2A8;
+    --chrome:linear-gradient(180deg,#fff,#9a9a9a 45%,#dcdcdc 55%,#7c7c7c);
+    --disp:'Cormorant Garamond',serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--obsidian);color:var(--warm);font-family:var(--body);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--champagne);color:var(--obsidian)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 34px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--champagne);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--champagne)}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:60;transition:.4s}
+  header.scrolled{background:rgba(11,11,13,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--titanium-2)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .logo{font-family:var(--disp);font-size:27px;font-weight:500;letter-spacing:.02em}
+  .logo em{font-style:italic;color:var(--champagne)}
+  .nav-links{display:flex;gap:34px;font-size:13px;letter-spacing:.04em;color:var(--warm-dim)}
+  .nav-links a{transition:.3s}
+  .nav-links a:hover{color:var(--champagne)}
+  .nav-cta{font-size:13px;border:1px solid var(--titanium);padding:11px 22px;border-radius:2px;transition:.3s;letter-spacing:.05em}
+  .nav-cta:hover{border-color:var(--champagne);color:var(--champagne)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:25px;height:1.5px;background:var(--warm)}
+
+  /* HERO showroom */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 0 40px}
+  .hero-bg{position:absolute;inset:0;background:
+      radial-gradient(ellipse 60% 50% at 50% 42%,rgba(203,178,129,.1),transparent 60%),
+      radial-gradient(ellipse 80% 60% at 50% 100%,rgba(158,27,27,.12),transparent 65%),
+      linear-gradient(180deg,#0B0B0D,#131316)}
+  .hero .wrap{position:relative;z-index:2;width:100%}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:40px;text-align:center;justify-items:center}
+  .hero h1{font-family:var(--disp);font-weight:500;font-size:clamp(46px,8vw,104px);line-height:.98;letter-spacing:-.01em;max-width:14ch}
+  .hero h1 em{font-style:italic;color:var(--champagne)}
+  .hero p.lead{font-size:18px;color:var(--warm-dim);max-width:540px;line-height:1.7}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn{padding:15px 30px;border-radius:2px;font-weight:500;font-size:14px;letter-spacing:.04em;transition:.3s;display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:none;font-family:var(--body)}
+  .btn-primary{background:var(--warm);color:var(--obsidian)}
+  .btn-primary:hover{background:var(--champagne);transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--warm);border:1px solid var(--titanium)}
+  .btn-ghost:hover{border-color:var(--champagne);color:var(--champagne)}
+
+  /* showroom car + reflection */
+  .showroom{position:relative;width:min(620px,86vw);margin-top:10px}
+  .car-stage{position:relative;aspect-ratio:2.1;display:flex;align-items:center;justify-content:center}
+  .car{position:relative;width:78%;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+  .car svg{width:100%;height:auto}
+  .car-reflect{position:absolute;left:11%;right:11%;top:72%;height:40%;transform:scaleY(-1);opacity:.18;-webkit-mask-image:linear-gradient(#000,transparent 70%);mask-image:linear-gradient(#000,transparent 70%);pointer-events:none}
+  .car-reflect svg{width:100%}
+  .headlight{animation:gleam 4s ease-in-out infinite}
+  @keyframes gleam{0%,100%{opacity:.5}50%{opacity:1}}
+  /* hotspots */
+  .hot{position:absolute;width:18px;height:18px;cursor:pointer;z-index:5}
+  .hot .ring{position:absolute;inset:0;border:1px solid var(--champagne);border-radius:50%;animation:hotpulse 2.6s ease-out infinite}
+  .hot .core{position:absolute;inset:6px;background:var(--champagne);border-radius:50%}
+  @keyframes hotpulse{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  .hot .tip{position:absolute;bottom:26px;left:50%;transform:translateX(-50%) translateY(6px);background:var(--panel);border:1px solid var(--titanium);padding:8px 13px;border-radius:3px;white-space:nowrap;font-family:var(--mono);font-size:11px;color:var(--warm);opacity:0;pointer-events:none;transition:.25s;letter-spacing:.04em}
+  .hot:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
+  .hot .tip b{color:var(--champagne)}
+  .h1{top:34%;left:8%}.h2{top:20%;left:34%}.h3{top:18%;left:62%}.h4{top:62%;left:24%}.h5{top:60%;left:74%}.h6{top:40%;left:88%}.h7{top:78%;left:50%}
+
+  /* sections */
+  section{padding:120px 0;position:relative}
+  .lead-block{max-width:660px;margin-bottom:60px}
+  .lead-block.center{margin:0 auto 60px;text-align:center}
+  .lead-block h2{font-family:var(--disp);font-weight:500;font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-.01em;margin-top:18px}
+  .lead-block h2 em{font-style:italic;color:var(--champagne)}
+  .lead-block p{color:var(--warm-dim);margin-top:18px;font-size:16.5px}
+
+  /* collections */
+  .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--titanium-2);border:1px solid var(--titanium-2)}
+  .col{background:var(--obsidian-2);padding:38px 26px;cursor:pointer;transition:.4s;position:relative;min-height:200px;display:flex;flex-direction:column;justify-content:flex-end}
+  .col:hover{background:var(--panel)}
+  .col .cn{font-family:var(--mono);font-size:11px;color:var(--stone);position:absolute;top:24px;left:26px}
+  .col h3{font-family:var(--disp);font-weight:500;font-size:25px;line-height:1.1;transition:.3s}
+  .col:hover h3{color:var(--champagne)}
+  .col p{font-size:12.5px;color:var(--warm-dim);margin-top:6px}
+  .col .arr{margin-top:14px;color:var(--champagne);opacity:0;transform:translateX(-6px);transition:.35s}
+  .col:hover .arr{opacity:1;transform:none}
+  @media(max-width:980px){.cols{grid-template-columns:repeat(2,1fr)}}
+
+  /* featured product */
+  .feat{background:linear-gradient(160deg,var(--obsidian-2),var(--obsidian))}
+  .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .feat-stage{position:relative;aspect-ratio:1;border:1px solid var(--titanium-2);border-radius:6px;background:radial-gradient(ellipse at 50% 40%,#1a1a1e,#0b0b0d);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .feat-stage .floor{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(transparent,rgba(203,178,129,.04))}
+  .feat-car{width:72%;position:relative;z-index:3;filter:drop-shadow(0 24px 30px rgba(0,0,0,.7))}
+  /* subtle smoke */
+  .smoke{position:absolute;z-index:2;bottom:18%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(243,238,230,.5),transparent 70%);filter:blur(10px);opacity:0;animation:rise 6s ease-in infinite}
+  .smoke.s2{animation-delay:2s;left:30%}.smoke.s3{animation-delay:4s;left:64%}
+  @keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}20%{opacity:.45}100%{transform:translateY(-120px) scale(1.8);opacity:0}}
+  .feat-badge{position:absolute;top:20px;left:20px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--obsidian);background:var(--champagne);padding:5px 12px;border-radius:2px;z-index:4}
+  .feat h3{font-family:var(--disp);font-weight:500;font-size:clamp(30px,4vw,48px);line-height:1;margin-top:16px}
+  .feat .scale{font-family:var(--mono);font-size:12px;color:var(--champagne);letter-spacing:.1em;margin-top:10px}
+  .feat .desc{color:var(--warm-dim);margin:18px 0 24px;font-size:16px}
+  .specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--titanium-2);border:1px solid var(--titanium-2);margin-bottom:26px}
+  .specs div{background:var(--obsidian-2);padding:14px 16px;font-family:var(--mono);font-size:12px;color:var(--warm-dim)}
+  .specs div b{color:var(--warm);display:block;font-weight:500;margin-top:2px;font-size:13px}
+  @media(max-width:980px){.feat-grid{grid-template-columns:1fr;gap:40px}}
+
+  /* filters */
+  .filters{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .fgroup h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--titanium-2)}
+  .fgroup label{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--warm-dim);padding:6px 0;cursor:pointer;transition:.2s}
+  .fgroup label:hover{color:var(--warm)}
+  .fgroup label input{appearance:none;width:15px;height:15px;border:1px solid var(--titanium);border-radius:2px;cursor:pointer;position:relative;flex-shrink:0}
+  .fgroup label input:checked{background:var(--champagne);border-color:var(--champagne)}
+  .fgroup label input:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--obsidian);font-size:10px}
+  @media(max-width:980px){.filters{grid-template-columns:1fr 1fr}}
+
+  /* detail gallery */
+  .details{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .dtile{aspect-ratio:1;border:1px solid var(--titanium-2);border-radius:4px;overflow:hidden;position:relative;cursor:pointer;transition:.4s;background:var(--obsidian-2)}
+  .dtile:hover{transform:translateY(-4px);border-color:var(--champagne)}
+  .dtile .vis{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .5s}
+  .dtile:hover .vis{transform:scale(1.12)}
+  .dtile .vis svg{width:50%;height:50%;color:var(--stone)}
+  .dtile.dr1 .vis{background:radial-gradient(circle at 50% 40%,rgba(203,178,129,.16),transparent 60%)}
+  .dtile.dr2 .vis{background:radial-gradient(circle at 50% 50%,rgba(200,65,63,.2),transparent 60%)}
+  .dtile .cap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;font-family:var(--mono);font-size:11px;color:var(--warm-dim);background:linear-gradient(transparent,rgba(11,11,13,.85));letter-spacing:.04em}
+  @media(max-width:980px){.details{grid-template-columns:repeat(2,1fr)}}
+
+  /* for whom */
+  .whom{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .who{border-top:1px solid var(--titanium-2);padding-top:26px}
+  .who .wi{font-family:var(--disp);font-style:italic;font-size:30px;color:var(--champagne);margin-bottom:14px}
+  .who h3{font-family:var(--disp);font-weight:500;font-size:21px}
+  .who p{font-size:13.5px;color:var(--warm-dim);margin-top:8px}
+  @media(max-width:980px){.whom{grid-template-columns:1fr 1fr}}
+
+  /* trust */
+  .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .tc{border:1px solid var(--titanium-2);border-radius:6px;padding:28px;background:var(--obsidian-2)}
+  .tc svg{width:26px;height:26px;color:var(--champagne);margin-bottom:14px}
+  .tc h3{font-family:var(--disp);font-weight:500;font-size:20px;margin-bottom:6px}
+  .tc p{font-size:13.5px;color:var(--warm-dim)}
+  @media(max-width:980px){.trust{grid-template-columns:1fr 1fr}}
+
+  /* cta */
+  .cta{text-align:center;position:relative;overflow:hidden}
+  .cta .glow{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(203,178,129,.1),transparent 60%)}
+  .cta .wrap{position:relative;z-index:2}
+  .cta h2{font-family:var(--disp);font-weight:500;font-size:clamp(34px,5vw,68px);line-height:1.02}
+  .cta h2 em{font-style:italic;color:var(--champagne)}
+  .cta p{color:var(--warm-dim);max-width:520px;margin:20px auto 34px;font-size:17px}
+  .wa{display:inline-flex;align-items:center;gap:12px;background:#1FBF5B;color:#fff;padding:16px 30px;border-radius:3px;font-weight:600;font-size:15px;transition:.3s}
+  .wa:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(31,191,91,.6)}
+  .wa svg{width:20px;height:20px}
+
+  footer{border-top:1px solid var(--titanium-2);padding:46px 0}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .fnote{font-size:12px;color:var(--stone);max-width:600px;line-height:1.7}
+
+  @media(max-width:980px){
+    .feat-grid{grid-template-columns:1fr}
+    .nav-links,.nav-cta{display:none}.burger{display:flex}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .burger{border:0;padding:6px;background:transparent;color:inherit;font:inherit}
+  @media(max-width:960px){.nav{position:relative}.nav-links.is-open{position:absolute;top:calc(100% - 2px);right:0;left:0;z-index:5;display:flex;align-items:stretch;flex-direction:column;gap:0;padding:10px;background:var(--lab-menu-bg);border:1px solid rgba(127,127,127,.35);border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.22)}.nav-links.is-open a{width:100%;padding:11px 10px}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo">Diecast<em>·</em>Gallery</a>
+    <nav class="nav-links" id="labMenu">
+      <a href="#colecciones">Colecciones</a>
+      <a href="#destacado">Destacado</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#detalles">Detalles</a>
+      <a href="#confianza">Confianza</a>
+    </nav>
+    <a href="#catalogo" class="nav-cta">Explorar catálogo</a>
+    <button class="burger" type="button" aria-controls="labMenu" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <span class="eyebrow">Concept Lab · prototipo funcional</span>
+      <h1>Miniaturas tratadas como <em>objetos de colección.</em></h1>
+      <p class="lead">Autos a escala con detalles metálicos, luces, sonido y funciones interactivas para coleccionistas, regalos y fanáticos del motor.</p>
+
+      <!-- showroom signature -->
+      <div class="showroom">
+        <div class="car-stage">
+          <div class="car">
+            <svg viewBox="0 0 320 120" fill="none">
+              <path d="M20 84 Q26 60 60 56 L100 52 Q120 34 160 32 Q210 30 244 50 L284 58 Q302 62 300 84 L300 92 Q300 96 294 96 L26 96 Q20 96 20 92 Z" fill="#1c1c20" stroke="#3A3B40"/>
+              <path d="M104 52 Q124 38 158 36 Q198 35 232 50 L222 52 Q190 42 160 44 Q130 45 114 54 Z" fill="#26272B"/>
+              <path d="M120 50 L150 47 L150 53 L122 55 Z" fill="#CBB281" opacity=".5"/>
+              <circle class="headlight" cx="290" cy="74" r="6" fill="#E4D2A8"/>
+              <circle cx="34" cy="76" r="4" fill="#9E1B1B"/>
+              <circle cx="84" cy="96" r="17" fill="#0b0b0d" stroke="#3A3B40" stroke-width="3"/>
+              <circle cx="84" cy="96" r="7" fill="#26272B"/>
+              <circle cx="246" cy="96" r="17" fill="#0b0b0d" stroke="#3A3B40" stroke-width="3"/>
+              <circle cx="246" cy="96" r="7" fill="#26272B"/>
+            </svg>
+          </div>
+          <div class="car-reflect">
+            <svg viewBox="0 0 320 120" fill="none"><path d="M20 84 Q26 60 60 56 L100 52 Q120 34 160 32 Q210 30 244 50 L284 58 Q302 62 300 84 L300 92 Q300 96 294 96 L26 96 Q20 96 20 92 Z" fill="#1c1c20"/></svg>
+          </div>
+          <!-- hotspots -->
+          <div class="hot h1"><span class="ring"></span><span class="core"></span><span class="tip"><b>Escala</b> · 1:24 die-cast</span></div>
+          <div class="hot h2"><span class="ring"></span><span class="core"></span><span class="tip"><b>Puertas</b> funcionales</span></div>
+          <div class="hot h3"><span class="ring"></span><span class="core"></span><span class="tip"><b>Interior</b> detallado</span></div>
+          <div class="hot h4"><span class="ring"></span><span class="core"></span><span class="tip"><b>Pull-back</b> · fricción</span></div>
+          <div class="hot h5"><span class="ring"></span><span class="core"></span><span class="tip"><b>Neumáticos</b> de goma</span></div>
+          <div class="hot h6"><span class="ring"></span><span class="core"></span><span class="tip"><b>Luces</b> LED</span></div>
+          <div class="hot h7"><span class="ring"></span><span class="core"></span><span class="tip"><b>Sonido</b> de motor</span></div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#colecciones" class="btn btn-primary">Ver colección</a>
+        <a href="#catalogo" class="btn btn-ghost">Probar filtros</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="colecciones">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">El showroom</span>
+      <h2>Colecciones <em>curadas.</em></h2>
+      <p>Cada familia, seleccionada por detalle, fidelidad y carácter. Modelos inspirados en la cultura motor.</p>
+    </div>
+    <div class="cols">
+      <div class="col"><span class="cn">01</span><h3>Formula Collection</h3><p>Monoplazas y autos de pista.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">02</span><h3>Supercar Icons</h3><p>Deportivos premium.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">03</span><h3>Exotic Forms</h3><p>Siluetas deportivas · alto detalle.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">04</span><h3>Redline Series</h3><p>Acabados intensos de colección.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">05</span><h3>Street Culture</h3><p>Escena urbana y tuning.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">06</span><h3>SUV Collection</h3><p>Camionetas y deportivos altos.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">07</span><h3>Moto Gallery</h3><p>Deportivas de alta gama.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">08</span><h3>Cinema Vehicles</h3><p>Vehículos de cine y sci-fi.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">09</span><h3>Smoke Edition</h3><p>Con efecto humo especial.</p><span class="arr">→</span></div>
+      <div class="col"><span class="cn">10</span><h3>Gift Selection</h3><p>Listos para regalar.</p><span class="arr">→</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="feat" id="destacado">
+  <div class="wrap">
+    <div class="feat-grid">
+      <div class="feat-stage">
+        <span class="feat-badge">SMOKE EDITION</span>
+        <div class="floor"></div>
+        <div class="smoke" style="left:32%"></div><div class="smoke s2"></div><div class="smoke s3"></div>
+        <div class="feat-car">
+          <svg viewBox="0 0 320 130" fill="none">
+            <path d="M16 88 Q22 58 64 54 L104 48 Q128 28 170 26 Q224 26 256 50 L292 60 Q310 64 308 88 L308 98 Q308 102 302 102 L22 102 Q16 102 16 98 Z" fill="#202024" stroke="#3A3B40"/>
+            <path d="M108 48 Q130 32 168 30 Q214 30 250 50 L238 52 Q204 40 170 42 Q136 43 118 52 Z" fill="#2c2c30"/>
+            <path d="M124 47 L156 44 L156 51 L126 53 Z" fill="#E4D2A8" opacity=".55"/>
+            <circle cx="296" cy="78" r="7" fill="#E4D2A8"/><circle cx="296" cy="78" r="12" fill="#E4D2A8" opacity=".25"/>
+            <circle cx="30" cy="80" r="5" fill="#C8413F"/>
+            <circle cx="88" cy="102" r="19" fill="#0b0b0d" stroke="#444" stroke-width="3"/><circle cx="88" cy="102" r="8" fill="#2c2c30"/>
+            <circle cx="256" cy="102" r="19" fill="#0b0b0d" stroke="#444" stroke-width="3"/><circle cx="256" cy="102" r="8" fill="#2c2c30"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">Producto destacado</span>
+        <h3>SUV Smoke Edition</h3>
+        <div class="scale">ESCALA 1:24 · DIE-CAST METÁLICO</div>
+        <p class="desc">Pieza demostrativa del concepto: efecto de humo, faros LED, sonido y puertas funcionales presentados como atributos de catálogo.</p>
+        <div class="specs">
+          <div>función<b>Luces LED + sonido</b></div>
+          <div>apertura<b>Puertas funcionales</b></div>
+          <div>tracción<b>Pull-back de fricción</b></div>
+          <div>efecto<b>Humo en escape</b></div>
+        </div>
+        <a href="#catalogo" class="btn btn-primary">Explorar el catálogo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<section id="catalogo">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">Explora el catálogo</span>
+      <h2>Encuentra tu <em>pieza.</em></h2>
+      <p>Combina categorías, funciones y escalas para probar el comportamiento del catálogo conceptual.</p>
+    </div>
+    <div class="filters">
+      <div class="fgroup"><h4>Categoría</h4>
+        <label><input type="checkbox">Fórmula 1</label><label><input type="checkbox">Supercars</label><label><input type="checkbox">SUV / comunes</label><label><input type="checkbox">JDM y tuning</label><label><input type="checkbox">Motos</label><label><input type="checkbox">Cine y sci-fi</label>
+      </div>
+      <div class="fgroup"><h4>Funciones</h4>
+        <label><input type="checkbox">Luces LED</label><label><input type="checkbox">Sonido</label><label><input type="checkbox">Puertas funcionales</label><label><input type="checkbox">Pull-back</label><label><input type="checkbox">Efecto humo</label>
+      </div>
+      <div class="fgroup"><h4>Escala</h4>
+        <label><input type="checkbox">1:18</label><label><input type="checkbox">1:24</label><label><input type="checkbox">1:32</label><label><input type="checkbox">1:43</label>
+      </div>
+      <div class="fgroup"><h4>Color</h4>
+        <label><input type="checkbox">Rojo</label><label><input type="checkbox">Negro</label><label><input type="checkbox">Blanco</label><label><input type="checkbox">Azul</label><label><input type="checkbox">Champagne</label>
+      </div>
+      <div class="fgroup"><h4>Disponibilidad</h4>
+        <label><input type="checkbox">En stock</label><label><input type="checkbox">Edición especial</label><label><input type="checkbox">Carrocería metálica</label><label><input type="checkbox">Control remoto</label>
+      </div>
+    </div>
+    <p id="filterResult" aria-live="polite" style="margin-top:24px;color:var(--muted)">Sin filtros activos · catálogo conceptual completo.</p>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section id="detalles">
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">El detalle, de cerca</span>
+      <h2>Cada pieza, <em>examinada.</em></h2>
+    </div>
+    <div class="details">
+      <div class="dtile dr1"><div class="vis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 16V9l4-4h6l3 4h5v7M3 16h18M3 16v2M21 16v2"/><path d="M9 5v4"/></svg></div><div class="cap">Puertas abiertas</div></div>
+      <div class="dtile dr2"><div class="vis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2"/></svg></div><div class="cap">Faros encendidos</div></div>
+      <div class="dtile dr1"><div class="vis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 6v12M16 6v12"/></svg></div><div class="cap">Interior detallado</div></div>
+      <div class="dtile dr2"><div class="vis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div class="cap">Neumáticos de goma</div></div>
+      <div class="dtile dr1"><div class="vis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></div><div class="cap">Packaging premium</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section>
+  <div class="wrap">
+    <div class="lead-block">
+      <span class="eyebrow">Para quién es</span>
+      <h2>Una pieza para <em>cada motivo.</em></h2>
+    </div>
+    <div class="whom">
+      <div class="who"><div class="wi">i</div><h3>Coleccionistas</h3><p>Fidelidad, escala y detalle para la vitrina.</p></div>
+      <div class="who"><div class="wi">ii</div><h3>Regalo para niños</h3><p>Funciones que entretienen, calidad que dura.</p></div>
+      <div class="who"><div class="wi">iii</div><h3>Fanáticos adultos</h3><p>El auto soñado, a escala, sobre el estante.</p></div>
+      <div class="who"><div class="wi">iv</div><h3>Decoración de escritorio</h3><p>Una pieza de carácter para tu espacio.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="confianza">
+  <div class="wrap">
+    <div class="lead-block center">
+      <span class="eyebrow">Arquitectura de confianza</span>
+      <h2>Información útil <em>antes de decidir.</em></h2>
+    </div>
+    <div class="trust">
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m23 7-7 5 7 5V7zM1 5h15v14H1z"/></svg><h3>Ficha visual</h3><p>Espacio preparado para documentar funciones y acabados del producto.</p></div>
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><h3>Estado verificable</h3><p>La estructura contempla estado, escala y atributos antes de una decisión.</p></div>
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h13v8H3zM16 10h4l1 3v2h-5"/><circle cx="6" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg><h3>Entrega informada</h3><p>Patrón conceptual para comunicar cobertura y condiciones cuando existan.</p></div>
+      <div class="tc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><h3>Consulta contextual</h3><p>El flujo puede escalar a un canal de atención sin fijar uno en la demo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="glow"></div>
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center">Cierre del prototipo</span>
+    <h2 style="margin-top:20px">Una galería pensada para<br><em>explorar el detalle</em>.</h2>
+    <p>Esta llamada forma parte de la demostración y no inicia una compra.</p>
+    <a href="#catalogo" class="wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.6.2-.2.3-.7.8-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5-.1-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.2.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2z"/></svg>
+      Volver al catálogo
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="logo" style="font-size:21px">Diecast<em>·</em>Gallery</a>
+    <p class="fnote">Concept Lab · prototipo funcional. Nombres, piezas y atributos son demostrativos y no representan una tienda, inventario ni afiliación comercial.</p>
+  </div>
+</footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+  const filterResult=document.getElementById('filterResult');
+  document.querySelectorAll('.filters input').forEach(input=>input.addEventListener('change',()=>{
+    const active=[...document.querySelectorAll('.filters input:checked')].map(item=>item.parentElement.textContent.trim());
+    filterResult.textContent=active.length
+      ? `${active.length} filtro${active.length===1?'':'s'} activo${active.length===1?'':'s'}: ${active.join(' · ')}.`
+      : 'Sin filtros activos · catálogo conceptual completo.';
+  }));
+</script>
+<script>
+  (() => {
+    const toggle = document.querySelector('.burger');
+    const menu = document.querySelector('#labMenu');
+    if (!toggle || !menu) return;
+
+    document.documentElement.style.setProperty('--lab-menu-bg', getComputedStyle(document.body).backgroundColor);
+
+    const closeMenu = (restoreFocus = false) => {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir navegación');
+      if (restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Cerrar navegación' : 'Abrir navegación');
+    });
+
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.classList.contains('is-open')) closeMenu(true);
+    });
+  })();
+</script>
+</body>
+</html>
