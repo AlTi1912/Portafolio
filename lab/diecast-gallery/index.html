@@ -443,6 +443,138 @@
   </div>
 </section>
 
+<section class="pf-cta" aria-labelledby="pf-cta-title">
+  <div class="pf-cta__fade" aria-hidden="true">
+    <div></div><div></div><div></div><div></div><div></div>
+  </div>
+  <div class="pf-cta__inner">
+    <p class="pf-cta__kicker">Nils Tovar · Diseño y desarrollo web</p>
+    <div class="pf-cta__grid">
+      <div class="pf-cta__copy">
+        <h2 id="pf-cta-title">¿Te gusta lo que podemos llegar a construir?</h2>
+        <p>
+          Acabas de recorrer Diecast Gallery, un prototipo navegable. Si quieres algo así
+          para tu negocio —o algo completamente distinto— cuéntame qué tienes en mente.
+        </p>
+        <a class="pf-cta__back" href="../../index.html#lab">
+          <span aria-hidden="true">&#8592;</span> Ver el portafolio completo
+        </a>
+      </div>
+
+      <form class="pf-cta__form" action="https://formspree.io/f/xrenojvo" method="POST">
+        <input type="hidden" name="origen" value="Prototipo Diecast Gallery">
+        <label>
+          <span>Nombre</span>
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label>
+          <span>Correo electrónico</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label class="pf-cta__full">
+          <span>Mensaje</span>
+          <textarea name="message" rows="3" required></textarea>
+        </label>
+        <input class="pf-cta__trap" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit">Enviar mensaje</button>
+        <p class="pf-cta__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+<style>
+  .pf-cta{
+    position:relative;margin:0;padding:0;
+    background:#ebe5d9;color:#1c1d1a;
+    font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    border-top:4px solid #ee6a4b;
+  }
+  .pf-cta__fade{position:absolute;left:0;right:0;top:-150px;height:150px;pointer-events:none}
+  .pf-cta__fade>div{position:absolute;inset:0}
+  .pf-cta__fade>div:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 20%);mask-image:linear-gradient(to bottom,transparent 0%,#000 20%)}
+  .pf-cta__fade>div:nth-child(2){backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 20%,#000 40%);mask-image:linear-gradient(to bottom,transparent 20%,#000 40%)}
+  .pf-cta__fade>div:nth-child(3){backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 40%,#000 60%);mask-image:linear-gradient(to bottom,transparent 40%,#000 60%)}
+  .pf-cta__fade>div:nth-child(4){backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 60%,#000 82%);mask-image:linear-gradient(to bottom,transparent 60%,#000 82%)}
+  .pf-cta__fade>div:nth-child(5){background:linear-gradient(to bottom,rgba(235,229,217,0) 0%,rgba(235,229,217,.5) 55%,rgba(235,229,217,.93) 100%)}
+  .pf-cta__inner{max-width:1180px;margin:0 auto;padding:56px 40px 64px}
+  .pf-cta__kicker{
+    margin:0 0 28px;padding-bottom:16px;border-bottom:1px solid rgba(28,29,26,.18);
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#bc452d
+  }
+  .pf-cta__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+  .pf-cta__copy h2{margin:0;font-size:clamp(26px,3.2vw,42px);font-weight:600;line-height:1.08;letter-spacing:-.03em;color:#1c1d1a}
+  .pf-cta__copy p{margin:18px 0 0;max-width:46ch;font-size:15px;line-height:1.65;color:#4c4e48}
+  .pf-cta__back{
+    display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:11px 20px;
+    border:1px solid rgba(28,29,26,.28);border-radius:999px;
+    font-size:13px;font-weight:600;color:#1c1d1a;text-decoration:none;transition:.22s
+  }
+  .pf-cta__back:hover{background:#1c1d1a;border-color:#1c1d1a;color:#f2efe7}
+  .pf-cta__form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
+    padding:26px;background:#faf8f2;border:1px solid rgba(28,29,26,.16);border-top:3px solid #ee6a4b;border-radius:18px}
+  .pf-cta__form label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600;color:#4c4e48}
+  .pf-cta__full{grid-column:1/-1}
+  .pf-cta__form input,.pf-cta__form textarea{
+    width:100%;padding:12px 14px;background:#fff;
+    border:1px solid rgba(28,29,26,.32);border-radius:8px;
+    color:#1c1d1a;font-family:inherit;font-size:14px;font-weight:400;outline:none;transition:border-color .2s
+  }
+  .pf-cta__form textarea{resize:vertical;min-height:84px}
+  .pf-cta__form input:focus,.pf-cta__form textarea:focus{border-color:#ee6a4b}
+  .pf-cta__form button{
+    grid-column:1/-1;justify-self:start;padding:13px 26px;border:0;border-radius:999px;
+    background:#1c1d1a;color:#faf8f2;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:.22s
+  }
+  .pf-cta__form button:hover{background:#ee6a4b;color:#1c1d1a}
+  .pf-cta__form button[disabled]{opacity:.6;cursor:default}
+  .pf-cta__trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .pf-cta__status{grid-column:1/-1;margin:0;font-size:13px;color:#4c4e48}
+  .pf-cta__status[data-state="error"]{color:#bc452d}
+  .pf-cta__status[data-state="ok"]{color:#2f6b48}
+  @media (max-width:860px){
+    .pf-cta__inner{padding:44px 22px 52px}
+    .pf-cta__grid{grid-template-columns:minmax(0,1fr);gap:30px}
+    .pf-cta__form{grid-template-columns:minmax(0,1fr)}
+    .pf-cta__fade{top:-90px;height:90px}
+  }
+</style>
+<script>
+  (function () {
+    var form = document.querySelector(".pf-cta__form");
+    if (!form) return;
+    var status = form.querySelector(".pf-cta__status");
+    var button = form.querySelector("button");
+    form.addEventListener("submit", function (event) {
+      if (form.querySelector("[name='_gotcha']").value) return;
+      event.preventDefault();
+      button.disabled = true;
+      status.removeAttribute("data-state");
+      status.textContent = "Enviando…";
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error();
+          form.reset();
+          status.setAttribute("data-state", "ok");
+          status.textContent = "Gracias, tu mensaje fue enviado.";
+        })
+        .catch(function () {
+          status.setAttribute("data-state", "error");
+          status.textContent = "No se pudo enviar. Escríbeme a niltovap@gmail.com.";
+        })
+        .then(function () {
+          button.disabled = false;
+        });
+    });
+  })();
+</script>
 <footer>
   <div class="wrap">
     <a href="#" class="logo" style="font-size:21px">Diecast<em>·</em>Gallery</a>

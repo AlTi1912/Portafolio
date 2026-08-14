@@ -124,6 +124,7 @@
       if (button.dataset.specular === "dark") button.classList.add("specular--dark");
     });
 
+    const state = new Map(buttons.map((button) => [button, { idle: true }]));
     let ticking = false;
     let pointerX = 0;
     let pointerY = 0;
@@ -133,21 +134,29 @@
 
       buttons.forEach((button) => {
         const rect = button.getBoundingClientRect();
-        if (!rect.width) return;
+        const entry = state.get(button);
+
+        if (!rect.width || rect.bottom < 0 || rect.top > window.innerHeight) return;
 
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         const deltaX = pointerX - centerX;
         const deltaY = pointerY - centerY;
-        const distance = Math.hypot(deltaX, deltaY);
         const proximity = Number(button.dataset.specularProximity || 280);
-        const angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI + 90;
+        const distance = Math.hypot(deltaX, deltaY);
 
-        button.style.setProperty("--sb-angle", `${angle.toFixed(1)}deg`);
-        button.style.setProperty(
-          "--sb-intensity",
-          clamp(1 - distance / proximity, 0.14, 1).toFixed(3)
-        );
+        // Fuera del radio no hay nada que animar: basta con dejarlo en reposo.
+        if (distance > proximity) {
+          if (entry.idle) return;
+          entry.idle = true;
+          button.style.removeProperty("--sb-intensity");
+          return;
+        }
+
+        entry.idle = false;
+        const angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI + 90;
+        button.style.setProperty("--sb-angle", `${angle.toFixed(0)}deg`);
+        button.style.setProperty("--sb-intensity", (1 - distance / proximity).toFixed(2));
       });
     };
 
@@ -181,26 +190,41 @@
       edge.setAttribute("aria-hidden", "true");
       card.prepend(edge);
 
+      let queued = false;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      const paint = () => {
+        queued = false;
+
+        const rect = card.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const deltaX = pointerX - rect.left - centerX;
+        const deltaY = pointerY - rect.top - centerY;
+
+        const ratioX = deltaX === 0 ? Infinity : centerX / Math.abs(deltaX);
+        const ratioY = deltaY === 0 ? Infinity : centerY / Math.abs(deltaY);
+        const proximity = clamp(1 / Math.min(ratioX, ratioY), 0, 1);
+
+        let angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI + 90;
+        if (angle < 0) angle += 360;
+
+        card.style.setProperty("--edge-proximity", (proximity * 100).toFixed(1));
+        card.style.setProperty("--cursor-angle", `${angle.toFixed(1)}deg`);
+      };
+
       card.addEventListener(
         "pointermove",
         (event) => {
-          const rect = card.getBoundingClientRect();
-          const x = event.clientX - rect.left;
-          const y = event.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const deltaX = x - centerX;
-          const deltaY = y - centerY;
+          pointerX = event.clientX;
+          pointerY = event.clientY;
 
-          const ratioX = deltaX === 0 ? Infinity : centerX / Math.abs(deltaX);
-          const ratioY = deltaY === 0 ? Infinity : centerY / Math.abs(deltaY);
-          const proximity = clamp(1 / Math.min(ratioX, ratioY), 0, 1);
-
-          let angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI + 90;
-          if (angle < 0) angle += 360;
-
-          card.style.setProperty("--edge-proximity", (proximity * 100).toFixed(2));
-          card.style.setProperty("--cursor-angle", `${angle.toFixed(2)}deg`);
+          if (queued) return;
+          queued = true;
+          window.requestAnimationFrame(paint);
         },
         { passive: true }
       );
@@ -307,11 +331,15 @@
         true
       );
 
+      let resizeTimer;
       window.addEventListener(
         "resize",
         () => {
-          mediaSize = measure();
-          render();
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(() => {
+            mediaSize = measure();
+            render();
+          }, 160);
         },
         { passive: true }
       );
