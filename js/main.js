@@ -23,7 +23,7 @@ const portfolioContent = {
         name: "SONORA",
         category: "Audio automotriz · Dirección editorial",
         description: "Una experiencia sobria que convierte acústica, sistemas y calibración en una narrativa visual clara.",
-        tags: ["HTML", "CSS", "JavaScript"],
+        tags: ["Dirección editorial", "Narrativa visual", "Responsive"],
         featured: true
       },
       {
@@ -31,15 +31,15 @@ const portfolioContent = {
         name: "Loadout Store",
         category: "Gaming · eCommerce conceptual",
         description: "Catálogo y configurador guiado para construir un setup y obtener un resumen local de la selección.",
-        tags: ["Configurador", "Responsive", "JavaScript"],
+        tags: ["Configurador", "Catálogo", "Resumen de compra"],
         featured: true
       },
       {
         slug: "retina-lab",
         name: "Retina Lab",
         category: "Salud · Interfaz de información",
-        description: "Sistema visual técnico para organizar especialidades, tecnología y un recorrido de atención demostrativo.",
-        tags: ["UI", "Accesibilidad", "Responsive"],
+        description: "Sistema visual para organizar especialidades, equipamiento y un recorrido de atención demostrativo.",
+        tags: ["Sistema visual", "Accesibilidad", "Recorrido de atención"],
         featured: true
       },
       {
@@ -47,7 +47,7 @@ const portfolioContent = {
         name: "Tiny Turbo",
         category: "Coleccionables · Catálogo interactivo",
         description: "Una tienda conceptual de alta energía con controles para activar luces, sonido, puertas y humo.",
-        tags: ["Interacción", "Catálogo", "JavaScript"],
+        tags: ["Interacción", "Catálogo", "Demostración"],
         featured: true
       },
       {
@@ -55,28 +55,28 @@ const portfolioContent = {
         name: "WAVELAB",
         category: "Audio automotriz · Interfaz técnica",
         description: "Lenguaje de laboratorio, selector de vehículo y comparador visual para explicar un sistema complejo.",
-        tags: ["Data UI", "Comparador", "Motion"]
+        tags: ["Interfaz técnica", "Comparador", "Movimiento"]
       },
       {
         slug: "frameforge-lab",
         name: "FrameForge Lab",
         category: "Gaming · Diagnóstico de performance",
         description: "Flujo interactivo de diagnóstico y benchmark ilustrativo con una estética inspirada en eSports.",
-        tags: ["Diagnóstico", "Motion", "JavaScript"]
+        tags: ["Diagnóstico", "Flujo guiado", "Movimiento"]
       },
       {
         slug: "clarity-house",
         name: "Clarity House",
         category: "Salud · Dirección editorial",
         description: "Una propuesta cálida y pausada para comunicar contenidos de salud visual sin saturar la experiencia.",
-        tags: ["Editorial", "Accesibilidad", "Responsive"]
+        tags: ["Editorial", "Accesibilidad", "Lectura pausada"]
       },
       {
         slug: "diecast-gallery",
         name: "Diecast Gallery",
         category: "Coleccionables · eCommerce conceptual",
         description: "Showroom digital con fichas de detalle y filtros funcionales para explorar una colección demostrativa.",
-        tags: ["Filtros", "Catálogo", "Interacción"]
+        tags: ["Filtros", "Showroom", "Fichas de detalle"]
       }
     ]
   }
@@ -122,13 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.innerHTML = content.conceptLabs
       .map(
         (lab, index) => `
-          <article class="lab-card${lab.featured ? " lab-card--featured" : ""} reveal">
+          <article class="lab-card${lab.featured ? " lab-card--featured" : ""} reveal" data-border-glow>
             <a
               class="lab-card__preview"
               href="lab/${lab.slug}/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Abrir ${lab.name}, prototipo funcional; abre en una pestaña nueva"
+              aria-label="Abrir el simulador de ${lab.name}; podrás volver con el botón Salir"
             >
               <img
                 src="assets/images/labs/${lab.slug}.webp"
@@ -139,13 +137,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 alt="Vista previa del prototipo conceptual ${lab.name}"
               >
               <span class="lab-card__index">${String(index + 1).padStart(2, "0")}</span>
-              <span class="lab-card__open">Abrir demo <span aria-hidden="true">↗</span></span>
+              <span class="lab-card__open">Abrir simulador <span aria-hidden="true">↗</span></span>
             </a>
             <div class="lab-card__body">
               <p>${lab.category}</p>
               <h3>${lab.name}</h3>
               <p class="lab-card__description">${lab.description}</p>
-              <ul aria-label="Características de ${lab.name}">
+              <ul class="lab-card__meta" aria-label="Características de ${lab.name}">
                 ${lab.tags.map((tag) => `<li>${tag}</li>`).join("")}
               </ul>
             </div>
@@ -509,8 +507,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const figure = trigger.closest("figure");
-        const captionTitle = figure?.querySelector("figcaption span")?.textContent.trim();
-        const captionDetail = figure?.querySelector("figcaption small")?.textContent.trim();
+        const captionTitle =
+          trigger.dataset.captionTitle ||
+          figure?.querySelector("figcaption span")?.textContent.trim();
+        const captionDetail =
+          trigger.dataset.captionDetail ||
+          figure?.querySelector("figcaption small")?.textContent.trim();
 
         activeTrigger = trigger;
         dialogImage.src = sourceImage.currentSrc || sourceImage.src;

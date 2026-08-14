@@ -178,6 +178,45 @@
 </style>
 </head>
 <body>
+<!-- Salida del simulador: siempre visible, vuelve al portafolio -->
+<a class="pf-exit" href="../../index.html#lab" aria-label="Salir del simulador y volver al portafolio de Nils Tovar">
+  <span class="pf-exit__arrow" aria-hidden="true">&#8592;</span>
+  <span class="pf-exit__text">
+    <strong>Salir</strong>
+    <small>Volver al portafolio</small>
+  </span>
+</a>
+<style>
+  .pf-exit{
+    position:fixed;left:20px;bottom:20px;z-index:99999;
+    display:inline-flex;align-items:center;gap:10px;
+    padding:11px 18px 11px 14px;border-radius:999px;
+    background:#ee6a4b;color:#1c1d1a;border:1px solid rgba(28,29,26,.28);
+    font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    text-decoration:none;box-shadow:0 14px 34px rgba(0,0,0,.38);
+    transition:transform .22s cubic-bezier(.22,1,.36,1),background-color .22s ease,color .22s ease;
+  }
+  .pf-exit:hover,.pf-exit:focus-visible{background:#faf8f2;transform:translateY(-2px)}
+  .pf-exit:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .pf-exit__arrow{font-size:17px;line-height:1}
+  .pf-exit__text{display:grid;gap:1px;text-align:left}
+  .pf-exit__text strong{font-size:13px;font-weight:700;line-height:1.15;letter-spacing:.02em}
+  .pf-exit__text small{font-size:10px;line-height:1.15;opacity:.72;letter-spacing:.04em;text-transform:uppercase}
+  @media (max-width:620px){
+    .pf-exit{left:14px;bottom:14px;padding:10px 15px 10px 12px}
+    .pf-exit__text small{display:none}
+  }
+  @media print{.pf-exit{display:none}}
+</style>
+<script>
+  // Escape también sale del prototipo.
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
+    var exit = document.querySelector(".pf-exit");
+    if (exit) window.location.href = exit.getAttribute("href");
+  });
+</script>
+
 <div class="grid-bg"></div>
 
 <header id="hdr">

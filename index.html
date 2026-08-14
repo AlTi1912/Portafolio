@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Nils Tovar — Desarrollo web y diseño digital</title>
+    <title>Nils Tovar — Diseño y desarrollo de experiencias web</title>
     <meta
       name="description"
-      content="Portfolio de Nils Tovar, desarrollador web y diseñador digital en Lima. Proyectos corporativos, eCommerce y soluciones web."
+      content="Portfolio de Nils Tovar, diseñador y desarrollador web en Lima. Sitios corporativos, tiendas online y prototipos interactivos."
     >
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f2efe7">
@@ -18,10 +18,10 @@
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_PE">
-    <meta property="og:title" content="Nils Tovar — Desarrollo web y diseño digital">
+    <meta property="og:title" content="Nils Tovar — Diseño y desarrollo de experiencias web">
     <meta
       property="og:description"
-      content="Portfolio de Nils Tovar, desarrollador web y diseñador digital en Lima. Proyectos corporativos, eCommerce y soluciones web construidas con estructura, diseño y desarrollo."
+      content="Portfolio de Nils Tovar, diseñador y desarrollador web en Lima. Sitios corporativos, tiendas online y prototipos interactivos."
     >
     <meta property="og:url" content="https://alti1912.github.io/Portafolio/">
     <meta property="og:site_name" content="Portfolio de Nils Tovar">
@@ -31,14 +31,15 @@
     <meta property="og:image:alt" content="Portfolio de Nils Tovar, diseñador y desarrollador web">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Nils Tovar — Desarrollo web y diseño digital">
+    <meta name="twitter:title" content="Nils Tovar — Diseño y desarrollo de experiencias web">
     <meta
       name="twitter:description"
-      content="Portfolio de desarrollo web, diseño digital, sitios corporativos y eCommerce."
+      content="Sitios corporativos, tiendas online y prototipos interactivos."
     >
 
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/effects.css">
 
     <script>
       document.documentElement.classList.add("js");
@@ -53,7 +54,7 @@
             "@id": "https://alti1912.github.io/Portafolio/#person",
             "name": "Nils Tovar",
             "url": "https://alti1912.github.io/Portafolio/",
-            "jobTitle": "Desarrollador web y diseñador digital",
+            "jobTitle": "Diseñador y desarrollador web",
             "email": "mailto:niltovap@gmail.com",
             "sameAs": [
               "https://www.instagram.com/alexxtitoo/"
@@ -107,13 +108,12 @@
         <nav class="primary-nav" id="primary-navigation" aria-label="Navegación principal" data-nav>
           <ul>
             <li><a href="#inicio" aria-current="page">Inicio</a></li>
-            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#proyectos">Trabajo</a></li>
             <li><a href="#lab">Lab</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#metodo">Método</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>
-          <a class="button button--small button--ink nav-cta" href="#contacto">
+          <a class="button button--small button--ink nav-cta" href="#contacto" data-specular>
             Hablemos
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4"></path>
@@ -127,19 +127,20 @@
       <section class="hero section-shell" id="inicio" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow reveal">Nils Tovar · Lima, Perú</p>
-          <h1 id="hero-title" class="reveal">
+          <h1 id="hero-title" class="reveal" data-fold-text data-fold-trigger="load" data-fold-stagger="45">
             Diseño y desarrollo
             <span>experiencias web</span>
             claras y funcionales.
           </h1>
           <div class="hero-intro reveal">
             <p>
-              Construyo sitios corporativos, tiendas online y soluciones digitales
-              combinando estructura, diseño e implementación técnica.
+              Convierto ideas y contenido disperso en sitios y tiendas que se
+              entienden a la primera, funcionan en cualquier pantalla y se pueden
+              seguir haciendo crecer.
             </p>
             <div class="hero-actions">
-              <a class="button button--ink" href="#proyectos">
-                Ver proyectos
+              <a class="button button--ink" href="#proyectos" data-specular>
+                Ver trabajo
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4"></path>
                 </svg>
@@ -178,7 +179,7 @@
             <div class="canvas-axis">
               <span>ESTRUCTURA</span>
               <span>INTERFAZ</span>
-              <span>CÓDIGO</span>
+              <span>EXPERIENCIA</span>
             </div>
 
             <div class="canvas-index">
@@ -204,21 +205,29 @@
           <span>Abierto a conversar sobre nuevos proyectos</span>
           <a href="#proyectos">Explorar el trabajo <span aria-hidden="true">↓</span></a>
         </div>
+
+        <div
+          data-gradual-blur
+          data-blur-position="bottom"
+          data-blur-strength="2"
+          data-blur-divs="6"
+          data-blur-curve="ease-out"
+        ></div>
       </section>
 
       <aside class="context-strip" aria-label="Contexto profesional">
         <div class="section-shell context-strip__inner" role="list">
           <div class="context-item" role="listitem">
             <span>01</span>
-            <strong>Desarrollo web + diseño de interfaz</strong>
+            <strong>Diseño de interfaz + desarrollo</strong>
           </div>
           <div class="context-item" role="listitem">
             <span>02</span>
-            <strong>Sitios corporativos y eCommerce</strong>
+            <strong>Sitios corporativos y tiendas online</strong>
           </div>
           <div class="context-item" role="listitem">
             <span>03</span>
-            <strong>WordPress, frontend y sistemas web</strong>
+            <strong>Rediseños y sistemas web a medida</strong>
           </div>
           <div class="context-item" role="listitem">
             <span>04</span>
@@ -231,30 +240,30 @@
         <div class="section-shell">
           <div class="section-heading section-heading--split reveal">
             <div>
-              <p class="eyebrow">Trabajo seleccionado / 02 proyectos reales</p>
-              <h2 id="projects-title">Diseño aplicado<br>a necesidades concretas.</h2>
+              <p class="eyebrow">Casos reales / 02 proyectos publicados</p>
+              <h2 id="projects-title" data-fold-text>Diseño aplicado a necesidades concretas.</h2>
             </div>
             <p>
-              Dos casos reales de sitio corporativo y eCommerce, documentados con
-              contexto, decisiones de diseño y capturas de escritorio y móvil.
+              Un sitio corporativo y una tienda online, documentados con su
+              contexto, las decisiones tomadas y el resultado en escritorio y móvil.
             </p>
           </div>
 
           <nav class="project-index reveal" aria-label="Índice de proyectos">
-            <a class="project-index__item" href="#sifuentes-colombia">
+            <a class="project-index__item" href="#sifuentes-colombia" data-border-glow>
               <span class="project-index__number">01</span>
               <span class="project-index__name">
                 <strong>Sifuentes Colombia</strong>
                 <small>Sitio corporativo B2B · Médico y quirúrgico</small>
               </span>
-              <span class="status-label">Caso real</span>
+              <span class="status-label">En línea</span>
               <span class="project-index__arrow" aria-hidden="true">↘</span>
             </a>
-            <a class="project-index__item" href="#gb-audio">
+            <a class="project-index__item" href="#gb-audio" data-border-glow>
               <span class="project-index__number">02</span>
               <span class="project-index__name">
                 <strong>GB Audio</strong>
-                <small>eCommerce · Audio automotriz</small>
+                <small>Tienda online · Audio automotriz</small>
               </span>
               <span class="status-label">Caso real</span>
               <span class="project-index__arrow" aria-hidden="true">↘</span>
@@ -271,10 +280,23 @@
               <div class="case-title">
                 <p class="tag">Sitio web corporativo B2B</p>
                 <h3 id="sifuentes-title">Sifuentes Colombia</h3>
+                <div class="case-header__actions">
+                  <a
+                    class="case-live"
+                    href="https://sifuentescolombia.co"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Publicado · sifuentescolombia.co
+                    <span aria-hidden="true">↗</span>
+                    <span class="visually-hidden">(abre en una pestaña nueva)</span>
+                  </a>
+                </div>
               </div>
               <p class="case-description">
                 Proyecto orientado a organizar y presentar información especializada
                 dentro de una experiencia corporativa clara, profesional y adaptable.
+                Hoy es el sitio oficial de la empresa.
               </p>
             </header>
 
@@ -293,6 +315,10 @@
                   <div>
                     <dt>Alcance</dt>
                     <dd>Estructura, interfaz e implementación</dd>
+                  </div>
+                  <div>
+                    <dt>Estado</dt>
+                    <dd>En línea · sifuentescolombia.co</dd>
                   </div>
                 </dl>
               </aside>
@@ -335,260 +361,100 @@
               </div>
             </div>
 
-            <section class="case-evolution reveal" aria-labelledby="sifuentes-evolution-title">
-              <div class="case-evolution__header">
+            <section class="case-visual reveal" aria-labelledby="sifuentes-visual-title">
+              <div class="case-visual__head">
                 <div>
-                  <p class="project-meta__label">Evolución del sitio</p>
-                  <h4 id="sifuentes-evolution-title">Antes / referencia del punto de partida</h4>
+                  <p class="project-meta__label">Recorrido visual</p>
+                  <h4 id="sifuentes-visual-title" class="visually-hidden">
+                    Recorrido visual de Sifuentes Colombia
+                  </h4>
                 </div>
                 <p>
-                  Estas capturas pertenecen al sitio público anterior de Sifuentes Colombia.
-                  Su diseño y desarrollo no forman parte de mi trabajo; se incluyen únicamente
-                  para mostrar el contexto visual previo al rediseño.
+                  Recorre los paneles para abrir cada vista del sitio publicado.
+                  Al pulsar uno se amplía la captura completa.
                 </p>
               </div>
 
-              <div class="evolution-grid">
-                <figure class="project-capture evolution-card" data-frame-mode="raw">
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ampliar captura de la página anterior Quiénes somos de Sifuentes Colombia"
-                  >
-                    <span class="capture-media">
-                      <img
-                        class="project-capture__image"
-                        src="assets/images/projects/sifuentes/before/sifuentes-anterior-quienes.webp"
-                        width="1440"
-                        height="1000"
-                        loading="lazy"
-                        decoding="async"
-                        alt="Sitio anterior de Sifuentes Colombia en la página Quiénes somos, con diseño fijo, menú lateral y aviso de Adobe Flash"
-                      >
-                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                    </span>
-                  </button>
-                  <figcaption>
-                    <span>Sitio anterior · Quiénes somos</span>
-                    <small>Composición de ancho fijo, menú lateral y contenido corporativo extenso en una sola vista.</small>
-                  </figcaption>
-                </figure>
-
-                <figure class="project-capture evolution-card" data-frame-mode="raw">
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ampliar captura de la página anterior Líneas de productos de Sifuentes Colombia"
-                  >
-                    <span class="capture-media">
-                      <img
-                        class="project-capture__image"
-                        src="assets/images/projects/sifuentes/before/sifuentes-anterior-productos.webp"
-                        width="1440"
-                        height="1000"
-                        loading="lazy"
-                        decoding="async"
-                        alt="Sitio anterior de Sifuentes Colombia con una cuadrícula de líneas de productos dentro de un diseño fijo"
-                      >
-                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                    </span>
-                  </button>
-                  <figcaption>
-                    <span>Sitio anterior · Productos</span>
-                    <small>Categorías presentadas como una cuadrícula estática, sin jerarquía de catálogo ni navegación contextual.</small>
-                  </figcaption>
-                </figure>
-
-                <figure class="project-capture evolution-card" data-frame-mode="raw">
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ampliar captura de la página anterior Contáctenos de Sifuentes Colombia"
-                  >
-                    <span class="capture-media">
-                      <img
-                        class="project-capture__image"
-                        src="assets/images/projects/sifuentes/before/sifuentes-anterior-contactenos.webp"
-                        width="1440"
-                        height="1000"
-                        loading="lazy"
-                        decoding="async"
-                        alt="Sitio anterior de Sifuentes Colombia con datos de contacto, imagen corporativa y formulario en un diseño fijo"
-                      >
-                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                    </span>
-                  </button>
-                  <figcaption>
-                    <span>Sitio anterior · Contacto</span>
-                    <small>Información y formulario concentrados en una estructura de escritorio sin adaptación móvil visible.</small>
-                  </figcaption>
-                </figure>
-              </div>
-            </section>
-
-            <div class="case-after-label reveal">
-              <p class="project-meta__label">Después / nueva experiencia</p>
-              <p>Arquitectura modular, jerarquía de contenido y adaptación responsive.</p>
-            </div>
-
-            <div
-              class="project-gallery project-gallery--real project-gallery--sifuentes"
-              id="sifuentes-capturas"
-            >
-              <figure
-                class="project-capture project-capture--main"
-                data-frame-mode="embedded"
-              >
-                <button
-                  class="capture-open"
-                  type="button"
-                  data-lightbox-trigger
-                  aria-label="Ampliar captura de las áreas y especialidades de Sifuentes Colombia"
-                >
-                  <span class="capture-media">
-                    <img
-                      class="project-capture__image"
-                      src="assets/images/projects/sifuentes/sifuentes-bentobox-desktop-safari.webp"
-                      width="2240"
-                      height="1749"
-                      loading="lazy"
-                      decoding="async"
-                      alt="Vista de escritorio de las áreas y especialidades médicas de Sifuentes Colombia dentro de un mockup oscuro de Safari"
-                    >
-                    <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                    <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                  </span>
-                </button>
-                <figcaption>
-                  <span>Sifuentes Colombia · Áreas y especialidades</span>
-                  <small>Organización visual de las áreas y especialidades médicas dentro de la página principal.</small>
-                </figcaption>
-              </figure>
-
-              <figure
-                class="project-capture project-capture--feature"
-                data-frame-mode="embedded"
-              >
-                <button
-                  class="capture-open"
-                  type="button"
-                  data-lightbox-trigger
-                  aria-label="Ampliar captura de la categoría Maxilofacial de Sifuentes Colombia"
-                >
-                  <span class="capture-media">
-                    <img
-                      class="project-capture__image"
-                      src="assets/images/projects/sifuentes/sifuentes-productos-categoria-desktop-safari.webp"
-                      width="2240"
-                      height="1902"
-                      loading="lazy"
-                      decoding="async"
-                      alt="Vista de escritorio de la categoría Maxilofacial de Sifuentes Colombia con navegación lateral y sistemas de producto"
-                    >
-                    <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                    <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                  </span>
-                </button>
-                <figcaption>
-                  <span>Sifuentes Colombia · Categoría Maxilofacial</span>
-                  <small>Arquitectura de producto con la categoría activa, sus sistemas y la información técnica asociada.</small>
-                </figcaption>
-              </figure>
-
-              <figure
-                class="project-capture project-capture--mobile-feature"
-                data-frame-mode="embedded"
-              >
-                <button
-                  class="capture-open"
-                  type="button"
-                  data-lightbox-trigger
-                  aria-label="Ampliar captura móvil de contacto de Sifuentes Colombia"
-                >
-                  <span class="capture-media">
-                    <img
-                      class="project-capture__image"
-                      src="assets/images/projects/sifuentes/sifuentes-contacto-mobile-safari.webp"
-                      width="1140"
-                      height="2576"
-                      loading="lazy"
-                      decoding="async"
-                      alt="Vista móvil del formulario y los canales de contacto de Sifuentes Colombia dentro de un dispositivo oscuro"
-                    >
-                    <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                    <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                  </span>
-                </button>
-                <figcaption>
-                  <span>Sifuentes Colombia · Contacto móvil</span>
-                  <small>Adaptación responsive del formulario y los canales de atención.</small>
-                </figcaption>
-              </figure>
-
-              <button
-                class="gallery-toggle"
-                type="button"
-                data-gallery-toggle
-                aria-expanded="false"
-                aria-controls="sifuentes-galeria-secundaria"
-              >
-                <span data-gallery-label>Ver 5 capturas más</span>
-                <span class="gallery-toggle__icon" aria-hidden="true"></span>
-              </button>
-
               <div
-                class="secondary-gallery"
-                id="sifuentes-galeria-secundaria"
-                data-gallery-panel
-                hidden
+                class="accordion-gallery"
+                data-accordion-gallery
+                data-default-index="0"
+                data-expand-ratio="0.55"
               >
-                <figure
-                  class="project-capture project-capture--secondary-wide"
-                  data-frame-mode="embedded"
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de áreas y especialidades de Sifuentes Colombia"
+                  data-caption-title="Sifuentes Colombia · Áreas y especialidades"
+                  data-caption-detail="Organización visual de las áreas y especialidades médicas dentro de la página principal."
                 >
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ampliar captura de contacto de Sifuentes Colombia en escritorio"
-                  >
-                    <span class="capture-media">
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
                       <img
                         class="project-capture__image"
-                        src="assets/images/projects/sifuentes/sifuentes-contacto-desktop-safari.webp"
+                        src="assets/images/projects/sifuentes/sifuentes-bentobox-desktop-safari.webp"
                         width="2240"
-                        height="1570"
+                        height="1749"
                         loading="lazy"
                         decoding="async"
-                        alt="Vista de escritorio del formulario, la información de contacto y el mapa de Sifuentes Colombia"
+                        alt="Vista de escritorio de las áreas y especialidades médicas de Sifuentes Colombia"
                       >
-                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
                     </span>
-                  </button>
-                  <figcaption>
-                    <span>Sifuentes Colombia · Contacto</span>
-                    <small>Formulario, datos de atención y ubicación reunidos en un cierre claro.</small>
-                  </figcaption>
-                </figure>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">01</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Áreas y especialidades</strong>
+                      <small>La empresa completa, ordenada en una sola vista.</small>
+                    </span>
+                  </span>
+                </button>
 
-                <figure
-                  class="project-capture project-capture--secondary-wide"
-                  data-frame-mode="embedded"
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de la categoría Maxilofacial de Sifuentes Colombia"
+                  data-caption-title="Sifuentes Colombia · Categoría Maxilofacial"
+                  data-caption-detail="Arquitectura de producto con la categoría activa, sus sistemas y la información técnica asociada."
                 >
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ampliar captura de trayectoria de Sifuentes Colombia en escritorio"
-                  >
-                    <span class="capture-media">
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/sifuentes/sifuentes-productos-categoria-desktop-safari.webp"
+                        width="2240"
+                        height="1902"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista de escritorio de la categoría Maxilofacial de Sifuentes Colombia con navegación lateral"
+                      >
+                    </span>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">02</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Catálogo por categoría</strong>
+                      <small>Contenido técnico jerarquizado y navegable.</small>
+                    </span>
+                  </span>
+                </button>
+
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de trayectoria de Sifuentes Colombia"
+                  data-caption-title="Sifuentes Colombia · Trayectoria"
+                  data-caption-detail="Presentación corporativa que aporta contexto, historia y confianza."
+                >
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
                       <img
                         class="project-capture__image"
                         src="assets/images/projects/sifuentes/sifuentes-destacada-desktop-safari.webp"
@@ -598,16 +464,76 @@
                         decoding="async"
                         alt="Vista de escritorio de la presentación corporativa y trayectoria de Sifuentes Colombia"
                       >
-                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
                     </span>
-                  </button>
-                  <figcaption>
-                    <span>Sifuentes Colombia · Trayectoria</span>
-                    <small>Presentación corporativa que aporta contexto, historia y confianza.</small>
-                  </figcaption>
-                </figure>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">03</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Trayectoria</strong>
+                      <small>Contexto e historia como argumento de confianza.</small>
+                    </span>
+                  </span>
+                </button>
 
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de contacto de Sifuentes Colombia"
+                  data-caption-title="Sifuentes Colombia · Contacto"
+                  data-caption-detail="Formulario, datos de atención y ubicación reunidos en un cierre claro."
+                >
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/sifuentes/sifuentes-contacto-desktop-safari.webp"
+                        width="2240"
+                        height="1570"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista de escritorio del formulario, la información de contacto y el mapa de Sifuentes Colombia"
+                      >
+                    </span>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">04</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Contacto</strong>
+                      <small>Un cierre con formulario, atención y ubicación.</small>
+                    </span>
+                  </span>
+                </button>
+              </div>
+
+              <p class="accordion-gallery__hint">Recorre · Pulsa para ampliar</p>
+            </section>
+
+            <div
+              class="project-gallery project-gallery--real project-gallery--sifuentes"
+              id="sifuentes-capturas"
+            >
+              <button
+                class="gallery-toggle"
+                type="button"
+                data-gallery-toggle
+                aria-expanded="false"
+                aria-controls="sifuentes-galeria-secundaria"
+              >
+                <span data-gallery-label>Ver la versión móvil y el punto de partida</span>
+                <span class="gallery-toggle__icon" aria-hidden="true"></span>
+              </button>
+
+              <div
+                class="secondary-gallery"
+                id="sifuentes-galeria-secundaria"
+                data-gallery-panel
+                hidden
+              >
                 <figure
                   class="project-capture project-capture--secondary-mobile project-capture--long"
                   data-frame-mode="embedded"
@@ -633,7 +559,7 @@
                     </span>
                   </button>
                   <figcaption>
-                    <span>Sifuentes Colombia · Especialidades en móvil</span>
+                    <span>Especialidades en móvil</span>
                     <small>Recorte de la captura completa para conservar el ritmo de lectura.</small>
                   </figcaption>
                 </figure>
@@ -663,7 +589,7 @@
                     </span>
                   </button>
                   <figcaption>
-                    <span>Sifuentes Colombia · Categoría en móvil</span>
+                    <span>Categoría en móvil</span>
                     <small>Recorte controlado del contenido técnico; la vista completa está disponible al ampliar.</small>
                   </figcaption>
                 </figure>
@@ -693,10 +619,137 @@
                     </span>
                   </button>
                   <figcaption>
-                    <span>Sifuentes Colombia · Trayectoria en móvil</span>
+                    <span>Trayectoria en móvil</span>
                     <small>La presentación corporativa adaptada a una lectura vertical.</small>
                   </figcaption>
                 </figure>
+
+                <figure
+                  class="project-capture project-capture--secondary-mobile"
+                  data-frame-mode="embedded"
+                >
+                  <button
+                    class="capture-open"
+                    type="button"
+                    data-lightbox-trigger
+                    aria-label="Ampliar captura móvil de contacto de Sifuentes Colombia"
+                  >
+                    <span class="capture-media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/sifuentes/sifuentes-contacto-mobile-safari.webp"
+                        width="1140"
+                        height="2576"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista móvil del formulario y los canales de contacto de Sifuentes Colombia"
+                      >
+                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                    </span>
+                  </button>
+                  <figcaption>
+                    <span>Contacto móvil</span>
+                    <small>Adaptación responsive del formulario y los canales de atención.</small>
+                  </figcaption>
+                </figure>
+
+                <section class="case-evolution" aria-labelledby="sifuentes-evolution-title">
+                  <div class="case-evolution__header">
+                    <div>
+                      <p class="project-meta__label">Antes del rediseño</p>
+                      <h4 id="sifuentes-evolution-title">Referencia del punto de partida</h4>
+                    </div>
+                    <p>
+                      Estas capturas pertenecen al sitio público anterior de Sifuentes Colombia.
+                      Su diseño y desarrollo no forman parte de mi trabajo; se incluyen únicamente
+                      para mostrar el contexto visual previo al rediseño.
+                    </p>
+                  </div>
+
+                  <div class="evolution-grid">
+                    <figure class="project-capture evolution-card" data-frame-mode="raw">
+                      <button
+                        class="capture-open"
+                        type="button"
+                        data-lightbox-trigger
+                        aria-label="Ampliar captura de la página anterior Quiénes somos de Sifuentes Colombia"
+                      >
+                        <span class="capture-media">
+                          <img
+                            class="project-capture__image"
+                            src="assets/images/projects/sifuentes/before/sifuentes-anterior-quienes.webp"
+                            width="1440"
+                            height="1000"
+                            loading="lazy"
+                            decoding="async"
+                            alt="Sitio anterior de Sifuentes Colombia en la página Quiénes somos, con diseño fijo y menú lateral"
+                          >
+                          <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                          <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                        </span>
+                      </button>
+                      <figcaption>
+                        <span>Sitio anterior · Quiénes somos</span>
+                        <small>Composición de ancho fijo, menú lateral y contenido corporativo extenso en una sola vista.</small>
+                      </figcaption>
+                    </figure>
+
+                    <figure class="project-capture evolution-card" data-frame-mode="raw">
+                      <button
+                        class="capture-open"
+                        type="button"
+                        data-lightbox-trigger
+                        aria-label="Ampliar captura de la página anterior Líneas de productos de Sifuentes Colombia"
+                      >
+                        <span class="capture-media">
+                          <img
+                            class="project-capture__image"
+                            src="assets/images/projects/sifuentes/before/sifuentes-anterior-productos.webp"
+                            width="1440"
+                            height="1000"
+                            loading="lazy"
+                            decoding="async"
+                            alt="Sitio anterior de Sifuentes Colombia con una cuadrícula de líneas de productos dentro de un diseño fijo"
+                          >
+                          <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                          <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                        </span>
+                      </button>
+                      <figcaption>
+                        <span>Sitio anterior · Productos</span>
+                        <small>Categorías presentadas como una cuadrícula estática, sin jerarquía de catálogo ni navegación contextual.</small>
+                      </figcaption>
+                    </figure>
+
+                    <figure class="project-capture evolution-card" data-frame-mode="raw">
+                      <button
+                        class="capture-open"
+                        type="button"
+                        data-lightbox-trigger
+                        aria-label="Ampliar captura de la página anterior Contáctenos de Sifuentes Colombia"
+                      >
+                        <span class="capture-media">
+                          <img
+                            class="project-capture__image"
+                            src="assets/images/projects/sifuentes/before/sifuentes-anterior-contactenos.webp"
+                            width="1440"
+                            height="1000"
+                            loading="lazy"
+                            decoding="async"
+                            alt="Sitio anterior de Sifuentes Colombia con datos de contacto, imagen corporativa y formulario en un diseño fijo"
+                          >
+                          <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
+                          <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                        </span>
+                      </button>
+                      <figcaption>
+                        <span>Sitio anterior · Contacto</span>
+                        <small>Información y formulario concentrados en una estructura de escritorio sin adaptación móvil visible.</small>
+                      </figcaption>
+                    </figure>
+                  </div>
+                </section>
               </div>
             </div>
 
@@ -718,25 +771,10 @@
                   </div>
                   <div>
                     <dt>04</dt>
-                    <dd>Preparación técnica</dd>
+                    <dd>Preparación de la publicación</dd>
                   </div>
                 </dl>
               </div>
-
-              <details class="case-details">
-                <summary>
-                  <span>Ver tecnologías confirmadas</span>
-                  <span class="details-icon" aria-hidden="true"></span>
-                </summary>
-                <div class="case-details__content case-details__content--tags">
-                  <span>WordPress</span>
-                  <span>Elementor</span>
-                  <span>Tema hijo</span>
-                  <span>HTML</span>
-                  <span>CSS</span>
-                  <span>JavaScript</span>
-                </div>
-              </details>
             </div>
           </article>
 
@@ -748,7 +786,7 @@
             <header class="case-header">
               <div class="case-number">02 <span>/ 02</span></div>
               <div class="case-title">
-                <p class="tag">eCommerce</p>
+                <p class="tag">Tienda online</p>
                 <h3 id="gb-title">GB Audio</h3>
               </div>
               <p class="case-description">
@@ -767,7 +805,7 @@
                   </div>
                   <div>
                     <dt>Tipo</dt>
-                    <dd>Diseño e implementación de eCommerce</dd>
+                    <dd>Diseño e implementación de tienda online</dd>
                   </div>
                   <div>
                     <dt>Alcance</dt>
@@ -790,7 +828,7 @@
                     <span>01</span>
                     <h4 id="gb-contexto">Contexto</h4>
                     <p>
-                      Un negocio de productos y servicios de car audio necesitaba
+                      Un negocio de productos y servicios de audio para vehículos necesitaba
                       trasladar su catálogo y propuesta comercial a una experiencia digital.
                     </p>
                   </section>
@@ -806,108 +844,168 @@
                     <span>03</span>
                     <h4 id="gb-enfoque">Enfoque</h4>
                     <p>
-                      Crear una estructura de eCommerce con jerarquía comercial,
-                      catálogo, producto, carrito, checkout y canales de contacto.
+                      Construir un recorrido comercial completo: catálogo, producto,
+                      carrito, checkout y canales de contacto.
                     </p>
                   </section>
                 </div>
               </div>
             </div>
 
+            <section class="case-visual reveal" aria-labelledby="gb-visual-title">
+              <div class="case-visual__head">
+                <div>
+                  <p class="project-meta__label">Recorrido visual</p>
+                  <h4 id="gb-visual-title" class="visually-hidden">Recorrido visual de GB Audio</h4>
+                </div>
+                <p>
+                  Cada panel es una etapa del recorrido de compra. Pulsa uno para
+                  ver la captura completa.
+                </p>
+              </div>
+
+              <div
+                class="accordion-gallery"
+                data-accordion-gallery
+                data-default-index="0"
+                data-expand-ratio="0.55"
+              >
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de la página principal de GB Audio"
+                  data-caption-title="GB Audio · Página principal"
+                  data-caption-detail="Entrada comercial con buscador, categorías y llamadas a explorar el catálogo o cotizar una instalación."
+                >
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/gb-audio/gb-audio-hero-desktop-safari.webp"
+                        width="2240"
+                        height="1458"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista de escritorio de la página principal de GB Audio con navegación y buscador"
+                      >
+                    </span>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">01</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Entrada comercial</strong>
+                      <small>Buscador, categorías y una acción principal clara.</small>
+                    </span>
+                  </span>
+                </button>
+
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura del catálogo de GB Audio"
+                  data-caption-title="GB Audio · Catálogo"
+                  data-caption-detail="Jerarquía de tienda para comparar productos y continuar por compra directa, consulta o detalle."
+                >
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/gb-audio/gb-audio-catalogo-desktop-safari.webp"
+                        width="2240"
+                        height="2124"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista de escritorio del catálogo de GB Audio con filtros, productos y precios"
+                      >
+                    </span>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">02</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Catálogo</strong>
+                      <small>Comparar, filtrar y decidir sin fricción.</small>
+                    </span>
+                  </span>
+                </button>
+
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de la propuesta de valor de GB Audio"
+                  data-caption-title="GB Audio · Propuesta de valor"
+                  data-caption-detail="Beneficios del servicio: experiencia, instalación profesional, marcas líderes y asesoría especializada."
+                >
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/gb-audio/gb-audio-destacada-desktop-safari.webp"
+                        width="2240"
+                        height="1336"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista de escritorio de la propuesta de valor de GB Audio con cuatro beneficios del servicio"
+                      >
+                    </span>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">03</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Propuesta de valor</strong>
+                      <small>Cuatro razones para elegir el servicio.</small>
+                    </span>
+                  </span>
+                </button>
+
+                <button
+                  class="ag-panel"
+                  type="button"
+                  data-lightbox-trigger
+                  aria-label="Ampliar la captura de testimonios de GB Audio"
+                  data-caption-title="GB Audio · Testimonios"
+                  data-caption-detail="Prueba social integrada al recorrido comercial para reforzar confianza."
+                >
+                  <span class="ag-panel__frame">
+                    <span class="ag-panel__media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/gb-audio/gb-audio-testimonios-desktop-safari.webp"
+                        width="2240"
+                        height="1344"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Vista de escritorio de la sección de testimonios y experiencias de clientes de GB Audio"
+                      >
+                    </span>
+                    <span class="ag-panel__overlay"></span>
+                  </span>
+                  <span class="ag-panel__index" aria-hidden="true">04</span>
+                  <span class="ag-panel__label" aria-hidden="true">
+                    <span class="ag-panel__bar"></span>
+                    <span class="ag-panel__text">
+                      <strong>Testimonios</strong>
+                      <small>Confianza antes de la decisión de compra.</small>
+                    </span>
+                  </span>
+                </button>
+              </div>
+
+              <p class="accordion-gallery__hint">Recorre · Pulsa para ampliar</p>
+            </section>
+
             <div
               class="project-gallery project-gallery--real project-gallery--gb"
               id="gb-capturas"
             >
-              <figure
-                class="project-capture project-capture--main"
-                data-frame-mode="embedded"
-              >
-                <button
-                  class="capture-open"
-                  type="button"
-                  data-lightbox-trigger
-                  aria-label="Ampliar captura de la página principal de GB Audio"
-                >
-                  <span class="capture-media">
-                    <img
-                      class="project-capture__image"
-                      src="assets/images/projects/gb-audio/gb-audio-hero-desktop-safari.webp"
-                      width="2240"
-                      height="1458"
-                      loading="lazy"
-                      decoding="async"
-                      alt="Vista de escritorio de la página principal de GB Audio con navegación, buscador y presentación de car audio"
-                    >
-                    <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                    <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                  </span>
-                </button>
-                <figcaption>
-                  <span>GB Audio · Página principal</span>
-                  <small>Entrada comercial con buscador, categorías y llamadas a explorar el catálogo o cotizar una instalación.</small>
-                </figcaption>
-              </figure>
-
-              <figure
-                class="project-capture project-capture--feature"
-                data-frame-mode="embedded"
-              >
-                <button
-                  class="capture-open"
-                  type="button"
-                  data-lightbox-trigger
-                  aria-label="Ampliar captura del catálogo de GB Audio en escritorio"
-                >
-                  <span class="capture-media">
-                    <img
-                      class="project-capture__image"
-                      src="assets/images/projects/gb-audio/gb-audio-catalogo-desktop-safari.webp"
-                      width="2240"
-                      height="2124"
-                      loading="lazy"
-                      decoding="async"
-                      alt="Vista de escritorio del catálogo de GB Audio con filtros, productos, precios y acciones de compra y consulta"
-                    >
-                    <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                    <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                  </span>
-                </button>
-                <figcaption>
-                  <span>GB Audio · Catálogo</span>
-                  <small>Jerarquía eCommerce para comparar productos y continuar por compra directa, consulta o detalle.</small>
-                </figcaption>
-              </figure>
-
-              <figure
-                class="project-capture project-capture--mobile-feature"
-                data-frame-mode="embedded"
-              >
-                <button
-                  class="capture-open"
-                  type="button"
-                  data-lightbox-trigger
-                  aria-label="Ampliar captura móvil de la página principal de GB Audio"
-                >
-                  <span class="capture-media">
-                    <img
-                      class="project-capture__image"
-                      src="assets/images/projects/gb-audio/gb-audio-hero-mobile-safari.webp"
-                      width="1140"
-                      height="1876"
-                      loading="lazy"
-                      decoding="async"
-                      alt="Vista móvil de la página principal de GB Audio con buscador, menú de categorías y llamadas comerciales"
-                    >
-                    <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                    <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                  </span>
-                </button>
-                <figcaption>
-                  <span>GB Audio · Inicio móvil</span>
-                  <small>Prioridades comerciales y accesos de compra adaptados al dispositivo.</small>
-                </figcaption>
-              </figure>
-
               <button
                 class="gallery-toggle"
                 type="button"
@@ -915,7 +1013,7 @@
                 aria-expanded="false"
                 aria-controls="gb-galeria-secundaria"
               >
-                <span data-gallery-label>Ver 5 capturas más</span>
+                <span data-gallery-label>Ver la versión móvil</span>
                 <span class="gallery-toggle__icon" aria-hidden="true"></span>
               </button>
 
@@ -926,62 +1024,32 @@
                 hidden
               >
                 <figure
-                  class="project-capture project-capture--secondary-wide"
+                  class="project-capture project-capture--secondary-mobile"
                   data-frame-mode="embedded"
                 >
                   <button
                     class="capture-open"
                     type="button"
                     data-lightbox-trigger
-                    aria-label="Ampliar captura de testimonios de GB Audio en escritorio"
+                    aria-label="Ampliar captura móvil de la página principal de GB Audio"
                   >
                     <span class="capture-media">
                       <img
                         class="project-capture__image"
-                        src="assets/images/projects/gb-audio/gb-audio-testimonios-desktop-safari.webp"
-                        width="2240"
-                        height="1344"
+                        src="assets/images/projects/gb-audio/gb-audio-hero-mobile-safari.webp"
+                        width="1140"
+                        height="1876"
                         loading="lazy"
                         decoding="async"
-                        alt="Vista de escritorio de la sección de testimonios y experiencias de clientes de GB Audio"
+                        alt="Vista móvil de la página principal de GB Audio con buscador y menú de categorías"
                       >
                       <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
                       <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
                     </span>
                   </button>
                   <figcaption>
-                    <span>GB Audio · Testimonios</span>
-                    <small>Prueba social integrada al recorrido comercial para reforzar confianza.</small>
-                  </figcaption>
-                </figure>
-
-                <figure
-                  class="project-capture project-capture--secondary-wide"
-                  data-frame-mode="embedded"
-                >
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ampliar captura de los beneficios de GB Audio en escritorio"
-                  >
-                    <span class="capture-media">
-                      <img
-                        class="project-capture__image"
-                        src="assets/images/projects/gb-audio/gb-audio-destacada-desktop-safari.webp"
-                        width="2240"
-                        height="1336"
-                        loading="lazy"
-                        decoding="async"
-                        alt="Vista de escritorio de la propuesta de valor Por qué elegir GB Audio con cuatro beneficios del servicio"
-                      >
-                      <span class="capture-action">Ampliar <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                    </span>
-                  </button>
-                  <figcaption>
-                    <span>GB Audio · Propuesta de valor</span>
-                    <small>Beneficios del servicio: experiencia, instalación profesional, marcas líderes y asesoría especializada.</small>
+                    <span>Inicio móvil</span>
+                    <small>Prioridades comerciales y accesos de compra adaptados al dispositivo.</small>
                   </figcaption>
                 </figure>
 
@@ -1010,38 +1078,8 @@
                     </span>
                   </button>
                   <figcaption>
-                    <span>GB Audio · Catálogo en móvil</span>
+                    <span>Catálogo en móvil</span>
                     <small>Recorte de la captura completa para mantener una lectura compacta.</small>
-                  </figcaption>
-                </figure>
-
-                <figure
-                  class="project-capture project-capture--secondary-mobile project-capture--long"
-                  data-frame-mode="embedded"
-                >
-                  <button
-                    class="capture-open"
-                    type="button"
-                    data-lightbox-trigger
-                    aria-label="Ver completa la captura móvil de testimonios de GB Audio"
-                  >
-                    <span class="capture-media">
-                      <img
-                        class="project-capture__image"
-                        src="assets/images/projects/gb-audio/gb-audio-testimonios-mobile-safari.webp"
-                        width="1140"
-                        height="3250"
-                        loading="lazy"
-                        decoding="async"
-                        alt="Captura móvil completa de los testimonios y experiencias de clientes de GB Audio"
-                      >
-                      <span class="capture-action">Ver captura completa <span aria-hidden="true">↗</span></span>
-                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
-                    </span>
-                  </button>
-                  <figcaption>
-                    <span>GB Audio · Testimonios en móvil</span>
-                    <small>Recorte controlado; la vista completa está disponible al ampliar.</small>
                   </figcaption>
                 </figure>
 
@@ -1070,8 +1108,38 @@
                     </span>
                   </button>
                   <figcaption>
-                    <span>GB Audio · Beneficios en móvil</span>
+                    <span>Beneficios en móvil</span>
                     <small>La propuesta de valor se mantiene legible en una secuencia vertical.</small>
+                  </figcaption>
+                </figure>
+
+                <figure
+                  class="project-capture project-capture--secondary-mobile project-capture--long"
+                  data-frame-mode="embedded"
+                >
+                  <button
+                    class="capture-open"
+                    type="button"
+                    data-lightbox-trigger
+                    aria-label="Ver completa la captura móvil de testimonios de GB Audio"
+                  >
+                    <span class="capture-media">
+                      <img
+                        class="project-capture__image"
+                        src="assets/images/projects/gb-audio/gb-audio-testimonios-mobile-safari.webp"
+                        width="1140"
+                        height="3250"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Captura móvil completa de los testimonios y experiencias de clientes de GB Audio"
+                      >
+                      <span class="capture-action">Ver captura completa <span aria-hidden="true">↗</span></span>
+                      <span class="capture-fallback" hidden>La captura no está disponible en este momento.</span>
+                    </span>
+                  </button>
+                  <figcaption>
+                    <span>Testimonios en móvil</span>
+                    <small>Recorte controlado; la vista completa está disponible al ampliar.</small>
                   </figcaption>
                 </figure>
               </div>
@@ -1087,7 +1155,7 @@
                   </div>
                   <div>
                     <dt>02</dt>
-                    <dd>Diseño web e implementación del eCommerce</dd>
+                    <dd>Diseño e implementación de la tienda</dd>
                   </div>
                   <div>
                     <dt>03</dt>
@@ -1099,20 +1167,6 @@
                   </div>
                 </dl>
               </div>
-
-              <details class="case-details">
-                <summary>
-                  <span>Ver tecnologías confirmadas</span>
-                  <span class="details-icon" aria-hidden="true"></span>
-                </summary>
-                <div class="case-details__content case-details__content--tags">
-                  <span>WordPress</span>
-                  <span>WooCommerce</span>
-                  <span>HTML</span>
-                  <span>CSS</span>
-                  <span>JavaScript</span>
-                </div>
-              </details>
             </div>
           </article>
         </div>
@@ -1122,202 +1176,120 @@
         <div class="section-shell">
           <div class="section-heading section-heading--split reveal">
             <div>
-              <p class="eyebrow">Concept Lab / 08 prototipos</p>
-              <h2 id="lab-title">Ideas exploradas<br>hasta volverlas funcionales.</h2>
+              <p class="eyebrow">Concept Lab / 08 prototipos navegables</p>
+              <h2 id="lab-title" data-fold-text>Ideas exploradas hasta volverlas funcionales.</h2>
             </div>
             <p>
               Proyectos conceptuales creados para investigar dirección visual,
-              arquitectura de contenido e interacción. No representan clientes ni resultados comerciales.
+              arquitectura de contenido e interacción. Cada uno se abre como un
+              simulador completo, con un botón para volver aquí cuando quieras.
             </p>
           </div>
 
           <div class="lab-grid" data-lab-grid aria-live="polite"></div>
           <noscript>
             <p class="lab-noscript">
-              Activa JavaScript para ver las fichas visuales. Las demostraciones siguen disponibles
-              en las carpetas <a href="lab/sonora/">SONORA</a> y <a href="lab/loadout-store/">Loadout Store</a>.
+              Si no ves las fichas visuales, los prototipos siguen disponibles aquí:
+              <a href="lab/sonora/">SONORA</a> y <a href="lab/loadout-store/">Loadout Store</a>.
             </p>
           </noscript>
         </div>
       </section>
 
-      <section class="services section-shell section-pad" id="servicios" aria-labelledby="services-title">
+      <section class="practice section-shell section-pad" id="metodo" aria-labelledby="practice-title">
         <div class="section-heading section-heading--split reveal">
           <div>
-            <p class="eyebrow">Servicios</p>
-            <h2 id="services-title">Estructura, diseño<br>e implementación.</h2>
+            <p class="eyebrow">Qué hago y cómo lo hago</p>
+            <h2 id="practice-title" data-fold-text>De una pregunta a una solución publicada.</h2>
           </div>
           <p>
-            Puedo participar en una etapa puntual o acompañar el recorrido completo,
-            desde ordenar el contenido hasta publicar una experiencia responsive.
+            Puedo participar en una etapa puntual o acompañar el recorrido completo.
+            El alcance se adapta a lo que el proyecto realmente necesita.
           </p>
         </div>
 
-        <ol class="service-list">
-          <li class="service-item reveal">
-            <span>01</span>
-            <div><h3>Sitios corporativos</h3><p>Arquitectura, interfaz y desarrollo para presentar una organización con claridad.</p></div>
-          </li>
-          <li class="service-item reveal">
-            <span>02</span>
-            <div><h3>Tiendas online</h3><p>Catálogo, producto y flujos de compra construidos sobre WordPress y WooCommerce.</p></div>
-          </li>
-          <li class="service-item reveal">
-            <span>03</span>
-            <div><h3>Landing pages y rediseños</h3><p>Páginas enfocadas en una acción y mejoras de sitios que necesitan una estructura más útil.</p></div>
-          </li>
-          <li class="service-item reveal">
-            <span>04</span>
-            <div><h3>Interfaces frontend</h3><p>Implementación responsive en HTML, CSS y JavaScript con atención al detalle.</p></div>
-          </li>
-          <li class="service-item reveal">
-            <span>05</span>
-            <div><h3>Sistemas web</h3><p>Interfaces y recorridos para herramientas que organizan datos, tareas o procesos.</p></div>
-          </li>
-        </ol>
-
-        <div class="services-criterion reveal" id="enfoque">
-          <p class="eyebrow">Criterio de trabajo</p>
-          <h3>No comienzo diseñando una pantalla. <span>Primero intento entender qué debe resolver.</span></h3>
-          <ul aria-label="Principios de trabajo">
-            <li><strong>Claridad</strong><span>Información antes que decoración.</span></li>
-            <li><strong>Funcionalidad</strong><span>Cada elemento ayuda al usuario o al objetivo.</span></li>
-            <li><strong>Continuidad</strong><span>Soluciones preparadas para mantenerse y crecer.</span></li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="process section-shell section-pad" id="proceso" aria-labelledby="process-title">
-        <div class="section-heading section-heading--split reveal">
-          <div>
-            <p class="eyebrow">Método de trabajo</p>
-            <h2 id="process-title">De una pregunta<br>a una solución.</h2>
-          </div>
-          <p>
-            Cuatro etapas con decisiones visibles y puntos de control. El alcance
-            se adapta a lo que el proyecto realmente necesita.
-          </p>
-        </div>
-
-        <ol class="process-map">
-          <li class="process-step reveal">
-            <span class="process-step__number">01</span>
-            <div>
-              <h3>Entender</h3>
-              <p>Analizar contexto, objetivos, usuarios, contenido y restricciones.</p>
-            </div>
-          </li>
-          <li class="process-step reveal">
-            <span class="process-step__number">02</span>
-            <div>
-              <h3>Estructurar</h3>
-              <p>Definir prioridades, recorridos, funcionalidades y arquitectura de información.</p>
-            </div>
-          </li>
-          <li class="process-step reveal">
-            <span class="process-step__number">03</span>
-            <div>
-              <h3>Diseñar y construir</h3>
-              <p>Convertir la estructura en una interfaz responsive y funcional.</p>
-            </div>
-          </li>
-          <li class="process-step process-step--last reveal">
-            <span class="process-step__number">04</span>
-            <div>
-              <h3>Validar y publicar</h3>
-              <p>Probar contenido, responsive y funciones antes de preparar la entrega.</p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <section class="capabilities section-pad" id="capacidades" aria-labelledby="capabilities-title">
-        <div class="section-shell">
-          <div class="capabilities-intro reveal">
-            <p class="eyebrow">Capacidades y tecnologías</p>
-            <h2 id="capabilities-title">
-              Pensar el sistema.<br>
-              <span>Construir la experiencia.</span>
-            </h2>
-            <p>
-              Tecnologías y herramientas utilizadas en proyectos y procesos de aprendizaje,
-              agrupadas por la función que cumplen.
-            </p>
+        <div class="practice-layout">
+          <div class="practice-column reveal">
+            <p class="practice-column__label"><span>A</span> En qué puedo ayudarte</p>
+            <ol class="practice-list">
+              <li class="practice-item">
+                <span>01</span>
+                <div>
+                  <h3>Sitios corporativos</h3>
+                  <p>Arquitectura, interfaz y desarrollo para presentar una organización con claridad.</p>
+                </div>
+              </li>
+              <li class="practice-item">
+                <span>02</span>
+                <div>
+                  <h3>Tiendas online</h3>
+                  <p>Catálogo, ficha de producto y flujo de compra pensados para vender sin fricción.</p>
+                </div>
+              </li>
+              <li class="practice-item">
+                <span>03</span>
+                <div>
+                  <h3>Landing pages y rediseños</h3>
+                  <p>Páginas enfocadas en una acción y mejoras de sitios que necesitan una estructura más útil.</p>
+                </div>
+              </li>
+              <li class="practice-item">
+                <span>04</span>
+                <div>
+                  <h3>Interfaces y sistemas web</h3>
+                  <p>Recorridos e interfaces para herramientas que organizan datos, tareas o procesos.</p>
+                </div>
+              </li>
+            </ol>
           </div>
 
-          <div class="capability-groups">
-            <section class="capability-group reveal" aria-labelledby="cap-design">
-              <span class="capability-index">A</span>
-              <div>
-                <h3 id="cap-design">Diseño y estructura</h3>
-                <ul>
-                  <li>Arquitectura de información</li>
-                  <li>Diseño de interfaces</li>
-                  <li>Responsive design</li>
-                  <li>Organización de contenido</li>
-                  <li>Prototipado</li>
-                  <li>Jerarquía visual</li>
-                </ul>
-              </div>
-            </section>
+          <div class="practice-column reveal">
+            <p class="practice-column__label"><span>B</span> Cómo trabajamos</p>
+            <ol class="practice-list">
+              <li class="practice-item">
+                <span>01</span>
+                <div>
+                  <h3>Entender</h3>
+                  <p>Analizar contexto, objetivos, usuarios, contenido y restricciones.</p>
+                </div>
+              </li>
+              <li class="practice-item">
+                <span>02</span>
+                <div>
+                  <h3>Estructurar</h3>
+                  <p>Definir prioridades, recorridos, funcionalidades y arquitectura de información.</p>
+                </div>
+              </li>
+              <li class="practice-item">
+                <span>03</span>
+                <div>
+                  <h3>Diseñar y construir</h3>
+                  <p>Convertir la estructura en una interfaz responsive y funcional.</p>
+                </div>
+              </li>
+              <li class="practice-item">
+                <span>04</span>
+                <div>
+                  <h3>Validar y publicar</h3>
+                  <p>Probar contenido, adaptación y funciones antes de preparar la entrega.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
 
-            <section class="capability-group reveal" aria-labelledby="cap-dev">
-              <span class="capability-index">B</span>
-              <div>
-                <h3 id="cap-dev">Desarrollo web</h3>
-                <ul>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                  <li>JavaScript</li>
-                  <li>PHP</li>
-                  <li>Java</li>
-                  <li>Spring Boot</li>
-                </ul>
-              </div>
-            </section>
-
-            <section class="capability-group reveal" aria-labelledby="cap-data">
-              <span class="capability-index">C</span>
-              <div>
-                <h3 id="cap-data">Datos</h3>
-                <ul>
-                  <li>MySQL</li>
-                  <li>SQL</li>
-                  <li>Oracle</li>
-                </ul>
-              </div>
-            </section>
-
-            <section class="capability-group reveal" aria-labelledby="cap-commerce">
-              <span class="capability-index">D</span>
-              <div>
-                <h3 id="cap-commerce">CMS y comercio electrónico</h3>
-                <ul>
-                  <li>WordPress</li>
-                  <li>WooCommerce</li>
-                  <li>Elementor</li>
-                  <li>Temas hijo</li>
-                  <li>Catálogos</li>
-                  <li>Carrito</li>
-                  <li>Checkout</li>
-                </ul>
-              </div>
-            </section>
-
-            <section class="capability-group reveal" aria-labelledby="cap-tools">
-              <span class="capability-index">E</span>
-              <div>
-                <h3 id="cap-tools">Herramientas</h3>
-                <ul>
-                  <li>Git</li>
-                  <li>GitHub</li>
-                  <li>Vercel</li>
-                  <li>Cloudflare</li>
-                  <li>Figma</li>
-                  <li>Visual Studio Code</li>
-                </ul>
-              </div>
-            </section>
+        <div class="practice-principles reveal">
+          <div class="practice-principle">
+            <strong>Claridad</strong>
+            <span>Información antes que decoración. Si algo no ayuda a entender, sobra.</span>
+          </div>
+          <div class="practice-principle">
+            <strong>Funcionalidad</strong>
+            <span>Cada elemento trabaja para el usuario o para el objetivo del proyecto.</span>
+          </div>
+          <div class="practice-principle">
+            <strong>Continuidad</strong>
+            <span>Soluciones preparadas para mantenerse, actualizarse y crecer.</span>
           </div>
         </div>
       </section>
@@ -1327,23 +1299,23 @@
           <p class="eyebrow">Perfil profesional</p>
           <dl>
             <div><dt>Nombre</dt><dd>Nils Tovar</dd></div>
-            <div><dt>Rol</dt><dd>Web Design &amp; Development</dd></div>
+            <div><dt>Rol</dt><dd>Diseño y desarrollo web</dd></div>
             <div><dt>Base</dt><dd>Lima, Perú</dd></div>
             <div><dt>Modalidad</dt><dd>Remoto</dd></div>
           </dl>
         </aside>
 
         <div class="about-copy reveal">
-          <p class="eyebrow">Información profesional</p>
-          <h2 id="about-title">Entre la lógica<br>y el criterio visual.</h2>
+          <p class="eyebrow">Sobre mí</p>
+          <h2 id="about-title" data-fold-text>Entre la lógica y el criterio visual.</h2>
           <p class="about-lead">
             Me interesa participar en el proceso completo de un producto digital:
             comprender el problema, organizar la información, diseñar la experiencia
             y convertirla en una solución funcional.
           </p>
           <p>
-            Combino desarrollo web, criterio visual y atención al detalle para construir
-            sitios corporativos, eCommerce e interfaces claras por dentro y por fuera.
+            No empiezo diseñando una pantalla. Primero intento entender qué debe
+            resolver, y recién entonces aparece la interfaz.
           </p>
           <div class="about-meta">
             <span>Lima, Perú</span>
@@ -1353,18 +1325,56 @@
         </div>
       </section>
 
-      <section class="contact section-pad" id="contacto" aria-labelledby="contact-title">
-        <div class="section-shell contact-shell">
-          <div class="contact-copy reveal">
+      <section class="closing" id="contacto" aria-labelledby="closing-title">
+        <div class="closing__backdrop" aria-hidden="true">
+          <img
+            src="assets/images/projects/sifuentes/sifuentes-bentobox-desktop-safari.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          >
+          <img
+            src="assets/images/labs/sonora.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          >
+          <img
+            src="assets/images/projects/gb-audio/gb-audio-catalogo-desktop-safari.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          >
+          <img
+            src="assets/images/labs/retina-lab.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
+        <div class="closing__veil" aria-hidden="true"></div>
+        <div
+          data-gradual-blur
+          data-blur-position="bottom"
+          data-blur-strength="3"
+          data-blur-divs="8"
+          data-blur-curve="ease-in-out"
+          data-blur-exponential="true"
+        ></div>
+
+        <div class="section-shell closing__shell">
+          <div class="closing__copy reveal">
             <p class="eyebrow">Contacto / Nuevos proyectos</p>
-            <h2 id="contact-title">¿Tienes un proyecto que todavía no tiene una estructura clara?</h2>
-            <p>
-              Podemos comenzar entendiendo el problema antes de hablar de diseño
-              o tecnología. También puedes escribirme directamente por correo
-              o utilizar el formulario.
+            <h2 id="closing-title" class="closing__title" data-fold-text>
+              ¿Te gusta lo que podemos llegar a construir?
+            </h2>
+            <p class="closing__lead">
+              Cuéntame qué tienes en mente. Podemos empezar por el problema y no
+              por la pantalla: si el proyecto todavía no tiene una estructura clara,
+              esa es exactamente la conversación.
             </p>
 
-            <div class="contact-direct" data-contact-links>
+            <div class="closing__direct" data-contact-links>
               <a data-contact="email" hidden>
                 <span>Correo</span>
                 <strong data-contact-value="email"></strong>
@@ -1373,11 +1383,6 @@
                 <span>WhatsApp</span>
                 <strong>Iniciar conversación</strong>
               </a>
-            </div>
-
-            <div class="social-links" aria-label="Redes sociales" data-social-links>
-              <a data-social="github" hidden>GitHub <span aria-hidden="true">↗</span></a>
-              <a data-social="linkedin" hidden>LinkedIn <span aria-hidden="true">↗</span></a>
               <a
                 href="https://www.instagram.com/alexxtitoo/"
                 target="_blank"
@@ -1387,6 +1392,8 @@
                 Instagram · @alexxtitoo <span aria-hidden="true">↗</span>
                 <span class="visually-hidden">(abre en una pestaña nueva)</span>
               </a>
+              <a data-social="github" hidden>GitHub <span aria-hidden="true">↗</span></a>
+              <a data-social="linkedin" hidden>LinkedIn <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 
@@ -1396,6 +1403,7 @@
             method="POST"
             novalidate
             data-contact-form
+            data-border-glow
           >
             <div class="form-field">
               <label for="name">Nombre <span aria-hidden="true">*</span></label>
@@ -1436,10 +1444,10 @@
                 >
                   <option value="">Selecciona una opción</option>
                   <option value="sitio-corporativo">Sitio corporativo</option>
-                  <option value="ecommerce">eCommerce</option>
-                  <option value="sistema-web">Sistema web</option>
-                  <option value="wordpress">WordPress</option>
-                  <option value="interfaz">Diseño o mejora de interfaz</option>
+                  <option value="tienda-online">Tienda online</option>
+                  <option value="landing">Landing page</option>
+                  <option value="rediseno">Rediseño o mejora de un sitio existente</option>
+                  <option value="sistema-web">Sistema o herramienta web</option>
                   <option value="otro">Otro</option>
                 </select>
                 <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -1479,7 +1487,7 @@
             </div>
 
             <div class="form-footer form-field--full">
-              <button class="button button--coral" type="submit" data-submit-button>
+              <button class="button button--coral" type="submit" data-submit-button data-specular="dark">
                 <span>Enviar mensaje</span>
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4"></path>
@@ -1507,7 +1515,7 @@
               </a>
               <div>
                 <h2 id="footer-title">Nils Tovar</h2>
-                <p>Desarrollador web y diseñador digital</p>
+                <p>Diseñador y desarrollador web</p>
               </div>
             </div>
             <p class="footer-location">Lima, Perú</p>
@@ -1576,9 +1584,9 @@
             <p class="footer-kicker">Recorrer</p>
             <div class="footer-nav__links">
               <a href="#inicio">Inicio</a>
-              <a href="#proyectos">Ver proyectos</a>
+              <a href="#proyectos">Trabajo</a>
               <a href="#lab">Concept Lab</a>
-              <a href="#servicios">Servicios</a>
+              <a href="#metodo">Método</a>
               <a href="#contacto">Contacto</a>
               <a class="footer-back-to-top" href="#inicio">
                 Volver arriba
@@ -1628,5 +1636,6 @@
     </dialog>
 
     <script src="js/main.js" defer></script>
+    <script src="js/effects.js" defer></script>
   </body>
 </html>

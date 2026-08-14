@@ -1,0 +1,889 @@
+/* ==========================================================================
+   Nils Tovar — Capa de interacción
+   Versiones propias, en CSS y JavaScript sin dependencias, de cinco efectos:
+   Fold Text · Specular Button · Border Glow · Accordion Gallery · Gradual Blur
+   ========================================================================== */
+
+:root {
+  --glow-h: 12;
+  --glow-s: 82%;
+  --glow-l: 61%;
+}
+
+/* --------------------------------------------------------------------------
+   1. Fold Text — cada segmento gira sobre una bisagra hasta quedar plano
+   -------------------------------------------------------------------------- */
+
+/* Los segmentos son inline-block: `balance` los trataría como líneas sueltas. */
+.fold-text,
+[data-fold-text] {
+  text-wrap: normal;
+}
+
+.fold-text__visual {
+  display: inline;
+}
+
+/* Los segmentos heredan siempre del título que los contiene; nunca de reglas
+   de tipo `.hero h1 span`, pensadas para los span de contenido. */
+.fold-text span.fold-text__seg,
+.fold-text span.fold-text__piece {
+  display: inline-block;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.fold-text__seg {
+  display: inline-block;
+  perspective: var(--fold-perspective, 760px);
+  transform-style: preserve-3d;
+  vertical-align: baseline;
+}
+
+.fold-text__piece {
+  position: relative;
+  display: inline-block;
+  line-height: inherit;
+  transform-origin: 50% 0%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.js .fold-text[data-fold-ready] .fold-text__piece {
+  opacity: 0;
+  transform: rotateX(-92deg);
+  transition:
+    transform 720ms var(--ease-out),
+    opacity 520ms ease;
+}
+
+.js .fold-text[data-fold-ready].is-folded .fold-text__piece {
+  opacity: 1;
+  transform: rotateX(0deg);
+}
+
+.fold-text__piece::after {
+  position: absolute;
+  inset: -0.08em -0.02em;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.2) 42%,
+    rgba(255, 255, 255, 0.24) 100%
+  );
+  border-radius: 0.08em;
+  content: "";
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 520ms ease;
+}
+
+.js .fold-text[data-fold-ready].is-folded .fold-text__piece::after {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. Specular Button — un reflejo recorre el borde siguiendo al cursor
+   -------------------------------------------------------------------------- */
+
+.specular {
+  position: relative;
+  isolation: isolate;
+  --sb-angle: 130deg;
+  --sb-intensity: 0.22;
+  --sb-line: rgba(255, 255, 255, 0.95);
+}
+
+.specular--dark {
+  --sb-line: rgba(28, 29, 26, 0.85);
+}
+
+.specular__fx {
+  position: absolute;
+  z-index: -1;
+  inset: -18px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.specular__fx::before,
+.specular__fx::after {
+  position: absolute;
+  inset: 18px;
+  padding: 1.4px;
+  background: conic-gradient(
+    from var(--sb-angle),
+    transparent 0deg,
+    var(--sb-line) 8deg,
+    transparent 34deg,
+    transparent 146deg,
+    var(--sb-line) 188deg,
+    transparent 214deg,
+    transparent 340deg,
+    var(--sb-line) 356deg,
+    transparent 360deg
+  );
+  border-radius: 999px;
+  content: "";
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--sb-intensity);
+  transition: opacity 260ms ease;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+}
+
+.specular__fx::after {
+  padding: 2.4px;
+  filter: blur(7px);
+  opacity: calc(var(--sb-intensity) * 0.75);
+}
+
+.specular:hover,
+.specular:focus-visible {
+  --sb-intensity: 1;
+}
+
+.specular__label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. Border Glow — el borde se enciende según la cercanía del cursor
+   -------------------------------------------------------------------------- */
+
+.glow-card {
+  position: relative;
+  --edge-proximity: 0;
+  --cursor-angle: 45deg;
+  --edge-sensitivity: 18;
+  --color-sensitivity: 46;
+  --cone-spread: 25;
+  --glow-padding: 26px;
+  --glow-color: hsl(var(--glow-h) var(--glow-s) var(--glow-l) / 100%);
+  --glow-color-50: hsl(var(--glow-h) var(--glow-s) var(--glow-l) / 50%);
+  --glow-color-30: hsl(var(--glow-h) var(--glow-s) var(--glow-l) / 30%);
+  --glow-color-15: hsl(var(--glow-h) var(--glow-s) var(--glow-l) / 15%);
+
+  isolation: isolate;
+  transform: translate3d(0, 0, 0.01px);
+}
+
+.glow-card__edge {
+  position: absolute;
+  z-index: -1;
+  inset: calc(var(--glow-padding) * -1);
+  border-radius: inherit;
+  mask-image: conic-gradient(
+    from var(--cursor-angle) at center,
+    #000 2.5%,
+    transparent 11%,
+    transparent 89%,
+    #000 97.5%
+  );
+  opacity: calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)));
+  pointer-events: none;
+  transition: opacity 320ms ease-out;
+  -webkit-mask-image: conic-gradient(
+    from var(--cursor-angle) at center,
+    #000 2.5%,
+    transparent 11%,
+    transparent 89%,
+    #000 97.5%
+  );
+}
+
+.glow-card__edge::before {
+  position: absolute;
+  inset: var(--glow-padding);
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--glow-color),
+    inset 0 0 6px 0 var(--glow-color-50),
+    inset 0 0 18px 0 var(--glow-color-30),
+    0 0 4px 0 var(--glow-color-50),
+    0 0 14px 0 var(--glow-color-30),
+    0 0 34px 2px var(--glow-color-15);
+  content: "";
+}
+
+.glow-card:not(:hover) .glow-card__edge {
+  opacity: 0;
+  transition: opacity 700ms ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   4. Accordion Gallery — paneles que se expanden al recorrerlos
+   -------------------------------------------------------------------------- */
+
+.accordion-gallery {
+  --ag-gap: 10px;
+  --ag-radius: 18px;
+  --ag-media-size: 420px;
+  --ag-overlay: 28, 29, 26;
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: clamp(300px, 40vw, 520px);
+  gap: var(--ag-gap);
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+}
+
+.ag-panel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0;
+  background: var(--ink);
+  border: 0;
+  border-radius: var(--ag-radius);
+  box-shadow: 0 18px 46px -22px rgba(28, 29, 26, 0.75);
+  cursor: pointer;
+  text-align: left;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition:
+    flex-grow 620ms var(--ease-out),
+    transform 620ms var(--ease-out);
+  will-change: flex-grow, transform;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ag-panel__frame {
+  position: absolute;
+  overflow: hidden;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.ag-panel__media {
+  --ag-gray: 1;
+  --ag-dim: 0.42;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ag-media-size);
+  height: 100%;
+  filter: grayscale(var(--ag-gray));
+  transform: translate(-50%, -50%);
+  transition:
+    transform 620ms var(--ease-out),
+    filter 620ms var(--ease-out);
+  will-change: transform, filter;
+}
+
+.ag-panel__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ag-panel__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 42%, rgba(var(--ag-overlay), 0.82) 100%),
+    rgba(var(--ag-overlay), var(--ag-dim, 0.42));
+  pointer-events: none;
+  transition: background 620ms var(--ease-out);
+}
+
+.ag-panel__index {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  color: rgba(250, 248, 242, 0.72);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  pointer-events: none;
+}
+
+.ag-panel__label {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.js .ag-panel__bar,
+.js .ag-panel__text {
+  opacity: 0;
+}
+
+.ag-panel__bar {
+  width: 3px;
+  height: 30px;
+  flex: 0 0 auto;
+  background: var(--coral);
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(238, 106, 75, 0.6);
+  transition:
+    opacity 480ms var(--ease-out),
+    transform 480ms var(--ease-out);
+  transform: translateX(-14px);
+}
+
+.ag-panel__text {
+  display: grid;
+  gap: 0.15rem;
+  transform: translateX(-14px);
+  transition:
+    opacity 480ms var(--ease-out) 60ms,
+    transform 480ms var(--ease-out) 60ms;
+}
+
+.ag-panel__text strong {
+  color: var(--paper-light);
+  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+}
+
+.ag-panel__text small {
+  color: rgba(250, 248, 242, 0.68);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.ag-panel.is-active .ag-panel__bar,
+.ag-panel.is-active .ag-panel__text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ag-panel:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 3px;
+}
+
+.accordion-gallery__hint {
+  margin-top: 0.9rem;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.case-study--sifuentes .accordion-gallery__hint {
+  color: rgba(250, 248, 242, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   5. Gradual Blur — desenfoque progresivo por capas
+   -------------------------------------------------------------------------- */
+
+.gradual-blur {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  height: var(--blur-height, 7rem);
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.gradual-blur--bottom {
+  bottom: 0;
+}
+
+.gradual-blur--top {
+  top: 0;
+}
+
+.gradual-blur__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .gradual-blur__inner > div {
+    background: rgba(242, 239, 231, 0.55);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero: bisagra tipográfica + cierre difuminado
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+}
+
+.hero .gradual-blur {
+  height: clamp(4rem, 8vw, 7.5rem);
+}
+
+.hero-actions .button {
+  border-radius: 999px;
+}
+
+/* --------------------------------------------------------------------------
+   Trabajo real: cabecera de caso con estado publicado
+   -------------------------------------------------------------------------- */
+
+.project-index__item {
+  border-radius: var(--radius-md);
+}
+
+.case-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem 0.55rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.case-live::before {
+  width: 7px;
+  height: 7px;
+  background: #4fae7a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(79, 174, 122, 0.18);
+  content: "";
+}
+
+.case-live:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-light);
+}
+
+.case-study--sifuentes .case-live {
+  border-color: rgba(250, 248, 242, 0.28);
+  color: var(--paper-light);
+}
+
+.case-study--sifuentes .case-live:hover {
+  background: var(--paper-light);
+  border-color: var(--paper-light);
+  color: var(--ink);
+}
+
+.case-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+
+.case-visual {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.case-visual__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.case-visual__head p {
+  max-width: 46ch;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.case-study--sifuentes .case-visual__head p {
+  color: rgba(250, 248, 242, 0.66);
+}
+
+/* --------------------------------------------------------------------------
+   Sección combinada: servicios + proceso + criterio
+   -------------------------------------------------------------------------- */
+
+.practice {
+  position: relative;
+  overflow: clip;
+}
+
+.practice-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.practice-column__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.practice-column__label span {
+  color: var(--coral);
+}
+
+.practice-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.practice-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.1rem;
+  padding: 1.15rem 1.35rem;
+  background: rgba(250, 248, 242, 0.55);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.practice-item span {
+  color: var(--coral);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.practice-item h3 {
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.practice-item p {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.practice-principles {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.practice-principle {
+  padding: 1.5rem;
+  background: var(--ink);
+  border-radius: var(--radius-md);
+  color: var(--paper-light);
+}
+
+.practice-principle strong {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.practice-principle span {
+  color: rgba(250, 248, 242, 0.68);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Cierre difuminado + formulario
+   -------------------------------------------------------------------------- */
+
+.closing {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(5rem, 9vw, 9rem);
+  background: var(--ink);
+  color: var(--paper-light);
+  isolation: isolate;
+}
+
+.closing__backdrop {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  opacity: 0.68;
+  pointer-events: none;
+}
+
+.closing__backdrop img {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(1) contrast(1.05);
+}
+
+.closing__veil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 8%, rgba(28, 29, 26, 0.28) 0%, rgba(28, 29, 26, 0.9) 68%),
+    linear-gradient(180deg, rgba(28, 29, 26, 0.5) 0%, rgba(28, 29, 26, 0.97) 100%);
+  pointer-events: none;
+}
+
+.closing .gradual-blur {
+  --blur-height: 100%;
+
+  top: 0;
+  z-index: 2;
+}
+
+.closing__shell {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.closing__copy .eyebrow {
+  color: var(--coral);
+}
+
+.closing__title {
+  margin-top: 1.2rem;
+  font-size: clamp(2.3rem, 5.2vw, 4.6rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+
+.closing__lead {
+  max-width: 44ch;
+  margin-top: 1.4rem;
+  color: rgba(250, 248, 242, 0.72);
+  font-size: 0.95rem;
+}
+
+.closing__direct {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.closing__direct a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid rgba(250, 248, 242, 0.24);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.closing__direct a:hover {
+  background: var(--paper-light);
+  border-color: var(--paper-light);
+  color: var(--ink);
+}
+
+.closing .contact-form {
+  position: relative;
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  background: rgba(250, 248, 242, 0.05);
+  border: 1px solid rgba(250, 248, 242, 0.16);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.closing .contact-form label,
+.closing .field-meta,
+.closing .form-footer p {
+  color: rgba(250, 248, 242, 0.72);
+}
+
+.closing .contact-form input,
+.closing .contact-form select,
+.closing .contact-form textarea {
+  background: rgba(28, 29, 26, 0.35);
+  border: 1px solid rgba(250, 248, 242, 0.22);
+  border-radius: var(--radius-sm);
+  color: var(--paper-light);
+}
+
+.closing .contact-form input:focus-visible,
+.closing .contact-form select:focus-visible,
+.closing .contact-form textarea:focus-visible {
+  border-color: var(--coral);
+}
+
+.closing .select-wrap svg {
+  stroke: rgba(250, 248, 242, 0.7);
+}
+
+.closing .form-status.is-success {
+  color: #a7dcb8;
+}
+
+.closing .form-status.is-error {
+  color: #ffb3a0;
+}
+
+.secondary-gallery .case-evolution {
+  grid-column: 1 / -1;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: 0;
+}
+
+.closing .field-error {
+  color: #ffb3a0;
+}
+
+/* --------------------------------------------------------------------------
+   Concept Lab: tarjetas con borde reactivo
+   -------------------------------------------------------------------------- */
+
+.lab-card {
+  --glow-padding: 22px;
+
+  border-radius: var(--radius-md);
+}
+
+.lab-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+}
+
+.lab-card__meta li {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(250, 248, 242, 0.2);
+  border-radius: 999px;
+  color: rgba(250, 248, 242, 0.72);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .practice-layout,
+  .closing__shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .practice-principles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .closing__backdrop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .accordion-gallery {
+    height: auto;
+    flex-direction: column;
+    perspective: none;
+  }
+
+  .ag-panel {
+    min-height: 96px;
+    transform: none !important;
+  }
+
+  .ag-panel.is-active {
+    min-height: 260px;
+  }
+
+  .accordion-gallery .ag-panel__media {
+    width: 100%;
+    height: var(--ag-media-size);
+  }
+
+  .ag-panel__text strong {
+    white-space: normal;
+  }
+
+  .closing__backdrop {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .fold-text[data-fold-ready] .fold-text__piece {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .js .fold-text[data-fold-ready] .fold-text__piece::after {
+    opacity: 0;
+  }
+
+  .ag-panel,
+  .ag-panel__media,
+  .ag-panel__bar,
+  .ag-panel__text,
+  .glow-card__edge,
+  .specular__fx::before,
+  .specular__fx::after {
+    transition-duration: 1ms !important;
+  }
+
+  .ag-panel {
+    transform: none !important;
+  }
+}
