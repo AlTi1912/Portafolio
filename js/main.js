@@ -12,8 +12,21 @@ const portfolioConfig = {
   linkedin: "",
   whatsapp: "",
   resume: "",
-  // Ruta a una foto propia (p. ej. "assets/images/nils-tovar.webp"); vacío muestra el monograma.
-  portrait: "",
+  // Memoji 3D con fondo transparente (PNG o WebP); vacío muestra el monograma.
+  // gaze es opcional: 9 imágenes mirando hacia cada dirección, en orden de lectura
+  // (arriba-izq., arriba, arriba-der., izq., centro, der., abajo-izq., abajo, abajo-der.).
+  avatar: {
+    src: "",
+    gaze: []
+  },
+  // Resultados visibles en cada caso. Las métricas animan su cifra al aparecer:
+  // { value: 1200, suffix: "+", label: "clics desde Google", detail: "Search Console · 3 meses" }
+  caseResults: {
+    sifuentes: {
+      note: "La empresa ya recibe consultas de nuevos clientes que llegan a través del sitio.",
+      metrics: []
+    }
+  },
   formspreeEndpoint: "https://formspree.io/f/xrenojvo"
 };
 
@@ -122,7 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setupLabViewer();
-  setupPortrait();
+  setupAvatar();
+  setupCaseResults();
   setupConfiguredLinks();
   setupCopyEmail();
   setupHeader();
@@ -380,20 +394,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function setupPortrait() {
-    const holder = document.querySelector("[data-portrait]");
-    const source = portfolioConfig.portrait.trim();
-    if (!holder || !source) return;
+  function setupAvatar() {
+    const holder = document.querySelector("[data-avatar]");
+    const stage = holder?.querySelector("[data-gaze-target]");
+    const { src, gaze } = portfolioConfig.avatar;
+    if (!stage || !src.trim()) return;
 
     const image = new Image();
-    image.alt = "Retrato de Nils Tovar";
+    image.className = "about-portrait__img";
+    image.alt = "Memoji de Nils Tovar";
     image.decoding = "async";
-    image.loading = "lazy";
     image.addEventListener("load", () => {
-      holder.replaceChildren(image);
-      holder.classList.add("has-photo");
+      stage.replaceChildren(image);
+      holder.classList.add("has-avatar");
     });
-    image.src = source;
+    image.src = src.trim();
+
+    // Con las 9 direcciones, el efecto de mirada cambia de imagen además de inclinarla.
+    if (Array.isArray(gaze) && gaze.length === 9) {
+      holder.dataset.gazeImages = JSON.stringify(gaze);
+      gaze.forEach((path) => {
+        new Image().src = path;
+      });
+    }
+  }
+
+  function setupCaseResults() {
+    document.querySelectorAll("[data-case-results]").forEach((section) => {
+      const results = portfolioConfig.caseResults[section.dataset.caseResults];
+      const body = section.querySelector("[data-case-results-body]");
+      if (!results || !body) return;
+
+      const metrics = (results.metrics || []).filter((metric) => Number.isFinite(metric.value));
+      if (!metrics.length && !results.note) return;
+
+      body.innerHTML = `
+        ${metrics
+          .map(
+            (metric) => `
+              <div class="case-metric">
+                <strong>${metric.prefix || ""}<span data-count-up data-count-to="${metric.value}">${metric.value.toLocaleString("es-PE")}</span>${metric.suffix || ""}</strong>
+                <span>${metric.label}</span>
+                ${metric.detail ? `<small>${metric.detail}</small>` : ""}
+              </div>
+            `
+          )
+          .join("")}
+        ${results.note ? `<p class="case-results__note">${results.note}</p>` : ""}
+      `;
+      section.hidden = false;
+    });
+  }
+
+  // La capa de efectos dibuja el aviso; sin ella, el estado sigue anunciándose en el formulario.
+  function showToast(message, tone = "neutral") {
+    document.dispatchEvent(new CustomEvent("portfolio:toast", { detail: { message, tone } }));
   }
 
   function setupConfiguredLinks() {
@@ -890,6 +945,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Gracias. Tu mensaje fue enviado correctamente.",
           "success"
         );
+        showToast("Mensaje enviado. Te responderé por correo.", "success");
       } catch {
         showStatus(
           "No fue posible enviar el mensaje. Inténtalo de nuevo o utiliza un canal de contacto configurado.",

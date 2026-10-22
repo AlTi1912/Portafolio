@@ -125,6 +125,7 @@
 
     <main id="contenido">
       <section class="hero section-shell" id="inicio" aria-labelledby="hero-title">
+        <canvas class="dot-grid" data-dot-grid aria-hidden="true"></canvas>
         <div class="hero-copy">
           <p class="eyebrow reveal">Diseño y desarrollo web · Lima, Perú</p>
           <h1 id="hero-title" class="reveal" data-fold-text data-fold-trigger="load" data-fold-stagger="40">
@@ -139,7 +140,7 @@
           </p>
 
           <div class="hero-actions reveal">
-            <a class="button button--ink" href="#proyectos" data-specular>
+            <a class="button button--ink" href="#proyectos" data-specular data-magnet>
               Ver trabajo
               <svg viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4"></path>
@@ -186,7 +187,7 @@
         <div class="section-shell">
           <div class="section-heading section-heading--split reveal">
             <div>
-              <p class="eyebrow">Casos reales / 02 proyectos publicados</p>
+              <p class="eyebrow">Casos reales / 02 proyectos</p>
               <h2 id="projects-title" data-fold-text>Diseño aplicado a necesidades concretas.</h2>
             </div>
             <p>
@@ -211,7 +212,7 @@
                 <strong>GB Audio</strong>
                 <small>Tienda online · Audio automotriz</small>
               </span>
-              <span class="status-label">Caso real</span>
+              <span class="status-label">Por publicar</span>
               <span class="project-index__arrow" aria-hidden="true">↘</span>
             </a>
           </nav>
@@ -669,6 +670,16 @@
               </div>
             </div>
 
+            <section
+              class="case-results reveal"
+              aria-labelledby="sifuentes-results-title"
+              data-case-results="sifuentes"
+              hidden
+            >
+              <p class="project-meta__label" id="sifuentes-results-title">Después de publicar</p>
+              <div class="case-results__body" data-case-results-body></div>
+            </section>
+
             <div class="case-info">
               <div class="case-facts">
                 <p class="project-meta__label">Participación</p>
@@ -726,6 +737,10 @@
                   <div>
                     <dt>Alcance</dt>
                     <dd>Estructura comercial y flujo de compra</dd>
+                  </div>
+                  <div>
+                    <dt>Estado</dt>
+                    <dd>Terminado · publicación pendiente</dd>
                   </div>
                 </dl>
               </aside>
@@ -1192,8 +1207,10 @@
       <section class="about section-shell section-pad" id="sobre-mi" aria-labelledby="about-title">
         <aside class="about-facts reveal" aria-label="Información profesional">
           <p class="eyebrow">Perfil profesional</p>
-          <div class="about-portrait" data-portrait>
-            <span class="about-portrait__mono" aria-hidden="true">NT</span>
+          <div class="about-portrait" data-avatar data-gaze>
+            <span class="about-portrait__stage" data-gaze-target>
+              <span class="about-portrait__mono" aria-hidden="true">NT</span>
+            </span>
           </div>
           <dl>
             <div><dt>Nombre</dt><dd>Nils Tovar</dd></div>
@@ -1206,7 +1223,7 @@
         <div class="about-copy reveal">
           <p class="eyebrow">Sobre mí</p>
           <h2 id="about-title" data-fold-text>Entre la lógica y el criterio visual.</h2>
-          <p class="about-lead">
+          <p class="about-lead" data-scroll-reveal>
             Me interesa participar en el proceso completo de un producto digital:
             comprender el problema, organizar la información, diseñar la experiencia
             y convertirla en una solución funcional.
@@ -1361,7 +1378,7 @@
             </div>
 
             <div class="form-footer form-field--full">
-              <button class="button button--coral" type="submit" data-submit-button data-specular="dark">
+              <button class="button button--coral" type="submit" data-submit-button data-specular="dark" data-magnet>
                 <span>Enviar mensaje</span>
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4"></path>

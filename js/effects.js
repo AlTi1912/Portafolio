@@ -3,6 +3,7 @@
 /* ==========================================================================
    Capa de interacción — implementaciones propias, sin dependencias externas
    Fold Text · Specular Button · Border Glow · Accordion Gallery · Gradual Blur
+   Dot Grid · Magnet · Scroll Reveal · Count Up · Gaze · Swipe Toast
    ========================================================================== */
 
 (() => {
@@ -15,7 +16,15 @@
     setupBorderGlow();
     setupAccordionGalleries();
     setupGradualBlur();
+    setupDotGrid();
+    setupMagnet();
+    setupScrollReveal();
+    setupCountUp();
+    setupGaze();
+    setupToasts();
   });
+
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* ------------------------------------------------------------------------
      Fold Text
@@ -420,6 +429,413 @@
       }
 
       container.append(inner);
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     Dot Grid
+     Retícula de puntos que se aparta y se enciende alrededor del cursor.
+     ------------------------------------------------------------------------ */
+
+  function setupDotGrid() {
+    document.querySelectorAll("[data-dot-grid]").forEach((canvas) => {
+      const context = canvas.getContext("2d");
+      const host = canvas.parentElement;
+      if (!context || !host) return;
+
+      const gap = Number(canvas.dataset.dotGap || 28);
+      const radius = Number(canvas.dataset.dotRadius || 1.1);
+      const reach = Number(canvas.dataset.dotReach || 150);
+      const styles = getComputedStyle(document.documentElement);
+      const base = styles.getPropertyValue("--ink").trim() || "#1c1d1a";
+      const active = styles.getPropertyValue("--coral").trim() || "#ee6a4b";
+
+      let dots = [];
+      let width = 0;
+      let height = 0;
+      let pointer = { x: -9999, y: -9999 };
+      let running = false;
+      let visible = true;
+      let frame = 0;
+
+      const resize = () => {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = canvas.clientWidth;
+        height = canvas.clientHeight;
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        dots = [];
+        const offsetX = (width % gap) / 2;
+        const offsetY = (height % gap) / 2;
+        for (let y = offsetY; y <= height; y += gap) {
+          for (let x = offsetX; x <= width; x += gap) {
+            dots.push({ x, y, dx: 0, dy: 0, glow: 0 });
+          }
+        }
+        draw();
+      };
+
+      const draw = () => {
+        context.clearRect(0, 0, width, height);
+        let moving = false;
+
+        dots.forEach((dot) => {
+          const deltaX = dot.x - pointer.x;
+          const deltaY = dot.y - pointer.y;
+          const distance = Math.hypot(deltaX, deltaY);
+          const force = distance < reach ? 1 - distance / reach : 0;
+          const push = force * force * 10;
+          const targetX = distance ? (deltaX / distance) * push : 0;
+          const targetY = distance ? (deltaY / distance) * push : 0;
+
+          // Cada punto vuelve a su sitio con una inercia suave.
+          dot.dx += (targetX - dot.dx) * 0.14;
+          dot.dy += (targetY - dot.dy) * 0.14;
+          dot.glow += (force - dot.glow) * 0.14;
+          if (Math.abs(dot.dx) > 0.05 || Math.abs(dot.dy) > 0.05 || dot.glow > 0.01) moving = true;
+
+          context.globalAlpha = 0.13 + dot.glow * 0.7;
+          context.fillStyle = dot.glow > 0.08 ? active : base;
+          context.beginPath();
+          context.arc(dot.x + dot.dx, dot.y + dot.dy, radius + dot.glow * 1.1, 0, Math.PI * 2);
+          context.fill();
+        });
+
+        context.globalAlpha = 1;
+        return moving;
+      };
+
+      const loop = () => {
+        const moving = draw();
+        if (moving && visible) {
+          frame = window.requestAnimationFrame(loop);
+        } else {
+          running = false;
+        }
+      };
+
+      const wake = () => {
+        if (running || !visible) return;
+        running = true;
+        frame = window.requestAnimationFrame(loop);
+      };
+
+      resize();
+      if ("ResizeObserver" in window) {
+        new ResizeObserver(resize).observe(host);
+      } else {
+        window.addEventListener("resize", resize);
+      }
+
+      if (reduceMotion || !finePointer) return;
+
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          if (!visible) window.cancelAnimationFrame(frame);
+        }).observe(host);
+      }
+
+      // El lienzo ocupa todo el ancho, así que el cursor se lee desde la ventana.
+      window.addEventListener(
+        "pointermove",
+        (event) => {
+          if (!visible) return;
+          const rect = canvas.getBoundingClientRect();
+          const inside = event.clientY >= rect.top && event.clientY <= rect.bottom;
+          pointer = inside
+            ? { x: event.clientX - rect.left, y: event.clientY - rect.top }
+            : { x: -9999, y: -9999 };
+          wake();
+        },
+        { passive: true }
+      );
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     Magnet
+     El elemento se desplaza levemente hacia el cursor cuando está cerca.
+     ------------------------------------------------------------------------ */
+
+  function setupMagnet() {
+    if (reduceMotion || !finePointer) return;
+
+    document.querySelectorAll("[data-magnet]").forEach((element) => {
+      const padding = Number(element.dataset.magnetPadding || 60);
+      const strength = Number(element.dataset.magnetStrength || 4);
+      let queued = false;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      element.classList.add("magnet");
+
+      const update = () => {
+        queued = false;
+        const rect = element.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const inside =
+          Math.abs(pointerX - centerX) < rect.width / 2 + padding &&
+          Math.abs(pointerY - centerY) < rect.height / 2 + padding;
+
+        element.classList.toggle("is-attracted", inside);
+        element.style.translate = inside
+          ? `${((pointerX - centerX) / strength).toFixed(1)}px ${((pointerY - centerY) / strength).toFixed(1)}px`
+          : "";
+      };
+
+      window.addEventListener(
+        "pointermove",
+        (event) => {
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          if (queued) return;
+          queued = true;
+          window.requestAnimationFrame(update);
+        },
+        { passive: true }
+      );
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     Scroll Reveal
+     Las palabras se encienden a medida que el párrafo cruza la pantalla.
+     ------------------------------------------------------------------------ */
+
+  function setupScrollReveal() {
+    const targets = [...document.querySelectorAll("[data-scroll-reveal]")];
+    if (!targets.length || reduceMotion) return;
+
+    const entries = targets.map((target) => {
+      const words = target.textContent.trim().split(/\s+/);
+      target.setAttribute("aria-label", words.join(" "));
+      target.innerHTML = words
+        .map((word) => `<span class="scroll-reveal__word" aria-hidden="true">${word}</span>`)
+        .join(" ");
+      target.classList.add("scroll-reveal");
+      return { target, words: [...target.querySelectorAll(".scroll-reveal__word")] };
+    });
+
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const viewport = window.innerHeight;
+
+      entries.forEach(({ target, words }) => {
+        const rect = target.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > viewport) return;
+
+        // 0 cuando el párrafo asoma por abajo; 1 cuando su final pasa el centro.
+        const progress = clamp((viewport * 0.92 - rect.top) / (rect.height + viewport * 0.42), 0, 1);
+        const lit = progress * words.length;
+
+        words.forEach((word, index) => {
+          word.style.opacity = (0.16 + clamp(lit - index, 0, 1) * 0.84).toFixed(2);
+        });
+      });
+    };
+
+    const request = () => {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+    update();
+  }
+
+  /* ------------------------------------------------------------------------
+     Count Up
+     La cifra sube desde cero cuando entra en pantalla.
+     ------------------------------------------------------------------------ */
+
+  function setupCountUp() {
+    const counters = document.querySelectorAll("[data-count-up]");
+    if (!counters.length || reduceMotion || !("IntersectionObserver" in window)) return;
+
+    const format = (value) => Math.round(value).toLocaleString("es-PE");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+
+          const counter = entry.target;
+          const target = Number(counter.dataset.countTo);
+          const duration = Number(counter.dataset.countDuration || 1600);
+          const start = performance.now();
+
+          const tick = (now) => {
+            const progress = clamp((now - start) / duration, 0, 1);
+            counter.textContent = format(target * (1 - Math.pow(1 - progress, 3)));
+            if (progress < 1) window.requestAnimationFrame(tick);
+          };
+
+          window.requestAnimationFrame(tick);
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    counters.forEach((counter) => {
+      counter.textContent = format(0);
+      observer.observe(counter);
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     Gaze
+     El avatar se inclina hacia el cursor; con 9 imágenes, además mira hacia él.
+     ------------------------------------------------------------------------ */
+
+  function setupGaze() {
+    document.querySelectorAll("[data-gaze]").forEach((holder) => {
+      const stage = holder.querySelector("[data-gaze-target]");
+      if (!stage) return;
+
+      let images = [];
+      try {
+        images = JSON.parse(holder.dataset.gazeImages || "[]");
+      } catch {
+        images = [];
+      }
+
+      const maxTilt = Number(holder.dataset.gazeTilt || 16);
+      let queued = false;
+      let pointerX = window.innerWidth / 2;
+      let pointerY = window.innerHeight / 2;
+      let currentZone = 4;
+
+      const update = () => {
+        queued = false;
+        const rect = holder.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        // Normalizado respecto a la ventana: el gesto se nota aunque el cursor esté lejos.
+        const x = clamp((pointerX - centerX) / (window.innerWidth / 2), -1, 1);
+        const y = clamp((pointerY - centerY) / (window.innerHeight / 2), -1, 1);
+
+        stage.style.setProperty("--gaze-x", x.toFixed(3));
+        stage.style.setProperty("--gaze-y", y.toFixed(3));
+        stage.style.setProperty("--gaze-tilt", `${maxTilt}deg`);
+
+        if (images.length !== 9) return;
+
+        const column = x < -0.25 ? 0 : x > 0.25 ? 2 : 1;
+        const row = y < -0.25 ? 0 : y > 0.25 ? 2 : 1;
+        const zone = row * 3 + column;
+        if (zone === currentZone) return;
+
+        currentZone = zone;
+        const image = stage.querySelector("img");
+        if (image) image.src = images[zone];
+      };
+
+      holder.classList.add("gaze");
+      if (reduceMotion) return;
+
+      const request = () => {
+        if (queued) return;
+        queued = true;
+        window.requestAnimationFrame(update);
+      };
+
+      window.addEventListener(
+        "pointermove",
+        (event) => {
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          request();
+        },
+        { passive: true }
+      );
+
+      // En pantallas táctiles el avatar sigue el toque y vuelve al centro al soltar.
+      window.addEventListener("pointerup", (event) => {
+        if (event.pointerType !== "touch") return;
+        pointerX = window.innerWidth / 2;
+        pointerY = window.innerHeight / 2;
+        window.setTimeout(request, 400);
+      });
+
+      window.addEventListener("scroll", request, { passive: true });
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     Swipe Toast
+     Avisos breves que se descartan solos o deslizándolos hacia un lado.
+     ------------------------------------------------------------------------ */
+
+  function setupToasts() {
+    const region = document.createElement("div");
+    region.className = "toast-region";
+    // Es un refuerzo visual: cada aviso ya se anuncia en su propia región accesible.
+    region.setAttribute("aria-hidden", "true");
+    document.body.append(region);
+
+    document.addEventListener("portfolio:toast", (event) => {
+      const { message, tone = "neutral" } = event.detail || {};
+      if (!message) return;
+
+      const toast = document.createElement("div");
+      toast.className = `toast toast--${tone}`;
+      toast.innerHTML = `<span class="toast__mark" aria-hidden="true"></span><p></p>`;
+      toast.querySelector("p").textContent = message;
+      region.append(toast);
+
+      window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+      let timer = window.setTimeout(dismiss, 4200);
+      let startX = null;
+      let offset = 0;
+
+      toast.addEventListener("pointerdown", (pointerEvent) => {
+        startX = pointerEvent.clientX;
+        toast.setPointerCapture(pointerEvent.pointerId);
+        toast.classList.add("is-dragging");
+        window.clearTimeout(timer);
+      });
+
+      toast.addEventListener("pointermove", (pointerEvent) => {
+        if (startX === null) return;
+        offset = pointerEvent.clientX - startX;
+        toast.style.translate = `${offset}px 0`;
+        toast.style.opacity = String(clamp(1 - Math.abs(offset) / 220, 0, 1));
+      });
+
+      toast.addEventListener("pointerup", () => {
+        startX = null;
+        toast.classList.remove("is-dragging");
+
+        if (Math.abs(offset) > 90) {
+          toast.style.translate = `${Math.sign(offset) * 420}px 0`;
+          dismiss();
+          return;
+        }
+
+        offset = 0;
+        toast.style.translate = "";
+        toast.style.opacity = "";
+        timer = window.setTimeout(dismiss, 2400);
+      });
+
+      function dismiss() {
+        window.clearTimeout(timer);
+        toast.classList.remove("is-visible");
+        toast.classList.add("is-leaving");
+        window.setTimeout(() => toast.remove(), reduceMotion ? 0 : 400);
+      }
     });
   }
 })();
