@@ -23,15 +23,25 @@ const portfolioConfig = {
     }
   },
   // Resultados visibles en cada caso. Las métricas animan su cifra al aparecer:
-  // { value: 1200, suffix: "+", label: "clics desde Google", detail: "Search Console · 3 meses" }
+  // { value: 1200, prefix: "+", suffix: " %", decimals: 0, from: 0, label: "…", detail: "…" }
+  // from permite contar hacia abajo (p. ej. una posición en Google que mejora).
   caseResults: {
     sifuentes: {
       note: "La empresa ya recibe consultas de nuevos clientes que llegan a través del sitio.",
       metrics: [
         {
-          value: 40,
-          label: "clics desde la Búsqueda de Google en 28 días",
-          detail: "Google Search Console · octubre 2026"
+          value: 225,
+          prefix: "+",
+          suffix: " %",
+          label: "clics desde Google frente al mes anterior",
+          detail: "Search Console · segundo mes en línea"
+        },
+        {
+          value: 1.8,
+          from: 10,
+          decimals: 1,
+          label: "posición media al buscar “Sifuentes Colombia”",
+          detail: "Search Console · desde el lanzamiento"
         }
       ]
     }
@@ -443,7 +453,8 @@ document.addEventListener("DOMContentLoaded", () => {
           .map(
             (metric) => `
               <div class="case-metric">
-                <strong>${metric.prefix || ""}<span data-count-up data-count-to="${metric.value}">${metric.value.toLocaleString("es-PE")}</span>${metric.suffix || ""}</strong>
+                <strong>${metric.prefix || ""}<span data-count-up data-count-to="${metric.value}"
+                  data-count-from="${metric.from || 0}" data-count-decimals="${metric.decimals || 0}">${formatMetric(metric.value, metric.decimals)}</span>${metric.suffix || ""}</strong>
                 <span>${metric.label}</span>
                 ${metric.detail ? `<small>${metric.detail}</small>` : ""}
               </div>
@@ -454,6 +465,13 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       section.hidden = false;
     });
+
+    function formatMetric(value, decimals = 0) {
+      return value.toLocaleString("es-PE", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
   }
 
   // La capa de efectos dibuja el aviso; sin ella, el estado sigue anunciándose en el formulario.

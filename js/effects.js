@@ -653,14 +653,23 @@
 
   /* ------------------------------------------------------------------------
      Count Up
-     La cifra sube desde cero cuando entra en pantalla.
+     La cifra avanza desde su origen (cero por defecto) cuando entra en pantalla.
      ------------------------------------------------------------------------ */
 
   function setupCountUp() {
     const counters = document.querySelectorAll("[data-count-up]");
     if (!counters.length || reduceMotion || !("IntersectionObserver" in window)) return;
 
-    const format = (value) => Math.round(value).toLocaleString("es-PE");
+    const format = (value, decimals) =>
+      value.toLocaleString("es-PE", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    const settings = (counter) => ({
+      from: Number(counter.dataset.countFrom || 0),
+      to: Number(counter.dataset.countTo),
+      decimals: Number(counter.dataset.countDecimals || 0)
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -669,13 +678,13 @@
           observer.unobserve(entry.target);
 
           const counter = entry.target;
-          const target = Number(counter.dataset.countTo);
+          const { from, to, decimals } = settings(counter);
           const duration = Number(counter.dataset.countDuration || 1600);
           const start = performance.now();
 
           const tick = (now) => {
             const progress = clamp((now - start) / duration, 0, 1);
-            counter.textContent = format(target * (1 - Math.pow(1 - progress, 3)));
+            counter.textContent = format(from + (to - from) * (1 - Math.pow(1 - progress, 3)), decimals);
             if (progress < 1) window.requestAnimationFrame(tick);
           };
 
@@ -686,7 +695,8 @@
     );
 
     counters.forEach((counter) => {
-      counter.textContent = format(0);
+      const { from, decimals } = settings(counter);
+      counter.textContent = format(from, decimals);
       observer.observe(counter);
     });
   }

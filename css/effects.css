@@ -617,6 +617,45 @@
   border-color: var(--line-strong);
 }
 
+@media (max-width: 840px) {
+  .case-facts dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case-facts dl > div:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .case-facts dl > div:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .case-study--gb .case-facts dl > div:nth-child(-n + 2) {
+    border-color: var(--line-strong);
+  }
+}
+
+@media (max-width: 480px) {
+  .case-facts dl {
+    grid-template-columns: 1fr;
+  }
+
+  .case-facts dl > div,
+  .case-facts dl > div + div {
+    padding-inline: 0;
+    border-left: 0;
+  }
+
+  .case-facts dl > div:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .case-study--gb .case-facts dl > div:not(:last-child) {
+    border-color: var(--line-strong);
+  }
+}
+
 .case-visual__head {
   display: flex;
   flex-wrap: wrap;
