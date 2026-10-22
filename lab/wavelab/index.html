@@ -324,11 +324,24 @@
     .pf-exit__text small{display:none}
   }
   @media print{.pf-exit{display:none}}
+  .pf-embedded .pf-exit{display:none}
 </style>
 <script>
+  // Dentro del visor del portafolio el prototipo no muestra su propia salida
+  // y los enlaces de regreso abren la ventana completa.
+  var pfEmbedded = window.self !== window.top;
+  if (pfEmbedded) {
+    document.documentElement.classList.add("pf-embedded");
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll('a[href^="../../"]').forEach(function (link) {
+        link.target = "_top";
+      });
+    });
+  }
+
   // Escape también sale del prototipo.
   document.addEventListener("keydown", function (event) {
-    if (event.key !== "Escape") return;
+    if (pfEmbedded || event.key !== "Escape") return;
     var exit = document.querySelector(".pf-exit");
     if (exit) window.location.href = exit.getAttribute("href");
   });

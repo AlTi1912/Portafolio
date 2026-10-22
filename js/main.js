@@ -12,71 +12,93 @@ const portfolioConfig = {
   linkedin: "",
   whatsapp: "",
   resume: "",
+  // Ruta a una foto propia (p. ej. "assets/images/nils-tovar.webp"); vacío muestra el monograma.
+  portrait: "",
   formspreeEndpoint: "https://formspree.io/f/xrenojvo"
 };
 
 const portfolioContent = {
   es: {
-    conceptLabs: [
+    labBriefs: [
       {
-        slug: "sonora",
-        name: "SONORA",
-        category: "Audio automotriz · Dirección editorial",
-        description: "Una experiencia sobria que convierte acústica, sistemas y calibración en una narrativa visual clara.",
-        tags: ["Dirección editorial", "Narrativa visual", "Responsive"],
-        featured: true
+        sector: "Audio automotriz",
+        brief: "Explicar un servicio técnico de instalación a quien no es experto, sin perderlo en especificaciones.",
+        variants: [
+          {
+            slug: "sonora",
+            direction: "Editorial",
+            name: "SONORA",
+            description: "Una experiencia sobria que convierte acústica, sistemas y calibración en una narrativa visual clara.",
+            tags: ["Narrativa visual", "Tipografía editorial", "Responsive"]
+          },
+          {
+            slug: "wavelab",
+            direction: "Técnica",
+            name: "WAVELAB",
+            description: "Lenguaje de laboratorio, selector de vehículo y comparador visual para explicar un sistema complejo.",
+            tags: ["Selector de vehículo", "Comparador", "Movimiento"]
+          }
+        ]
       },
       {
-        slug: "loadout-store",
-        name: "Loadout Store",
-        category: "Gaming · eCommerce conceptual",
-        description: "Catálogo y configurador guiado para construir un setup y obtener un resumen local de la selección.",
-        tags: ["Configurador", "Catálogo", "Resumen de compra"],
-        featured: true
+        sector: "Salud visual",
+        brief: "Ordenar especialidades y equipamiento de una clínica oftalmológica y transmitir confianza.",
+        variants: [
+          {
+            slug: "clarity-house",
+            direction: "Cálida",
+            name: "Clarity House",
+            description: "Una propuesta pausada para comunicar contenidos de salud visual sin saturar la experiencia.",
+            tags: ["Lectura pausada", "Accesibilidad", "Editorial"]
+          },
+          {
+            slug: "retina-lab",
+            direction: "Clínica",
+            name: "Retina Lab",
+            description: "Sistema visual para organizar especialidades, equipamiento y un recorrido de atención demostrativo.",
+            tags: ["Sistema visual", "Recorrido de atención", "Accesibilidad"]
+          }
+        ]
       },
       {
-        slug: "retina-lab",
-        name: "Retina Lab",
-        category: "Salud · Interfaz de información",
-        description: "Sistema visual para organizar especialidades, equipamiento y un recorrido de atención demostrativo.",
-        tags: ["Sistema visual", "Accesibilidad", "Recorrido de atención"],
-        featured: true
+        sector: "Gaming",
+        brief: "Ayudar a elegir hardware sin abrumar: del catálogo a una recomendación concreta.",
+        variants: [
+          {
+            slug: "loadout-store",
+            direction: "Comercial",
+            name: "Loadout Store",
+            description: "Catálogo y configurador guiado para armar un setup y obtener un resumen de la selección.",
+            tags: ["Configurador", "Catálogo", "Resumen de compra"]
+          },
+          {
+            slug: "frameforge-lab",
+            direction: "Diagnóstico",
+            name: "FrameForge Lab",
+            description: "Flujo de diagnóstico y benchmark ilustrativo con una estética inspirada en eSports.",
+            tags: ["Flujo guiado", "Diagnóstico", "Movimiento"]
+          }
+        ]
       },
       {
-        slug: "tiny-turbo",
-        name: "Tiny Turbo",
-        category: "Coleccionables · Catálogo interactivo",
-        description: "Una tienda conceptual de alta energía con controles para activar luces, sonido, puertas y humo.",
-        tags: ["Interacción", "Catálogo", "Demostración"],
-        featured: true
-      },
-      {
-        slug: "wavelab",
-        name: "WAVELAB",
-        category: "Audio automotriz · Interfaz técnica",
-        description: "Lenguaje de laboratorio, selector de vehículo y comparador visual para explicar un sistema complejo.",
-        tags: ["Interfaz técnica", "Comparador", "Movimiento"]
-      },
-      {
-        slug: "frameforge-lab",
-        name: "FrameForge Lab",
-        category: "Gaming · Diagnóstico de performance",
-        description: "Flujo interactivo de diagnóstico y benchmark ilustrativo con una estética inspirada en eSports.",
-        tags: ["Diagnóstico", "Flujo guiado", "Movimiento"]
-      },
-      {
-        slug: "clarity-house",
-        name: "Clarity House",
-        category: "Salud · Dirección editorial",
-        description: "Una propuesta cálida y pausada para comunicar contenidos de salud visual sin saturar la experiencia.",
-        tags: ["Editorial", "Accesibilidad", "Lectura pausada"]
-      },
-      {
-        slug: "diecast-gallery",
-        name: "Diecast Gallery",
-        category: "Coleccionables · eCommerce conceptual",
-        description: "Showroom digital con fichas de detalle y filtros funcionales para explorar una colección demostrativa.",
-        tags: ["Filtros", "Showroom", "Fichas de detalle"]
+        sector: "Coleccionables",
+        brief: "Presentar modelos a escala como piezas que se desean, no solo como productos en una lista.",
+        variants: [
+          {
+            slug: "diecast-gallery",
+            direction: "Galería",
+            name: "Diecast Gallery",
+            description: "Showroom digital con fichas de detalle y filtros funcionales para explorar una colección.",
+            tags: ["Showroom", "Filtros", "Fichas de detalle"]
+          },
+          {
+            slug: "tiny-turbo",
+            direction: "Energía",
+            name: "Tiny Turbo",
+            description: "Una tienda de alta energía con controles para activar luces, sonido, puertas y humo.",
+            tags: ["Interacción", "Catálogo", "Demostración"]
+          }
+        ]
       }
     ]
   }
@@ -99,7 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
     yearElement.textContent = new Date().getFullYear();
   }
 
-  renderConceptLabs();
+  setupLabViewer();
+  setupPortrait();
   setupConfiguredLinks();
   setupCopyEmail();
   setupHeader();
@@ -112,45 +135,265 @@ document.addEventListener("DOMContentLoaded", () => {
   setupForm();
   setupMessageCounter();
 
-  function renderConceptLabs() {
-    const grid = document.querySelector("[data-lab-grid]");
-    if (!grid) return;
+  /* Visor del Concept Lab: un brief por sector, dos direcciones, prototipo en vivo. */
+  function setupLabViewer() {
+    const viewer = document.querySelector("[data-lab-viewer]");
+    if (!viewer) return;
 
     const language = document.documentElement.lang.split("-")[0] || "es";
     const content = portfolioContent[language] || portfolioContent.es;
+    const briefs = content.labBriefs;
+    const devices = {
+      desktop: { width: 1280, height: 800 },
+      mobile: { width: 390, height: 844 }
+    };
+    const state = {
+      brief: 0,
+      variant: 0,
+      device: window.matchMedia("(max-width: 720px)").matches ? "mobile" : "desktop",
+      visible: false
+    };
 
-    grid.innerHTML = content.conceptLabs
-      .map(
-        (lab, index) => `
-          <article class="lab-card${lab.featured ? " lab-card--featured" : ""} reveal" data-border-glow>
-            <a
-              class="lab-card__preview"
-              href="lab/${lab.slug}/"
-              aria-label="Abrir el simulador de ${lab.name}; podrás volver con el botón Salir"
-            >
-              <img
-                src="assets/images/labs/${lab.slug}.webp"
-                width="1280"
-                height="800"
-                loading="lazy"
-                decoding="async"
-                alt="Vista previa del prototipo conceptual ${lab.name}"
-              >
-              <span class="lab-card__index">${String(index + 1).padStart(2, "0")}</span>
-              <span class="lab-card__open">Abrir simulador <span aria-hidden="true">↗</span></span>
-            </a>
-            <div class="lab-card__body">
-              <p>${lab.category}</p>
-              <h3>${lab.name}</h3>
-              <p class="lab-card__description">${lab.description}</p>
-              <ul class="lab-card__meta" aria-label="Características de ${lab.name}">
-                ${lab.tags.map((tag) => `<li>${tag}</li>`).join("")}
-              </ul>
+    viewer.innerHTML = `
+      <div class="lab-viewer__briefs" role="tablist" aria-label="Sectores explorados">
+        ${briefs
+          .map(
+            (item, index) => `
+              <button class="lab-brief" type="button" role="tab" id="lab-brief-${index}"
+                aria-controls="lab-stage" aria-selected="false" data-lab-brief="${index}">
+                <span class="lab-brief__index">${String(index + 1).padStart(2, "0")}</span>
+                <span class="lab-brief__text">
+                  <strong>${item.sector}</strong>
+                  <small>${item.brief}</small>
+                </span>
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+
+      <div class="lab-stage" id="lab-stage" role="tabpanel">
+        <p class="lab-stage__brief" data-lab-brief-text></p>
+        <div class="lab-stage__bar">
+          <div class="lab-switch" role="group" aria-label="Dirección visual" data-lab-variants></div>
+          <div class="lab-switch lab-switch--device" role="group" aria-label="Tamaño de pantalla">
+            <button type="button" data-lab-device="desktop">Escritorio</button>
+            <button type="button" data-lab-device="mobile">Móvil</button>
+          </div>
+        </div>
+
+        <div class="lab-frame" data-border-glow data-lab-frame>
+          <div class="lab-frame__chrome" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <p data-lab-url></p>
+          </div>
+          <div class="lab-frame__screen" data-lab-screen>
+            <img class="lab-frame__poster" data-lab-poster alt="" width="1280" height="800" decoding="async">
+            <div class="lab-frame__device" data-lab-device-box>
+              <iframe data-lab-iframe title="" loading="lazy" tabindex="-1"></iframe>
             </div>
-          </article>
-        `
-      )
-      .join("");
+            <button class="lab-frame__activate" type="button" data-lab-activate>
+              <span>Pulsa para interactuar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="lab-stage__caption">
+          <div>
+            <p class="lab-stage__kicker" data-lab-kicker></p>
+            <h3 data-lab-name></h3>
+            <p class="lab-stage__description" data-lab-description></p>
+          </div>
+          <div class="lab-stage__side">
+            <ul class="lab-stage__tags" data-lab-tags></ul>
+            <a class="text-link lab-stage__open" data-lab-open>
+              Abrir a pantalla completa <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const briefButtons = [...viewer.querySelectorAll("[data-lab-brief]")];
+    const deviceButtons = [...viewer.querySelectorAll("[data-lab-device]")];
+    const variantGroup = viewer.querySelector("[data-lab-variants]");
+    const frame = viewer.querySelector("[data-lab-frame]");
+    const screen = viewer.querySelector("[data-lab-screen]");
+    const deviceBox = viewer.querySelector("[data-lab-device-box]");
+    const iframe = viewer.querySelector("[data-lab-iframe]");
+    const poster = viewer.querySelector("[data-lab-poster]");
+    const activate = viewer.querySelector("[data-lab-activate]");
+
+    briefButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.brief = Number(button.dataset.labBrief);
+        state.variant = 0;
+        update();
+      });
+
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft"].includes(event.key)) return;
+        event.preventDefault();
+        const step = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+        const next = (state.brief + step + briefs.length) % briefs.length;
+        briefButtons[next].focus();
+        briefButtons[next].click();
+      });
+    });
+
+    deviceButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.device = button.dataset.labDevice;
+        update(false);
+      });
+    });
+
+    // El prototipo no captura el scroll ni los toques hasta que se pide interactuar.
+    activate.addEventListener("click", () => {
+      frame.classList.add("is-interactive");
+      iframe.tabIndex = 0;
+      iframe.focus();
+    });
+
+    frame.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse") deactivate();
+    });
+
+    iframe.addEventListener("load", () => {
+      if (iframe.getAttribute("src")) frame.classList.add("is-loaded");
+    });
+
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(fitDevice).observe(screen);
+    } else {
+      window.addEventListener("resize", fitDevice);
+    }
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          state.visible = true;
+          loadPrototype();
+          observer.disconnect();
+        },
+        { rootMargin: "300px 0px" }
+      );
+      observer.observe(viewer);
+    } else {
+      state.visible = true;
+    }
+
+    update();
+
+    function current() {
+      return briefs[state.brief].variants[state.variant];
+    }
+
+    function update(reload = true) {
+      const brief = briefs[state.brief];
+      const lab = current();
+
+      briefButtons.forEach((button, index) => {
+        const active = index === state.brief;
+        button.setAttribute("aria-selected", String(active));
+        button.tabIndex = active ? 0 : -1;
+        button.classList.toggle("is-active", active);
+      });
+      viewer.querySelector("#lab-stage").setAttribute("aria-labelledby", `lab-brief-${state.brief}`);
+
+      variantGroup.innerHTML = brief.variants
+        .map(
+          (variant, index) => `
+            <button type="button" data-lab-variant="${index}" aria-pressed="${index === state.variant}">
+              <span aria-hidden="true">${index === 0 ? "A" : "B"}</span> ${variant.direction}
+            </button>
+          `
+        )
+        .join("");
+      variantGroup.querySelectorAll("[data-lab-variant]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (Number(button.dataset.labVariant) === state.variant) return;
+          state.variant = Number(button.dataset.labVariant);
+          update();
+          variantGroup.querySelector(`[data-lab-variant="${state.variant}"]`)?.focus();
+        });
+      });
+
+      deviceButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.labDevice === state.device));
+      });
+      frame.dataset.device = state.device;
+
+      viewer.querySelector("[data-lab-kicker]").textContent =
+        `${brief.sector} · Dirección ${state.variant === 0 ? "A" : "B"}: ${lab.direction}`;
+      viewer.querySelector("[data-lab-brief-text]").textContent = brief.brief;
+      viewer.querySelector("[data-lab-name]").textContent = lab.name;
+      viewer.querySelector("[data-lab-description]").textContent = lab.description;
+      viewer.querySelector("[data-lab-tags]").innerHTML = lab.tags.map((tag) => `<li>${tag}</li>`).join("");
+      viewer.querySelector("[data-lab-url]").textContent = `prototipo / ${lab.slug}`;
+
+      const open = viewer.querySelector("[data-lab-open]");
+      open.href = `lab/${lab.slug}/`;
+      open.setAttribute("aria-label", `Abrir ${lab.name} a pantalla completa; podrás volver con el botón Salir`);
+
+      iframe.title = `Prototipo conceptual ${lab.name}, dirección ${lab.direction}`;
+      fitDevice();
+
+      if (reload) {
+        poster.src = `assets/images/labs/${lab.slug}.webp`;
+        poster.alt = `Vista previa del prototipo conceptual ${lab.name}`;
+        deactivate();
+        frame.classList.remove("is-loaded");
+        loadPrototype();
+      }
+    }
+
+    function loadPrototype() {
+      if (!state.visible) return;
+      const src = `lab/${current().slug}/`;
+      if (iframe.getAttribute("src") !== src) iframe.src = src;
+    }
+
+    function deactivate() {
+      frame.classList.remove("is-interactive");
+      iframe.tabIndex = -1;
+    }
+
+    // El prototipo se renderiza a su tamaño real y se escala para caber en el marco.
+    function fitDevice() {
+      const device = devices[state.device];
+      const box = screen.getBoundingClientRect();
+      if (!box.width || !box.height) return;
+
+      const scale =
+        state.device === "desktop"
+          ? box.width / device.width
+          : Math.min(box.height / device.height, box.width / device.width);
+      const height = state.device === "desktop" ? box.height / scale : device.height;
+
+      iframe.style.width = `${device.width}px`;
+      iframe.style.height = `${height}px`;
+      iframe.style.transform = `scale(${scale})`;
+      deviceBox.style.width = `${device.width * scale}px`;
+      deviceBox.style.height = `${height * scale}px`;
+    }
+  }
+
+  function setupPortrait() {
+    const holder = document.querySelector("[data-portrait]");
+    const source = portfolioConfig.portrait.trim();
+    if (!holder || !source) return;
+
+    const image = new Image();
+    image.alt = "Retrato de Nils Tovar";
+    image.decoding = "async";
+    image.loading = "lazy";
+    image.addEventListener("load", () => {
+      holder.replaceChildren(image);
+      holder.classList.add("has-photo");
+    });
+    image.src = source;
   }
 
   function setupConfiguredLinks() {

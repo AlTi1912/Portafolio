@@ -477,6 +477,10 @@
   letter-spacing: -0.05em;
 }
 
+.hero h1 > span {
+  white-space: nowrap;
+}
+
 .hero-lead {
   width: min(100%, 56ch);
   margin-inline: auto;
@@ -963,29 +967,11 @@
 }
 
 /* --------------------------------------------------------------------------
-   Concept Lab: tarjetas con borde reactivo
+   Concept Lab: marco del visor con borde reactivo
    -------------------------------------------------------------------------- */
 
-.lab-card {
+.lab-frame {
   --glow-padding: 22px;
-
-  border-radius: var(--radius-md);
-}
-
-.lab-card__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.9rem;
-}
-
-.lab-card__meta li {
-  padding: 0.3rem 0.7rem;
-  border: 1px solid rgba(250, 248, 242, 0.2);
-  border-radius: 999px;
-  color: rgba(250, 248, 242, 0.72);
-  font-size: 0.68rem;
-  letter-spacing: 0.02em;
 }
 
 /* --------------------------------------------------------------------------
