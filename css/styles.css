@@ -4749,6 +4749,7 @@ body.lightbox-open {
 }
 
 .about-portrait {
+  position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 4 / 3;

@@ -693,7 +693,7 @@
 
   /* ------------------------------------------------------------------------
      Gaze
-     El avatar se inclina hacia el cursor; con 9 imágenes, además mira hacia él.
+     El avatar se inclina hacia el cursor y, si tiene estados, cambia de expresión.
      ------------------------------------------------------------------------ */
 
   function setupGaze() {
@@ -701,18 +701,19 @@
       const stage = holder.querySelector("[data-gaze-target]");
       if (!stage) return;
 
-      let images = [];
+      let states = {};
       try {
-        images = JSON.parse(holder.dataset.gazeImages || "[]");
+        states = JSON.parse(holder.dataset.gazeStates || "{}");
       } catch {
-        images = [];
+        states = {};
       }
 
       const maxTilt = Number(holder.dataset.gazeTilt || 16);
       let queued = false;
       let pointerX = window.innerWidth / 2;
       let pointerY = window.innerHeight / 2;
-      let currentZone = 4;
+      let currentState = "rest";
+      let touchHold = 0;
 
       const update = () => {
         queued = false;
@@ -729,16 +730,23 @@
         stage.style.setProperty("--gaze-y", y.toFixed(3));
         stage.style.setProperty("--gaze-tilt", `${maxTilt}deg`);
 
-        if (images.length !== 9) return;
+        if (!states.rest) return;
 
-        const column = x < -0.25 ? 0 : x > 0.25 ? 2 : 1;
-        const row = y < -0.25 ? 0 : y > 0.25 ? 2 : 1;
-        const zone = row * 3 + column;
-        if (zone === currentZone) return;
+        const over =
+          touchHold ||
+          (pointerX >= rect.left && pointerX <= rect.right && pointerY >= rect.top && pointerY <= rect.bottom);
+        let next = "rest";
+        if (over) next = "hover";
+        else if (Math.max(Math.abs(x), Math.abs(y)) > 0.35) {
+          if (Math.abs(y) >= Math.abs(x)) next = y < 0 ? "up" : "down";
+          else next = x < 0 ? "left" : "right";
+        }
+        if (!states[next]) next = "rest";
+        if (next === currentState) return;
 
-        currentZone = zone;
+        currentState = next;
         const image = stage.querySelector("img");
-        if (image) image.src = images[zone];
+        if (image) image.src = states[next];
       };
 
       holder.classList.add("gaze");
@@ -759,6 +767,17 @@
         },
         { passive: true }
       );
+
+      // Un toque sobre el avatar muestra su reacción un momento.
+      holder.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "touch") return;
+        window.clearTimeout(touchHold);
+        touchHold = window.setTimeout(() => {
+          touchHold = 0;
+          request();
+        }, 1600);
+        request();
+      });
 
       // En pantallas táctiles el avatar sigue el toque y vuelve al centro al soltar.
       window.addEventListener("pointerup", (event) => {

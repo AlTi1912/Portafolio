@@ -13,18 +13,27 @@ const portfolioConfig = {
   whatsapp: "",
   resume: "",
   // Memoji 3D con fondo transparente (PNG o WebP); vacío muestra el monograma.
-  // gaze es opcional: 9 imágenes mirando hacia cada dirección, en orden de lectura
-  // (arriba-izq., arriba, arriba-der., izq., centro, der., abajo-izq., abajo, abajo-der.).
+  // states es opcional: imágenes alternativas según dónde esté el cursor
+  // (up, down, left, right) o cuando pasa sobre el avatar (hover).
   avatar: {
-    src: "",
-    gaze: []
+    src: "assets/images/avatar/memoji-guino.webp",
+    states: {
+      up: "assets/images/avatar/memoji-arriba.webp",
+      hover: "assets/images/avatar/memoji-risa.webp"
+    }
   },
   // Resultados visibles en cada caso. Las métricas animan su cifra al aparecer:
   // { value: 1200, suffix: "+", label: "clics desde Google", detail: "Search Console · 3 meses" }
   caseResults: {
     sifuentes: {
       note: "La empresa ya recibe consultas de nuevos clientes que llegan a través del sitio.",
-      metrics: []
+      metrics: [
+        {
+          value: 40,
+          label: "clics desde la Búsqueda de Google en 28 días",
+          detail: "Google Search Console · octubre 2026"
+        }
+      ]
     }
   },
   formspreeEndpoint: "https://formspree.io/f/xrenojvo"
@@ -397,12 +406,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function setupAvatar() {
     const holder = document.querySelector("[data-avatar]");
     const stage = holder?.querySelector("[data-gaze-target]");
-    const { src, gaze } = portfolioConfig.avatar;
+    const { src, states = {} } = portfolioConfig.avatar;
     if (!stage || !src.trim()) return;
 
     const image = new Image();
     image.className = "about-portrait__img";
-    image.alt = "Memoji de Nils Tovar";
+    image.alt = "Memoji de Nils Tovar guiñando un ojo";
     image.decoding = "async";
     image.addEventListener("load", () => {
       stage.replaceChildren(image);
@@ -410,10 +419,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     image.src = src.trim();
 
-    // Con las 9 direcciones, el efecto de mirada cambia de imagen además de inclinarla.
-    if (Array.isArray(gaze) && gaze.length === 9) {
-      holder.dataset.gazeImages = JSON.stringify(gaze);
-      gaze.forEach((path) => {
+    // Con estados alternativos, el avatar cambia de expresión además de inclinarse.
+    const alternates = Object.entries(states).filter(([, path]) => path);
+    if (alternates.length) {
+      holder.dataset.gazeStates = JSON.stringify({ ...Object.fromEntries(alternates), rest: src.trim() });
+      alternates.forEach(([, path]) => {
         new Image().src = path;
       });
     }
